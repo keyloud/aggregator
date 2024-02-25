@@ -1,0 +1,95 @@
+*{
+    margin: 0;/*обнуление отступов*/
+    padding: 0;/*обнуление полей*/
+    box-sizing: border-box;/*метод расчета размеров бокса*/
+    font-family: 'Poppins', sans-serif;/*название шрифта*/
+}
+body {
+    display: flex;/*флексбокс сетка*/
+    flex-direction: column;/*направление главной оси*/
+    justify-content: flex-end;/*элементы в конце контейнера*/
+    min-height: 100vh;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    padding: 20px 50px;
+    background: #3f51b5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.wave{
+    position: absolute;/*абсолютное позиционирование*/
+    top: -100px;
+    left: 0;
+    width: 100%;
+    height: 100px;
+    background: url(wave.png);/*картинка волны*/
+    background-size: 1000px 100px;/*ширина и высота волны*/
+}
+
+.social, .menu{
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+    flex-wrap: wrap;/*разрешен перенос на новую строку*/
+}
+
+.social li,
+.menu li{
+    list-style: none;/*удалить черные маркеры*/
+}
+.social li a {
+    font-size: 2em;/*размер иконок*/
+    color: #fff;/*цвет иконок*/
+    margin: 0 10px;
+    display: inline-block;/*отображать как строчно-блочный элемент*/
+    transition: 0.5s;/*плавный переход*/
+}
+.menu li a {
+    font-size: 1.2em;/*размер ссылок меню*/
+    color: #fff;/*цвет ссылок меню*/
+    opacity: 0.75;/*значение прозрачности*/
+    margin: 0 15px;
+    text-decoration: none;/*ссылка без подчеркивания*/
+    display: inline-block;
+}
+.menu li a:hover {
+    opacity: 1;
+}
+
+
+.social li a ion-icon {
+    font-size: 1em; /* Базовый размер иконок */
+    color: #fff; /* Цвет иконок */
+    margin: 0 10px; /* Внешние отступы иконок */
+    display: inline-block; /* Отображение как строчно-блочный элемент */
+    transition: transform 0.3s ease; /* Плавный переход для эффекта увеличения */
+}
+
+.social li a ion-icon:hover {
+    transform: scale(1.2); /* Увеличение размера иконок на 20% при наведении */
+}
+
+ .service {
+        width: 100%;
+        background-color: #f0f0f0;
+        border: 1px solid #ccc;
+        margin: 10px 0;
+        padding: 10px;
+        overflow: hidden;
+    }
+
+   .service img {
+        float: left;
+        margin-right: 10px;
+        width: 100px; /* Ширина изображения */
+        height: auto; /* Автоматическая высота */
+    }

@@ -1,0 +1,323 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 62.5%;
+  line-height: 1.4;
+}
+
+html, body {
+  height: 100%;
+  font-family: Roboto, sans-serif;
+}
+
+#header {
+    height: 0px;
+}
+#navtitle{
+	float: left;
+	padding: 0 25px;
+    color: #fff;
+    text-decoration: none;
+    font-family: Verdana;
+	font-size: 17pt;
+}
+#navigation{
+	background: #3f51b5;
+	height: 40px;
+	box-shadow: 0 2px 2px rgba(0, 0, 0, 0.4);
+	font-size: 16px;
+	line-height: 40px;
+    position: relative;
+    top: 0px;
+}
+#navigation.fixed{
+	position: fixed;
+	top: 1;
+	width: 100%;
+	background: rgba(239, 5, 5, 0.95);
+}
+
+#navigation ul{
+    width: 1180px;
+	padding-left: 0;
+	margin: 0 auto;
+    display: block;
+}
+#menu li{
+	float: left;
+	list-style: none;
+	padding: 0 25px;
+	border-right: 1px solid #3f51b5;
+}
+#menu a {
+    color: #fff;
+    text-decoration: none;
+    font-family: Verdana;
+}
+#menu>li a:hover{
+	color: #3f51b5;
+	transition: color 0.5s ease;
+}
+
+
+.card {
+  padding: 16px;
+  margin: 24px;
+  border-radius: 2px;
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+.card h2 {
+  padding: 24px 16px 8px;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 32px;
+}
+
+main {
+  padding-top: 200px;
+  font-family: arial;
+  background: #eee;
+  min-height: 100%;
+}
+
+.app-header {
+  display: block;
+  background: #3f51b5;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: #fff;
+  height: 150px;
+  box-shadow: 0 2px 5px transparent;
+}
+
+.header-content {
+  position: relative;
+  height: 100%;
+  width: 100%;
+}
+
+.app-toolbar {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: relative;
+  height: 64px;
+  padding: 0 16px;
+  pointer-events: none;
+  font-size: 20px;
+}
+
+#large-toolbar {
+  position: absolute;
+  bottom: 0;
+  -webkit-transform-origin: left top;
+          transform-origin: left top;
+  margin-bottom: 24px;
+  margin-bottom: 16px;
+  width: 100%;
+}
+
+.small-title,
+.large-title {
+  -webkit-transform-origin: left top;
+          transform-origin: left top;
+  white-space: nowrap;
+  -webkit-box-flex: 1;
+      -ms-flex: 1;
+          flex: 1;
+  -ms-flex-preferred-size: 0.000000001px;
+      flex-basis: 0.000000001px;
+  overflow: hidden;
+  font-weight: 400;
+  line-height: 1.5;
+  position: relative;
+}
+
+.small-title {
+  margin-left: 14px;
+  visibility: hidden;
+  opacity: 0;
+}
+
+.large-title {
+  will-change: transform, opacity;
+  font-size: 56px;
+  font-size: 2em;
+  margin-left: 64px;
+}
+
+.icon-button {
+  display: inline-block;
+  position: relative;
+  padding: 6px;
+  outline: none;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  font-size: 0;
+  line-height: 1;
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box !important;
+}
+.icon-button .icon {
+  display: -webkit-inline-box;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: relative;
+  vertical-align: middle;
+  fill: currentcolor;
+  stroke: none;
+  width: 100%;
+  height: 100%;
+}
+
+.background-container {
+  position: absolute;
+  overflow: hidden;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+}
+
+.background {
+  pointer-events: none;
+  position: absolute;
+  background-size: cover;
+  height: 100%;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  will-change: transform, opacity;
+}
+
+
+#background-front {
+  background-image: url('../img/mountain-01.jpg');
+  background-position: left center;
+}
+
+.card {
+  padding: 16px;
+  margin: 24px;
+  border-radius: 2px;
+  background-color: #fff;
+  color: rgba(0, 0, 0, 0.87);
+  box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);
+}
+.card .card-title {
+  padding: 24px 16px 8px;
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 32px;
+}
+.card p {
+  font-size: 1.6rem;
+  font-weight: 400;
+  letter-spacing: 0.010em;
+  line-height: 1.6em;
+  padding: 0 16px;
+}
+
+
+.dws-menu *{
+ margin: 0;
+ padding: 0;
+}
+.dws-menu ul,
+.dws-menu ol{
+ list-style: none;
+}
+.dws-menu > ul{
+ display: flex;
+ justify-content: center;
+}
+.dws-menu > ul li{
+ position: relative;
+ border-right: 1px solid #c7c8ca;
+}
+.dws-menu > ul li:first-child{
+ border-left: 1px solid #b2b3b5;
+}
+.dws-menu > ul li:last-child{
+ border-right: 1px solid #babbbd;
+}
+.dws-menu > ul li > a i.fa{
+ position: absolute;
+ top: 15px;
+ left: 12px;
+ font-size: 18px;
+}
+.dws-menu > ul li a{
+ display: block;
+ /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#c9c9c9+0,f6f6f6+2,c4c5c7+98,757577+100;Custom+3 */
+ background: rgb(201,201,201); /* Old browsers */
+ background: -moz-linear-gradient(top,  rgba(201,201,201,1) 0%, rgba(246,246,246,1) 2%, rgba(196,197,199,1) 98%, rgba(117,117,119,1) 100%); /* FF3.6-15 */
+ background: -webkit-linear-gradient(top,  rgba(201,201,201,1) 0%,rgba(246,246,246,1) 2%,rgba(196,197,199,1) 98%,rgba(117,117,119,1) 100%); /* Chrome10-25,Safari5.1-6 */
+ background: linear-gradient(to bottom,  rgba(201,201,201,1) 0%,rgba(246,246,246,1) 2%,rgba(196,197,199,1) 98%,rgba(117,117,119,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#c9c9c9', endColorstr='#757577',GradientType=0 ); /* IE6-9 */
+
+ padding: 15px 30px 15px 40px;
+ font-size: 14px;
+ color: #454547;
+ text-decoration: none;
+ text-transform:uppercase;
+ transition: all 0.3s ease;
+}
+.dws-menu li a:hover{
+ /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#e0e1e5+0,454547+2,454547+98,e0e1e5+100 */
+ background: rgb(224,225,229); /* Old browsers */
+ background: -moz-linear-gradient(top,  rgba(224,225,229,1) 0%, rgba(69,69,71,1) 2%, rgba(69,69,71,1) 98%, rgba(224,225,229,1) 100%); /* FF3.6-15 */
+ background: -webkit-linear-gradient(top,  rgba(224,225,229,1) 0%,rgba(69,69,71,1) 2%,rgba(69,69,71,1) 98%,rgba(224,225,229,1) 100%); /* Chrome10-25,Safari5.1-6 */
+ background: linear-gradient(to bottom,  rgba(224,225,229,1) 0%,rgba(69,69,71,1) 2%,rgba(69,69,71,1) 98%,rgba(224,225,229,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+ filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#e0e1e5', endColorstr='#e0e1e5',GradientType=0 ); /* IE6-9 */
+
+ color: #ffffff;
+ box-shadow: 1px 5px 10px -5px black;
+ transition: all 0.3s ease;
+}
+
+/*sub menu*/
+.dws-menu li ul{
+ position: absolute;
+ min-width: 150px;
+ display: none;
+}
+.dws-menu li > ul li{
+ border: 1px solid #c7c8ca;
+}
+.dws-menu li > ul li a{
+ padding: 10px;
+ text-transform: none;
+ background: #e4e4e5;
+}
+.dws-menu li > ul li ul{
+ position: absolute;
+ right: -150px;
+ top: 0;
+}
+.dws-menu li:hover > ul{
+ display: block;
+}
