@@ -73,5 +73,5 @@ app.post("/delete/:id", function(req, res){
 });
  
 app.listen(PORT, function(){
-  console.log("Сервер ожидает подключения...");
+  console.log("server is ready!");
 });
