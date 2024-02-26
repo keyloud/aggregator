@@ -1,7 +1,11 @@
 const mysql = require("mysql2");
 const express = require("express");
- 
+const bcrypt = require('bcrypt');
+const session = require('express-session');
+const bodyParser = require('body-parser');
+
 const app = express();
+
 const urlencodedParser = express.urlencoded({extended: false});
 const path = require('path'); // Добавленная строка
 app.use(express.static(path.join(__dirname, 'public')));
@@ -13,6 +17,115 @@ const PORT = 3306;
  
 app.set("view engine", "hbs");
  
+            //Проверка авторизации
+              
+// Middleware для парсинга JSON и работы с сессиями
+app.use(express.json());
+app.use(session({
+  secret: 'secret',
+  resave: true,
+  saveUninitialized: true
+}));
+
+// Подключаем middleware для парсинга тела запроса
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// возвращаем форму для регистрации
+app.get("/register", function(req, res){
+  res.render("register.hbs");
+});
+
+// Регистрация пользователя
+app.post('/register', (req, res) => {
+  
+  const username = req.body.username;
+  const password = req.body.password;
+
+  // Проверка наличия пароля
+  if (!password) {
+    return res.status(400).send('Пароль отсутствует');
+  }
+
+  // Хеширование пароля
+  bcrypt.hash(password, 10, (err, hash) => {
+    if (err) {
+      console.error('Ошибка хеширования пароля:', err);
+      return res.status(500).send('Ошибка при регистрации пользователя');
+    }
+    // Сохранение хеша пароля в базе данных
+    pool.query(
+      'INSERT INTO registrations (username, password) VALUES (?, ?)',
+      [username, hash],
+      (err, result) => {
+        if (err) {
+          console.error('Ошибка при добавлении пользователя в базу данных:', err);
+          return res.status(500).send('Ошибка при регистрации пользователя');
+        }
+        
+        res.redirect("/");
+      }
+    );
+  });
+});
+
+// возвращаем форму для входа
+app.get("/login", function(req, res){
+  res.render("login.hbs");
+});
+
+// Вход пользователя
+app.post('/login', (req, res) => {
+
+  const username = req.body.username;
+  const password = req.body.password;
+
+  pool.query(
+    'SELECT * FROM registrations WHERE username = ?',
+    [username],
+    (err, result) => {
+      if (err) {
+        res.status(500).send('Ошибка при входе');
+      } else if (result.length > 0) {
+        bcrypt.compare(password, result[0].password, (err, match) => {
+          if (err) {
+            res.status(500).send('Ошибка при входе');
+          } else if (match) {
+            req.session.user = username;
+            res.status(200).send('Вход выполнен успешно');
+          } else {
+            res.status(401).send('Неверные имя пользователя или пароль');
+          }
+        });
+      } else {
+        res.status(401).send('Неверные имя пользователя или пароль');
+      }
+    }
+  );
+});
+
+// Защищенный маршрут, требующий аутентификации
+app.get('/protected', (req, res) => {
+  if (req.session.user) {
+    res.render("protected.hbs");
+  } else {
+    res.status(401).send('Необходима аутентификация');
+  }
+});
+
+// Выход пользователя
+app.get('/logout', (req, res) => {
+  req.session.destroy((err) => {
+    if (err) {
+      res.status(500).send('Ошибка при выходе');
+    } else {
+      res.status(200).send('Выход выполнен успешно');
+    }
+  });
+});
+
+
+        //
+
 // получение списка пользователей
 app.get("/", function(req, res){
     pool.query("SELECT * FROM organization", function(err, data) {
@@ -73,5 +186,5 @@ app.post("/delete/:id", function(req, res){
 });
  
 app.listen(PORT, function(){
-  console.log("Сервер ожидает подключения...");
+  console.log("Сервер запущен");
 });
