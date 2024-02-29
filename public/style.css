@@ -48,7 +48,7 @@ Main components
 -------------------------------- */
 header[role=banner] {
   position: relative;
-  height: 50px;
+  height: 20px;
   background: #343642;
   z-index: 1;
 }

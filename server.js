@@ -34,55 +34,87 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: true }));
 
 
-app.get("/organization", (req, res) => {
-  pool.getConnection((err, connection) => {
-    if (err) throw err; // not connection
-    // console.log('Connected!')
-    connection.query('SELECT * FROM organization WHERE id = "1"', (err, rows) => {
-      //После того как закончим запрос, отсоединяемся.  
-      connection.release();
+// возвращаем форму для регистрации
+app.get("/create_protected", function (req, res) {
+  res.render("create_protected");
 
-      if (!err) {
-        res.render('organization', { rows });
-      }
-    })
-  })
+  if (req.session.user) {
+    res.render("create_protected");
+  } else {
+    res.status(401).send('Необходима аутентификация');
+  }
+});
+
+app.post('/create_protected', (req, res) => {
+
+  const fullName = req.body.organization_full_name;
+  const shortName = req.body.organization_short_name;
+  const INN = req.body.inn;
 
 
-})
-
-app.post("/organization", (req, res) => {
-  let sampleFile;
-  let uploadPath;
-
-  if (!req.files || Object.keys(req.files).length === 0) {
-    return res.status(400).send('Файлы не были загружены.');
+  // Проверка наличия пароля
+  if (!fullName || !shortName || !INN) {
+    return res.status(400).send('Данные отстутствуют.');
   }
 
-  sampleFile = req.files.sampleFile;
-  uploadPath = __dirname + '/upload/' + sampleFile.name;
-  console.log(sampleFile);
-
-  sampleFile.mv(uploadPath, function (err) {
-    if (err) return res.status(500).send(err);
-
-    pool.getConnection((err, connection) => {
-      if (err) throw err; // not connection
-      //console.log('Connected!');
-      connection.query('UPDATE organization SET profile_image = ? WHERE id = "1"', [sampleFile.name], (err, rows) => {
-        // После того как закончим запрос, отсоединяемся.  
-        connection.release();
-
-        if (!err) {
-          res.redirect('/');
-        } else {
-          console.log(err);
-          res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
-        }
-      });
-    });
+  pool.query("INSERT INTO organization (organization_full_name , organization_short_name, inn) VALUES (?,?,?)", [fullName, shortName, INN], function (err, data) {
+    if (err) return console.log(err);
+    res.redirect("/");
   });
 });
+
+app.get("/about", (req, res) => {
+  res.render('about');
+})
+
+
+// app.get("/about", (req, res) => {
+//   pool.getConnection((err, connection) => {
+//     if (err) throw err; // not connection
+//     // console.log('Connected!')
+//     connection.query('SELECT * FROM organization WHERE id = "1"', (err, rows) => {
+//       //После того как закончим запрос, отсоединяемся.  
+//       connection.release();
+
+//       if (!err) {
+//         res.render('about', { rows });
+//       }
+//     })
+//   })
+// })
+
+// app.post("/organization", (req, res) => {
+//   let sampleFile;
+//   let uploadPath;
+
+//   if (!req.files || Object.keys(req.files).length === 0) {
+//     return res.status(400).send('Файлы не были загружены.');
+//   }
+
+//   sampleFile = req.files.sampleFile;
+//   uploadPath = __dirname + '/upload/' + sampleFile.name;
+//   console.log(sampleFile);
+
+//   sampleFile.mv(uploadPath, function (err) {
+//     if (err) return res.status(500).send(err);
+
+//     pool.getConnection((err, connection) => {
+//       if (err) throw err; // not connection
+//       //console.log('Connected!');
+//       connection.query('UPDATE organization SET profile_image = ? WHERE id = "1"', [sampleFile.name], (err, rows) => {
+//         // После того как закончим запрос, отсоединяемся.  
+//         connection.release();
+
+//         if (!err) {
+//           res.redirect('/');
+//         } else {
+//           console.log(err);
+//           res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
+//         }
+//       });
+//     });
+//   });
+// });
 
 
 
@@ -162,14 +194,6 @@ app.post('/login', (req, res) => {
   );
 });
 
-// Защищенный маршрут, требующий аутентификации
-app.get('/protected', (req, res) => {
-  if (req.session.user) {
-    res.render("protected.hbs");
-  } else {
-    res.status(401).send('Необходима аутентификация');
-  }
-});
 
 // Выход пользователя
 app.get('/logout', (req, res) => {
@@ -187,6 +211,7 @@ app.get('/logout', (req, res) => {
 
 // получение списка пользователей
 app.get("/", function (req, res) {
+  res.render("index.hbs");
   pool.query("SELECT * FROM organization", function (err, data) {
     if (err) return console.log(err);
     res.render("index.hbs", {

@@ -7,15 +7,17 @@ body {
   background-color: white;
 }
 
-main { 
-    width: 100%;
-    margin-left: auto;
+main {
+  width: 100%;
+  margin-left: auto;
 }
 
 .card {
   box-shadow: 0 6px 6px rgba(#000, 0.3);
   transition: 200ms;
   background: #fff;
+  max-width: 100%;
+
 
   .card__title {
     display: flex;
@@ -40,7 +42,7 @@ main {
       padding: 10px 10px;
       transition: 200ms;
 
-      > a {
+      >a {
         color: #fff;
       }
 
@@ -51,12 +53,12 @@ main {
   }
 
   .card__body {
-    padding: 0 40px;
+    padding: 0 20px;
     display: flex;
     flex-flow: row no-wrap;
     margin-bottom: 25px;
 
-    > .half {
+    >.half {
       box-sizing: border-box;
       padding: 0 15px;
       flex: 1 0 50%;
@@ -100,7 +102,7 @@ main {
 
       img {
         display: block;
-        max-width: 50%;
+        max-width: 80%;
         height: auto;
       }
     }
@@ -130,7 +132,7 @@ main {
         list-style: none;
         padding: 0;
 
-        > li {
+        >li {
           display: inline-block;
 
           .fa {
@@ -139,7 +141,7 @@ main {
         }
       }
 
-      > span {
+      >span {
         font-family: "Open Sans", sans-serif;
         font-size: 14px;
         margin-left: 5px;
@@ -149,7 +151,7 @@ main {
   }
 
   .card__footer {
-    padding: 30px 40px;
+    padding: 15px 20px;
     display: flex;
     flex-flow: row no-wrap;
     align-items: center;
@@ -164,13 +166,11 @@ main {
       width: calc(100% - 40px);
       height: 3px;
       background: #115dd8;
-      background: linear-gradient(
-        to right,
-        #115dd8 0%,
-        #115dd8 20%,
-        #ddd 20%,
-        #ddd 100%
-      );
+      background: linear-gradient(to right,
+          #115dd8 0%,
+          #115dd8 20%,
+          #ddd 20%,
+          #ddd 100%);
     }
 
     .recommend {
@@ -215,5 +215,3 @@ main {
     }
   }
 }
-
-

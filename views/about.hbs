@@ -20,39 +20,41 @@
 </head>
 
 <body>
-    
-        <header id="app-header" class="app-header">
-            <div class="background-container">
-                <div id="background-back" class="background"></div>
-                <div id="background-front" class="background"></div>
-            </div>
 
-            <div class="header-content">
-                <div id="small-toolbar" class="app-toolbar">
-                    <div id="small-title" class="small-title">PIONEER</div>
-                </div>
-                <div id="large-toolbar" class="app-toolbar tall">
-                    <div id="large-title" class="large-title">PIONEER</div>
-                </div>
-            </div>
+    <header id="app-header" class="app-header">
+        <div class="background-container">
+            <div id="background-back" class="background"></div>
+            <div id="background-front" class="background"></div>
+        </div>
 
-            <div id="header">
-                <div id="navigation">
-                    <div align="left">
-                        <nav class="main-nav">
-                            <ul id="menu" style="margin-left: 8px;">
-                                <li><a href="/register">Регистрация</a></li>
-                                <li><a href="/login">Войти</a></li>
-                                <li><a href="/logout">Выход</a></li>
-                                <li><a href="/protected">Страница для авторизированных</a></li>
-                            </ul>
-                        </nav>
-                    </div>
+        <div class="header-content">
+            <div id="small-toolbar" class="app-toolbar">
+                <div id="small-title" class="small-title">PIONEER</div>
+            </div>
+            <div id="large-toolbar" class="app-toolbar tall">
+                <div id="large-title" class="large-title">PIONEER</div>
+            </div>
+        </div>
+
+        <div id="header">
+            <div id="navigation">
+                <div align="left">
+                    <nav class="main-nav">
+                        <ul id="menu" style="margin-left: 8px;">
+                            <li><a href="/">Главная</a></li>
+                            <li><a href="/register">Регистрация</a></li>
+                            <li><a href="/login">Войти</a></li>
+                            <li><a href="/logout">Выход</a></li>
+                            <li><a href="/create_protected">Страница для создания</a></li>
+                            <li><a href="/about">О нас</a></li>
+                        </ul>
+                    </nav>
                 </div>
             </div>
-        </header>
+        </div>
+    </header>
     <main>
-        <div class="card">    
+        <div class="card">
             <div class="card__title">
                 <div class="icon">
                     <a href="#"><i class="fa fa-arrow-left"></i></a>
@@ -60,23 +62,20 @@
                 <h3>Organization</h3>
             </div>
             <div class="card__body">
-                {{#each rows}}
+
                 <div class="half">
                     <div class="featured_text">
-                        <h1>{{this.name}}</h1>
-                        <p class="sub">{{this.job_title}}</p>
+                        <h1>PIONEER TEAM</h1>
+                        <p class="sub">Developer's</p>
                     </div>
                     <div class="image">
-                        {{#if this.profile_image}}
-                            <img src="{{this.profile_image}}" alt="User Profile">
-                        {{else}}
-                            <img src="/img/default.jpg" alt="User Profile">
-                        {{/if}}
+                        <img src="/img/mamo.jpg" alt="User Profile">
                     </div>
                 </div>
                 <div class="half">
                     <div class="description">
-                        <p>{{this.description}}</p>
+                        <p>SimbirSoft – глобальная IT-компания с опытом в разработке и тестировании программных
+                            продуктов с 2001 года.</p>
                     </div>
                     <span class="stock"><i class="fa fa-pen"></i> In stock</span>
                     <div class="reviews">
@@ -90,7 +89,7 @@
                         <span>(64 reviews)</span>
                     </div>
                 </div>
-                {{/each}}
+
             </div>
             <div class="card__footer">
                 <div class="recommend">
@@ -103,7 +102,23 @@
             </div>
         </div>
 
-        
+        <footer>
+            <ul class="social">
+                <li><a href="https://vk.com/mkkolibri" target="_blank"><ion-icon name="logo-vk"></ion-icon></a></li>
+                <li><a href="#"><ion-icon name="logo-whatsapp"></ion-icon></a></li>
+                <li><a href="#"><ion-icon name="call"></ion-icon></a></li>
+                <li><a href="https://yandex.ru/maps/?text=Заводская улица, 11В" target="_blank"><ion-icon
+                            name="location"></ion-icon></a></li>
+            </ul>
+            <ul class="menu">
+                <li><a href="#">Каталог</a></li>
+                <li><a href="#">О нас</a></li>
+                <li><a href="#">Вызвать на замер</a></li>
+                <li><a href="#">Отзывы</a></li>
+            </ul>
+        </footer>
+
+
 
         <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js'></script>
         <script src="/client/index.js"></script>
