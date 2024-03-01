@@ -48,16 +48,16 @@ app.get("/create_protected", function (req, res) {
 app.post('/create_protected', (req, res) => {
 
   const fullName = req.body.organization_full_name;
-  const shortName = req.body.organization_short_name;
+  const id = req.body.organization_id;
   const INN = req.body.inn;
 
 
   // Проверка наличия пароля
-  if (!fullName || !shortName || !INN) {
+  if (!fullName || !id || !INN) {
     return res.status(400).send('Данные отстутствуют.');
   }
 
-  pool.query("INSERT INTO organization (organization_full_name , organization_short_name, inn) VALUES (?,?,?)", [fullName, shortName, INN], function (err, data) {
+  pool.query("INSERT INTO organization (organization_full_name , organization_id, inn) VALUES (?,?,?)", [fullName, id, INN], function (err, data) {
     if (err) return console.log(err);
     res.redirect("/");
   });
