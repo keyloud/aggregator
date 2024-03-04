@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt');
 const session = require('express-session');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload')
+const exphbs = require('express-handlebars')
 
 const app = express();
 
@@ -20,7 +21,9 @@ const PORT = 3306;
 app.use(fileUpload());
 
 //Загрузка шаблонизатора hbs
+// app.engine('hbs', exphbs ({ extname: '.hbs' }));
 app.set("view engine", "hbs");
+
 
 // Middleware для парсинга JSON и работы с сессиями
 app.use(express.json());
