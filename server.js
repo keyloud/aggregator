@@ -86,7 +86,6 @@ app.post("/organization", (req, res) => {
 
 // возвращаем форму для регистрации
 app.get("/create_protected", function (req, res) {
-  res.render("create_protected");
 
   if (req.session.user) {
     res.render("create_protected");
