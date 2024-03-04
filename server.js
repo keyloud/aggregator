@@ -21,10 +21,10 @@ const PORT = 3306;
 app.use(fileUpload());
 
 //Загрузка шаблонизатора hbs
-app.engine('hbs', exphbs.engine({ 
-  defaultLayout: 'main', 
-  extname: '.hbs' 
-  }));
+app.engine('hbs', exphbs.engine({
+  defaultLayout: 'main',
+  extname: '.hbs'
+}));
 
 app.set("view engine", "hbs");
 
@@ -40,24 +40,54 @@ app.use(session({
 // Подключаем middleware для парсинга тела запроса
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/organization", function(req, res){
-  const organization_full_name = req.body.organization_full_name;
-  const organization_id = req.body.organization_id;
-  const inn = req.body.inn;
-  pool.query("SELECT * FROM organization WHERE id = ?",[name, age, id], function(err, data) {
-    if(err) return console.log(err);
-    res.render("organization.hbs", {users: data});
+// app.get("/organization", function (req, res) {
+//   const organization_full_name = req.body.organization_full_name;
+//   const organization_id = req.body.organization_id;
+//   const inn = req.body.inn;
+//   pool.query("SELECT * FROM organization WHERE organization_id = ?", [organization_full_name, organization_id, inn], function (err, data) {
+//     if (err) return console.log(err);
+//     res.render("organization.hbs", { users: data });
+//   });
+// });
+
+app.get("/organization/:organization_id", function (req, res) {
+  const organization_id = req.params.organization_id;
+  const success = req.query.success === 'true';
+
+  // Используйте параметризированный запрос для безопасности
+  pool.query("SELECT organization_full_name, profile_image, inn, organization_id FROM organization WHERE organization_id = ?", [organization_id], function (err, data) {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
+    }
+
+
+    // Проверьте, найдены ли данные
+    if (data.length === 0) {
+      return res.status(404).send('Организация не найдена.');
+    }
+
+    res.locals = { organization: data }; // Это может быть необходимо для правильного использования в шаблоне
+    res.render("organization");
   });
+
 });
 
-app.post("/organization", (req, res) => {
+app.post("/create_protected", (req, res) => {
   let sampleFile;
   let uploadPath;
 
   if (!req.files || Object.keys(req.files).length === 0) {
     return res.status(400).send('Файлы не были загружены.');
   }
+  const fullName = req.body.organization_full_name;
+  const id = req.body.organization_id;
+  const INN = req.body.inn;
 
+  // Проверка наличия пароля
+  if (!fullName || !id || !INN) {
+    return res.status(400).send('Данные отстутствуют.');
+  }
   sampleFile = req.files.sampleFile;
   uploadPath = __dirname + '/upload/' + sampleFile.name;
   console.log(sampleFile);
@@ -68,12 +98,12 @@ app.post("/organization", (req, res) => {
     pool.getConnection((err, connection) => {
       if (err) throw err; // not connection
       //console.log('Connected!');
-      connection.query('UPDATE organization SET profile_image = ? WHERE id = "1"', [sampleFile.name], (err, rows) => {
+      connection.query("UPDATE organization SET organization_full_name = ?, inn = ?, profile_image = ? WHERE organization_id = ?", [fullName, INN, sampleFile.name, id], (err, rows) => {
         // После того как закончим запрос, отсоединяемся.  
         connection.release();
 
         if (!err) {
-          res.redirect('/');
+          res.redirect(`/organization/${id}?success=true`);
         } else {
           console.log(err);
           res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
@@ -86,31 +116,11 @@ app.post("/organization", (req, res) => {
 
 // возвращаем форму для регистрации
 app.get("/create_protected", function (req, res) {
-  res.render("create_protected");
-
   if (req.session.user) {
     res.render("create_protected");
   } else {
     res.status(401).send('Необходима аутентификация');
   }
-});
-
-app.post('/create_protected', (req, res) => {
-
-  const fullName = req.body.organization_full_name;
-  const id = req.body.organization_id;
-  const INN = req.body.inn;
-
-
-  // Проверка наличия пароля
-  if (!fullName || !id || !INN) {
-    return res.status(400).send('Данные отстутствуют.');
-  }
-
-  pool.query("INSERT INTO organization (organization_full_name , organization_id, inn) VALUES (?,?,?)", [fullName, id, INN], function (err, data) {
-    if (err) return console.log(err);
-    res.redirect("/");
-  });
 });
 
 app.get("/about", (req, res) => {

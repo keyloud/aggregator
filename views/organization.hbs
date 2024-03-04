@@ -1,18 +1,15 @@
-<table>
-        <tr><th>Name</th><th>Age</th><th></th></tr>
-        {{#each organization}}
-            <tr>
-                <td>
-                    <img src="{{this.profile_image}}" alt="">
-                </td>
-                <td>{{this.organization_full_name}}</td>
-                <td>{{this.inn}}</td>
-                <td>
-                    <a href="/edit/{{this.id}}">Edit</a>|
-                    <form action="delete/{{this.id}}" method="POST" style="display:inline;">
-                        <input type="submit" value="Delete"/>
-                    </form>
-                </td>
-            </tr>
-        {{/each}}
-</table>
+<div class="org">
+    {{#each organization}}
+        <div>
+            <p>{{this.organization_id}}</p>
+            <h1>{{this.organization_id}}</h1>
+            <div>{{this.organization_full_name}}</div>
+            <h2>{{this.inn}}</h2>
+            {{#if this.profile_image}}
+                <img class="card image" src="/upload/{{this.profile_image}}" alt="User Profile">
+            {{else}}
+            <img class="card image" src="/img/default.jpg" alt="User Profile">
+            {{/if}}
+        </div>
+    {{/each}}
+</div>
