@@ -3,7 +3,7 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>pionero4ka</title>
+    <title>pioner4ik</title>
     <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
 
@@ -20,65 +20,62 @@
 </head>
 
 <body>
+
+    <header id="app-header" class="app-header">
+        <div class="background-container">
+            <div id="background-back" class="background"></div>
+            <div id="background-front" class="background"></div>
+        </div>
+
+        <div class="header-content">
+            <div id="small-toolbar" class="app-toolbar">
+                <div id="small-title" class="small-title">PIONEER</div>
+            </div>
+            <div id="large-toolbar" class="app-toolbar tall">
+                <div id="large-title" class="large-title">PIONEER</div>
+            </div>
+        </div>
+
+        <div id="header">
+            <div id="navigation">
+                <div align="left">
+                    <nav class="main-nav">
+                        <ul id="menu" style="margin-left: 8px;">
+                            <li><a href="/">Главная</a></li>
+                            <li><a href="/register">Регистрация</a></li>
+                            <li><a href="/login">Войти</a></li>
+                            <li><a href="/logout">Выход</a></li>
+                            <li><a href="/create_protected">Страница для создания</a></li>
+                            <li><a href="/about">О нас</a></li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        </div>
+    </header>
     <main>
-        <header id="app-header" class="app-header">
-            <div class="background-container">
-                <div id="background-back" class="background"></div>
-                <div id="background-front" class="background"></div>
-            </div>
-
-            <div class="header-content">
-                <div id="small-toolbar" class="app-toolbar">
-                    <div id="small-title" class="small-title">PIONEER</div>
-                </div>
-                <div id="large-toolbar" class="app-toolbar tall">
-                    <div id="large-title" class="large-title">PIONEER</div>
-                </div>
-            </div>
-
-            <div id="header">
-                <div id="navigation">
-                    <div align="left">
-                        <nav class="main-nav">
-                            <ul id="menu" style="margin-left: 8px;">
-                                <li><a href="/">Главная</a></li>
-                                <li><a href="/register">Регистрация</a></li>
-                                <li><a href="/login">Войти</a></li>
-                                <li><a href="/logout">Выход</a></li>
-                                <li><a href="/create_protected">Страница для создания</a></li>
-                                <li><a href="/about">О нас</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
-            </div>
-        </header>
-
         <div class="card">
             <div class="card__title">
                 <div class="icon">
                     <a href="#"><i class="fa fa-arrow-left"></i></a>
                 </div>
-                <h3>Name Organization</h3>
+                <h3>Organization</h3>
             </div>
             <div class="card__body">
 
                 <div class="half">
                     <div class="featured_text">
-                        <h1>BMW M5</h1>
-                        <p class="sub">115k</p>
+                        <h1>PIONEER TEAM</h1>
+                        <p class="sub">Developer's</p>
                     </div>
                     <div class="image">
-                        <img src="/img/main_car.png" alt="User Profile">
+                        <img src="/img/mamo.jpg" alt="User Profile">
                     </div>
                 </div>
                 <div class="half">
                     <div class="description">
-                        <p>Доработанная подразделением BMW Motorsport версия автомобиля BMW пятой серии. Первое
-                            поколение было представлено в 1986 году. Последующие поколения M5 сменялись совместно с
-                            каждым поколением автомобилей пятой серии, включающей E34, E39, E60/61, F10. С началом
-                            производства модели G30, после поступления первых заказов, с марта 2018 года началось также
-                            производство её M-версии.</p>
+                        <p>SimbirSoft – глобальная IT-компания с опытом в разработке и тестировании программных
+                            продуктов с 2001 года.</p>
                     </div>
                     <span class="stock"><i class="fa fa-pen"></i> In stock</span>
                     <div class="reviews">
@@ -89,7 +86,7 @@
                             <li><i class="fa fa-star"></i></li>
                             <li><i class="fa fa-star-o"></i></li>
                         </ul>
-                        <span>(64 отзыва)</span>
+                        <span>(64 reviews)</span>
                     </div>
                 </div>
 
@@ -100,10 +97,26 @@
                     <h3>PIONEER Studios</h3>
                 </div>
                 <div class="action">
-                    <button type="button">Купить</button>
+                    <button type="button">Связь с нами</button>
                 </div>
             </div>
         </div>
+
+        <footer>
+            <ul class="social">
+                <li><a href="https://vk.com/mkkolibri" target="_blank"><ion-icon name="logo-vk"></ion-icon></a></li>
+                <li><a href="#"><ion-icon name="logo-whatsapp"></ion-icon></a></li>
+                <li><a href="#"><ion-icon name="call"></ion-icon></a></li>
+                <li><a href="https://yandex.ru/maps/?text=Заводская улица, 11В" target="_blank"><ion-icon
+                            name="location"></ion-icon></a></li>
+            </ul>
+            <ul class="menu">
+                <li><a href="#">Каталог</a></li>
+                <li><a href="#">О нас</a></li>
+                <li><a href="#">Вызвать на замер</a></li>
+                <li><a href="#">Отзывы</a></li>
+            </ul>
+        </footer>
 
 
 
@@ -205,22 +218,6 @@
                 <a href="#0" class="cd-close-form">Закрыть</a>
             </div>
         </div>
-
-        <footer>
-            <ul class="social">
-                <li><a href="https://vk.com/mkkolibri" target="_blank"><ion-icon name="logo-vk"></ion-icon></a></li>
-                <li><a href="#"><ion-icon name="logo-whatsapp"></ion-icon></a></li>
-                <li><a href="#"><ion-icon name="call"></ion-icon></a></li>
-                <li><a href="https://yandex.ru/maps/?text=Заводская улица, 11В" target="_blank"><ion-icon
-                            name="location"></ion-icon></a></li>
-            </ul>
-            <ul class="menu">
-                <li><a href="#">Каталог</a></li>
-                <li><a href="#">О нас</a></li>
-                <li><a href="#">Вызвать на замер</a></li>
-                <li><a href="#">Отзывы</a></li>
-            </ul>
-        </footer>
 
         <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
         <script src="/client/main.js"></script> <!-- Gem jQuery -->

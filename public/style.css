@@ -1,8 +1,5 @@
-/* -------------------------------- 
+@import url('https://fonts.googleapis.com/css?family=Fjalla+One|Montserrat:300,400,700,800|Open+Sans:300');
 
-Primary style
-
--------------------------------- */
 html * {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
@@ -19,6 +16,11 @@ body {
   font-family: "PT Sans", sans-serif;
   color: #505260;
   background-color: white;
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
 a {
@@ -46,7 +48,7 @@ Main components
 -------------------------------- */
 header[role=banner] {
   position: relative;
-  height: 50px;
+  height: 20px;
   background: #343642;
   z-index: 1;
 }
@@ -550,27 +552,35 @@ xsigin/signup popup
   display: block;
 }
 
-.table{
-	border: 1px solid #eee;
-	table-layout: fixed;
-	margin: 25px;
-  width: 80%;
+.organization-card {
+  display: flex;
+  border: 1px solid #ddd;
+  margin: 10px;
+  padding: 10px;
+  border-radius: 5px;
 }
-.table th {
-	font-weight: bold;
-	padding: 15px;
-	background: #efefef;
-	border: 1px solid #dddddd;
-  margin: 25px;
+
+.organization-image img {
+  max-width: 100px;
+  max-height: 100px;
+  border-radius: 50%;
+  margin-right: 10px;
 }
-.table td{
-	padding: 15px;
-	border: 1px solid #eee;
-	text-align: left;
+
+.organization-details {
+  flex: 1;
 }
-.table tbody tr:nth-child(odd){
-	background: #fff;
+
+.organization-name {
+  font-size: 1.2em;
+  margin-bottom: 5px;
 }
-.table tbody tr:nth-child(even){
-	background: #F7F7F7;
+
+.organization-description {
+  color: #666;
+}
+
+.organization-ad-number {
+  font-style: italic;
+  color: #888;
 }
