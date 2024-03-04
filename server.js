@@ -24,7 +24,7 @@ app.use(fileUpload());
 app.engine('hbs', exphbs.engine({ 
   defaultLayout: 'main', 
   extname: '.hbs' 
-}));
+  }));
 
 app.set("view engine", "hbs");
 
@@ -40,45 +40,15 @@ app.use(session({
 // Подключаем middleware для парсинга тела запроса
 app.use(bodyParser.urlencoded({ extended: true }));
 
-
-app.get("/organization", (req,res) =>{
-    res.render("organization");
-})
-
-
-// возвращаем форму для регистрации
-app.get("/create_protected", function (req, res) {
-  res.render("create_protected");
-
-  if (req.session.user) {
-    res.render("create_protected");
-  } else {
-    res.status(401).send('Необходима аутентификация');
-  }
-});
-
-app.post('/create_protected', (req, res) => {
-
-  const fullName = req.body.organization_full_name;
-  const id = req.body.organization_id;
-  const INN = req.body.inn;
-
-
-  // Проверка наличия пароля
-  if (!fullName || !id || !INN) {
-    return res.status(400).send('Данные отстутствуют.');
-  }
-
-  pool.query("INSERT INTO organization (organization_full_name , organization_id, inn) VALUES (?,?,?)", [fullName, id, INN], function (err, data) {
-    if (err) return console.log(err);
-    res.redirect("/");
+app.get("/organization", function(req, res){
+  const organization_full_name = req.body.organization_full_name;
+  const organization_id = req.body.organization_id;
+  const inn = req.body.inn;
+  pool.query("SELECT * FROM organization WHERE id = ?",[name, age, id], function(err, data) {
+    if(err) return console.log(err);
+    res.render("organization.hbs", {users: data});
   });
 });
-
-app.get("/about", (req, res) => {
-  res.render('about');
-})
-
 
 app.post("/organization", (req, res) => {
   let sampleFile;
@@ -114,9 +84,38 @@ app.post("/organization", (req, res) => {
 });
 
 
+// возвращаем форму для регистрации
+app.get("/create_protected", function (req, res) {
+  res.render("create_protected");
+
+  if (req.session.user) {
+    res.render("create_protected");
+  } else {
+    res.status(401).send('Необходима аутентификация');
+  }
+});
+
+app.post('/create_protected', (req, res) => {
+
+  const fullName = req.body.organization_full_name;
+  const id = req.body.organization_id;
+  const INN = req.body.inn;
 
 
+  // Проверка наличия пароля
+  if (!fullName || !id || !INN) {
+    return res.status(400).send('Данные отстутствуют.');
+  }
 
+  pool.query("INSERT INTO organization (organization_full_name , organization_id, inn) VALUES (?,?,?)", [fullName, id, INN], function (err, data) {
+    if (err) return console.log(err);
+    res.redirect("/");
+  });
+});
+
+app.get("/about", (req, res) => {
+  res.render('about');
+})
 
 // возвращаем форму для регистрации
 app.get("/register", function (req, res) {
@@ -204,15 +203,6 @@ app.get('/logout', (req, res) => {
 });
 
 
-//
-
-// отображение главной страницы
-app.get("/", function (req, res) {
-  res.render("index.hbs");
-});
-
-
-
 // получем id редактируемого пользователя, получаем его из бд и отправлям с формой редактирования
 app.get("/edit/:id", function (req, res) {
   const id = req.params.id;
@@ -245,6 +235,11 @@ app.post("/delete/:id", function (req, res) {
     if (err) return console.log(err);
     res.redirect("/");
   });
+});
+
+// отображение главной страницы
+app.get("/", function (req, res) {
+  res.render("index.hbs");
 });
 
 app.listen(PORT, function () {
