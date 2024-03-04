@@ -1,227 +1,47 @@
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <title>pioner4ik</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-
-    <link rel="stylesheet" href="/reset.css"> <!-- CSS reset -->
-    <link rel="stylesheet" href="/style.css"> <!-- Gem style -->
-    <link rel="stylesheet" href="/pageindex.css">
-    <link rel="stylesheet" href="/style1.css">
-    <link rel="stylesheet" href="/style_card.css">
-
-    <script src="/client/modernizr.js"></script> <!-- Modernizr -->
-    <script src="/client/pageindex.js"></script>
-    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
-    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
-</head>
-
-<body>
-
-    <header id="app-header" class="app-header">
-        <div class="background-container">
-            <div id="background-back" class="background"></div>
-            <div id="background-front" class="background"></div>
+<div class="card">
+    <div class="card__title">
+        <div class="icon">
+            <a href="#"><i class="fa fa-arrow-left"></i></a>
         </div>
+        <h3>Organization</h3>
+    </div>
+    <div class="card__body">
 
-        <div class="header-content">
-            <div id="small-toolbar" class="app-toolbar">
-                <div id="small-title" class="small-title">PIONEER</div>
+        <div class="half">
+            <div class="featured_text">
+                <h1>PIONEER TEAM</h1>
+                <p class="sub">Developer's</p>
             </div>
-            <div id="large-toolbar" class="app-toolbar tall">
-                <div id="large-title" class="large-title">PIONEER</div>
+            <div class="image">
+                <img src="/img/mamo.jpg" alt="User Profile">
             </div>
         </div>
-
-        <div id="header">
-            <div id="navigation">
-                <div align="left">
-                    <nav class="main-nav">
-                        <ul id="menu" style="margin-left: 8px;">
-                            <li><a href="/">Главная</a></li>
-                            <li><a href="/register">Регистрация</a></li>
-                            <li><a href="/login">Войти</a></li>
-                            <li><a href="/logout">Выход</a></li>
-                            <li><a href="/create_protected">Страница для создания</a></li>
-                            <li><a href="/about">О нас</a></li>
-                        </ul>
-                    </nav>
-                </div>
+        <div class="half">
+            <div class="description">
+                <p>SimbirSoft – глобальная IT-компания с опытом в разработке и тестировании программных
+                    продуктов с 2001 года.</p>
             </div>
-        </div>
-    </header>
-    <main>
-        <div class="card">
-            <div class="card__title">
-                <div class="icon">
-                    <a href="#"><i class="fa fa-arrow-left"></i></a>
-                </div>
-                <h3>Organization</h3>
-            </div>
-            <div class="card__body">
-
-                <div class="half">
-                    <div class="featured_text">
-                        <h1>PIONEER TEAM</h1>
-                        <p class="sub">Developer's</p>
-                    </div>
-                    <div class="image">
-                        <img src="/img/mamo.jpg" alt="User Profile">
-                    </div>
-                </div>
-                <div class="half">
-                    <div class="description">
-                        <p>SimbirSoft – глобальная IT-компания с опытом в разработке и тестировании программных
-                            продуктов с 2001 года.</p>
-                    </div>
-                    <span class="stock"><i class="fa fa-pen"></i> In stock</span>
-                    <div class="reviews">
-                        <ul class="stars">
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star"></i></li>
-                            <li><i class="fa fa-star-o"></i></li>
-                        </ul>
-                        <span>(64 reviews)</span>
-                    </div>
-                </div>
-
-            </div>
-            <div class="card__footer">
-                <div class="recommend">
-                    <p>Recommended by</p>
-                    <h3>PIONEER Studios</h3>
-                </div>
-                <div class="action">
-                    <button type="button">Связь с нами</button>
-                </div>
-            </div>
-        </div>
-
-        <footer>
-            <ul class="social">
-                <li><a href="https://vk.com/mkkolibri" target="_blank"><ion-icon name="logo-vk"></ion-icon></a></li>
-                <li><a href="#"><ion-icon name="logo-whatsapp"></ion-icon></a></li>
-                <li><a href="#"><ion-icon name="call"></ion-icon></a></li>
-                <li><a href="https://yandex.ru/maps/?text=Заводская улица, 11В" target="_blank"><ion-icon
-                            name="location"></ion-icon></a></li>
-            </ul>
-            <ul class="menu">
-                <li><a href="#">Каталог</a></li>
-                <li><a href="#">О нас</a></li>
-                <li><a href="#">Вызвать на замер</a></li>
-                <li><a href="#">Отзывы</a></li>
-            </ul>
-        </footer>
-
-
-
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js'></script>
-        <script src="/client/index.js"></script>
-
-        <div class="cd-user-modal">
-            <div class="cd-user-modal-container">
-                <ul class="cd-switcher">
-                    <li><a href="#0">Вход</a></li>
-                    <li><a href="#0">Регистрация</a></li>
+            <span class="stock"><i class="fa fa-pen"></i> In stock</span>
+            <div class="reviews">
+                <ul class="stars">
+                    <li><i class="fa fa-star"></i></li>
+                    <li><i class="fa fa-star"></i></li>
+                    <li><i class="fa fa-star"></i></li>
+                    <li><i class="fa fa-star"></i></li>
+                    <li><i class="fa fa-star-o"></i></li>
                 </ul>
-
-                <div id="cd-login">
-                    <form class="cd-form">
-                        <p class="fieldset">
-                            <label class="image-replace cd-email" for="signin-email">E-mail</label>
-                            <input class="full-width has-padding has-border" id="signin-email" type="email"
-                                placeholder="E-mail">
-                            <span class="cd-error-message">Ошибка</span>
-                        </p>
-
-                        <p class="fieldset">
-                            <label class="image-replace cd-password" for="signin-password">Пароль</label>
-                            <input class="full-width has-padding has-border" id="signin-password" type="text"
-                                placeholder="Пароль">
-                            <a href="#0" class="hide-password">Скрыть</a>
-                            <span class="cd-error-message">Ошибка</span>
-                        </p>
-
-                        <p class="fieldset">
-                            <input type="checkbox" id="remember-me" checked>
-                            <label for="remember-me">Запомнить меня</label>
-                        </p>
-
-                        <p class="fieldset">
-                            <input class="full-width" type="submit" value="Войти">
-                        </p>
-                    </form>
-
-                    <p class="cd-form-bottom-message"><a href="#0">Забыли свой пароль?</a></p>
-                </div>
-
-                <div id="cd-signup">
-                    <form class="cd-form">
-                        <p class="fieldset">
-                            <label class="image-replace cd-username" for="signup-username">Имя пользователя</label>
-                            <input class="full-width has-padding has-border" id="signup-username" type="text"
-                                placeholder="Имя пользователя">
-                            <span class="cd-error-message">Ошибка</span>
-                        </p>
-
-                        <p class="fieldset">
-                            <label class="image-replace cd-email" for="signup-email">E-mail</label>
-                            <input class="full-width has-padding has-border" id="signup-email" type="email"
-                                placeholder="E-mail">
-                            <span class="cd-error-message">Ошибка</span>
-                        </p>
-
-                        <p class="fieldset">
-                            <label class="image-replace cd-password" for="signup-password">Пароль</label>
-                            <input class="full-width has-padding has-border" id="signup-password" type="text"
-                                placeholder="Пароль">
-                            <a href="#0" class="hide-password">Скрыть</a>
-                            <span class="cd-error-message">Ошибка</span>
-                        </p>
-
-                        <p class="fieldset">
-                            <input type="checkbox" id="accept-terms">
-                            <label for="accept-terms">Я согласен с <a href="#0">Условиями</a></label>
-                        </p>
-
-                        <p class="fieldset">
-                            <input class="full-width has-padding" type="submit" value="Создать аккаунт">
-                        </p>
-                    </form>
-                </div>
-
-                <div id="cd-reset-password">
-                    <p class="cd-form-message">Забыли пароль? Пожалуйста, введите адрес своей электронной почты. Вы
-                        получите
-                        ссылку, чтобы создать новый пароль.</p>
-
-                    <form class="cd-form">
-                        <p class="fieldset">
-                            <label class="image-replace cd-email" for="reset-email">E-mail</label>
-                            <input class="full-width has-padding has-border" id="reset-email" type="email"
-                                placeholder="E-mail">
-                            <span class="cd-error-message">Ошибка</span>
-                        </p>
-
-                        <p class="fieldset">
-                            <input class="full-width has-padding" type="submit" value="Восстановить пароль">
-                        </p>
-                    </form>
-
-                    <p class="cd-form-bottom-message"><a href="#0">Вернуться к входу</a></p>
-                </div>
-                <a href="#0" class="cd-close-form">Закрыть</a>
+                <span>(64 reviews)</span>
             </div>
         </div>
 
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <script src="/client/main.js"></script> <!-- Gem jQuery -->
-    </main>
-</body>
-
-</html>
+    </div>
+    <div class="card__footer">
+        <div class="recommend">
+            <p>Recommended by</p>
+            <h3>PIONEER Studios</h3>
+        </div>
+        <div class="action">
+            <button type="button">Связь с нами</button>
+        </div>
+    </div>
+</div>

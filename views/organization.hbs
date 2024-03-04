@@ -1,0 +1,18 @@
+<table>
+        <tr><th>Name</th><th>Age</th><th></th></tr>
+        {{#each organization}}
+            <tr>
+                <td>
+                    <img src="{{this.profile_image}}" alt="">
+                </td>
+                <td>{{this.organization_full_name}}</td>
+                <td>{{this.inn}}</td>
+                <td>
+                    <a href="/edit/{{this.id}}">Edit</a>|
+                    <form action="delete/{{this.id}}" method="POST" style="display:inline;">
+                        <input type="submit" value="Delete"/>
+                    </form>
+                </td>
+            </tr>
+        {{/each}}
+</table>
