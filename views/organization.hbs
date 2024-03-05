@@ -1,12 +1,15 @@
+{{#if success}}
+  <h1>Успешно cоздан!</h1>
+{{/if}}
+
 <div class="org">
     {{#each organization}}
         <div>
-            <p>{{this.organization_id}}</p>
-            <h1>{{this.organization_id}}</h1>
-            <div>{{this.organization_full_name}}</div>
-            <h2>{{this.inn}}</h2>
+            <h1>{{this.organization_full_name}}</h1>
+            <h2>{{this.organization_id}}</h2>
+            <p>{{this.inn}}</p>
             {{#if this.profile_image}}
-                <img class="card image" src="/upload/{{this.profile_image}}" alt="User Profile">
+                <img class="card image" style="width: 30%;" src="/upload/{{this.profile_image}}" alt="User Profile">
             {{else}}
             <img class="card image" src="/img/default.jpg" alt="User Profile">
             {{/if}}
