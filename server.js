@@ -40,16 +40,6 @@ app.use(session({
 // Подключаем middleware для парсинга тела запроса
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.get("/organization", function (req, res) {
-//   const organization_full_name = req.body.organization_full_name;
-//   const organization_id = req.body.organization_id;
-//   const inn = req.body.inn;
-//   pool.query("SELECT * FROM organization WHERE organization_id = ?", [organization_full_name, organization_id, inn], function (err, data) {
-//     if (err) return console.log(err);
-//     res.render("organization.hbs", { users: data });
-//   });
-// });
-
 app.get("/organization/:organization_id", function (req, res) {
   const organization_id = req.params.organization_id;
   const success = req.query.success === 'true';
@@ -60,17 +50,22 @@ app.get("/organization/:organization_id", function (req, res) {
       console.error(err);
       return res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
     }
-
-
     // Проверьте, найдены ли данные
     if (data.length === 0) {
       return res.status(404).send('Организация не найдена.');
     }
-
-    res.locals = { organization: data }; // Это может быть необходимо для правильного использования в шаблоне
-    res.render("organization");
+    res.render("organization.hbs", { organization: data, success: success });
   });
 
+});
+
+// возвращаем форму для регистрации
+app.get("/create_protected", function (req, res) {
+  if (req.session.user) {
+    res.render("create_protected");
+  } else {
+    res.status(401).send('Необходима аутентификация');
+  }
 });
 
 app.post("/create_protected", (req, res) => {
@@ -89,7 +84,7 @@ app.post("/create_protected", (req, res) => {
     return res.status(400).send('Данные отстутствуют.');
   }
   sampleFile = req.files.sampleFile;
-  uploadPath = __dirname + '/upload/' + sampleFile.name;
+  uploadPath = __dirname + '/public/upload/' + sampleFile.name;
   console.log(sampleFile);
 
   sampleFile.mv(uploadPath, function (err) {
@@ -98,29 +93,20 @@ app.post("/create_protected", (req, res) => {
     pool.getConnection((err, connection) => {
       if (err) throw err; // not connection
       //console.log('Connected!');
-      connection.query("UPDATE organization SET organization_full_name = ?, inn = ?, profile_image = ? WHERE organization_id = ?", [fullName, INN, sampleFile.name, id], (err, rows) => {
+      connection.query("INSERT INTO organization (organization_full_name, organization_id, inn, profile_image) VALUES (?,?,?,?)", [fullName, id, INN, sampleFile.name], (err, rows) => {
         // После того как закончим запрос, отсоединяемся.  
         connection.release();
 
-        if (!err) {
-          res.redirect(`/organization/${id}?success=true`);
-        } else {
+        if (err) {
           console.log(err);
           res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
+        } else {
+          // Отправка данных на страницу
+          res.redirect(`/organization/${id}?success=true`);
         }
       });
     });
   });
-});
-
-
-// возвращаем форму для регистрации
-app.get("/create_protected", function (req, res) {
-  if (req.session.user) {
-    res.render("create_protected");
-  } else {
-    res.status(401).send('Необходима аутентификация');
-  }
 });
 
 app.get("/about", (req, res) => {
