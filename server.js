@@ -80,7 +80,7 @@ app.post("/create_protected", (req, res) => {
   const INN = req.body.inn;
 
   // Проверка наличия пароля
-  if (!fullName || !id || !INN) {
+  if (!fullName || !INN) {
     return res.status(400).send('Данные отстутствуют.');
   }
   sampleFile = req.files.sampleFile;
@@ -93,7 +93,7 @@ app.post("/create_protected", (req, res) => {
     pool.getConnection((err, connection) => {
       if (err) throw err; // not connection
       //console.log('Connected!');
-      connection.query("INSERT INTO organization (organization_full_name, organization_id, inn, profile_image) VALUES (?,?,?,?)", [fullName, id, INN, sampleFile.name], (err, rows) => {
+      connection.query("INSERT INTO organization (organization_full_name, inn, profile_image) VALUES (?,?,?)", [fullName, INN, sampleFile.name], (err, rows) => {
         // После того как закончим запрос, отсоединяемся.  
         connection.release();
 
@@ -101,7 +101,7 @@ app.post("/create_protected", (req, res) => {
           console.log(err);
           res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
         } else {
-          // Отправка данных на страницу
+          // Отправка данных на страницу. Добавить переход по ID!!!
           res.redirect(`/organization/${id}?success=true`);
         }
       });
