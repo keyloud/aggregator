@@ -42,7 +42,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 app.get("/organization/:inn/:success", function (req, res) {
   const inn = req.params.inn;
-  const success = req.query.success === 'true';
+  const success = req.params.success;
 
   // Используйте параметризированный запрос для безопасности
   pool.query("SELECT organization_full_name, profile_image, inn FROM organization WHERE inn = ?", [inn], function (err, data) {
@@ -54,7 +54,12 @@ app.get("/organization/:inn/:success", function (req, res) {
     if (data.length === 0) {
       return res.status(404).send('Организация не найдена.');
     }
-    res.render("organization.hbs", { organization: data, success: success });
+    //Если юзер авторизирован, то покажет страницу, если нет ,то err
+    if (req.session.user) {
+      res.render("organization", { organization: data, success: success });
+    } else {
+      res.status(401).send('Необходима аутентификация');
+    }
   });
 });
 
@@ -99,7 +104,7 @@ app.post("/create_protected", (req, res) => {
           res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
         } else {
           // Отправка данных на страницу. Добавить переход по INN!!!
-          res.redirect(`/organization/${INN}/success=true`);
+          res.redirect(`/organization/${INN}/success`);
         }
       });
     });
