@@ -40,12 +40,12 @@ app.use(session({
 // Подключаем middleware для парсинга тела запроса
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/organization/:organization_id", function (req, res) {
-  const organization_id = req.params.organization_id;
+app.get("/organization/:inn/:success", function (req, res) {
+  const inn = req.params.inn;
   const success = req.query.success === 'true';
 
   // Используйте параметризированный запрос для безопасности
-  pool.query("SELECT organization_full_name, profile_image, inn, organization_id FROM organization WHERE organization_id = ?", [organization_id], function (err, data) {
+  pool.query("SELECT organization_full_name, profile_image, inn FROM organization WHERE inn = ?", [inn], function (err, data) {
     if (err) {
       console.error(err);
       return res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
@@ -56,7 +56,6 @@ app.get("/organization/:organization_id", function (req, res) {
     }
     res.render("organization.hbs", { organization: data, success: success });
   });
-
 });
 
 // возвращаем форму для регистрации
@@ -76,7 +75,6 @@ app.post("/create_protected", (req, res) => {
     return res.status(400).send('Файлы не были загружены.');
   }
   const fullName = req.body.organization_full_name;
-  const id = req.body.organization_id;
   const INN = req.body.inn;
 
   // Проверка наличия пароля
@@ -85,7 +83,6 @@ app.post("/create_protected", (req, res) => {
   }
   sampleFile = req.files.sampleFile;
   uploadPath = __dirname + '/public/upload/' + sampleFile.name;
-  console.log(sampleFile);
 
   sampleFile.mv(uploadPath, function (err) {
     if (err) return res.status(500).send(err);
@@ -101,8 +98,8 @@ app.post("/create_protected", (req, res) => {
           console.log(err);
           res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
         } else {
-          // Отправка данных на страницу. Добавить переход по ID!!!
-          res.redirect(`/organization/${id}?success=true`);
+          // Отправка данных на страницу. Добавить переход по INN!!!
+          res.redirect(`/organization/${INN}/success=true`);
         }
       });
     });
