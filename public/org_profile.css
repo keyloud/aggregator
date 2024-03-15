@@ -1,0 +1,260 @@
+body {
+    margin: 0;
+    background: #003F63;
+}
+
+.org_profile {
+    width: 1440px;
+    height: 900px;
+    margin: 0 auto;
+    margin-top: 200px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+/*info*/
+.info {
+    width: 100%;
+    height: 210px;
+    
+    display: flex;
+    
+    flex-direction: row;
+    position: relative;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    margin-top: 15px;
+}
+.descriptions {
+    width: 20%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.url, .inn, .kpp, .ogrn {
+    width: 100%;
+    flex: 1;
+    background: #fff;
+    margin-bottom: 0px;
+    border-radius: 10px;
+    border: 1px solid black;
+    text-align: left;
+}
+
+p {
+    margin-left: 3px;
+    color: grey;
+}
+
+.descriptionsMore {
+    width: 35%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+.fullname, .shortname, .descriptionname {
+    width: 100%;
+    background: #fff;
+    
+    border-radius: 10px;
+    border: 1px solid black;
+    text-align: left;
+    
+}
+.fullname, .shortname {
+    height: 25%;
+}
+.descriptionname {
+    height: 50%;
+}
+
+.bio {
+    width: 25%;
+
+}
+
+.fio, .email, .phone, .adress {
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid black;
+    text-align: left;
+
+}
+.saveButton, .addButton {
+    width: 20%;
+    display: flex;
+    flex-direction: column; /* Размещаем элементы в столбце */
+    justify-content: flex-end;
+    align-items: center; /* Выравнивание по центру по горизонтали */
+    margin-left: 15px;
+    height: 100%; /* Занимаем 100% высоты .saveButton */ 
+}
+
+.svbtn button {
+    background-color: #001F3F;
+    color: white;
+    padding: 13px 19px; /* Немного увеличил размеры кнопки */
+    border: none;
+    border-radius: 1.25em; /* Увеличил радиус для сохранения округлых углов */
+    cursor: pointer;
+    font-size: 16px;
+    width: 125%; /* Увеличил ширину кнопки на 25% */
+    margin-bottom: 3px;
+}
+.svbtn button:hover {
+    background-color: #04659d; /* Цвет при наведении */
+}
+
+.descriptions, .descriptionsMore, .bio, .saveButton {
+    margin-left: 15px;
+}
+
+.services {
+    margin-top: 15px;
+    margin-left: 15px;
+    width: 100%;
+    height: 367px;
+    
+    display: flex;
+    
+    flex-direction: column;
+    position: relative;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.title {
+    width: 100%;
+    height: 25px;
+    color: #fff;
+}
+
+.srvcmain, .requestmain {
+    margin-top: 15px;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+.myservices {
+    width: 53.8%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+.mysrvc, .addmysrvc {
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid black;
+    text-align: left;
+}
+
+.price {
+    width: 23.1%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-left: 15px;
+}   
+
+.pricepersrvc, .addpricepersrvc {
+    width: 100%;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.281);
+    text-align: left;
+}
+
+.addbtn button {
+    background-color: #001F3F;
+    color: white;
+    padding: 13px 19px; /* Немного увеличил размеры кнопки */
+    border: none;
+    border-radius: 1.25em; /* Увеличил радиус для сохранения округлых углов */
+    cursor: pointer;
+    font-size: 16px;
+    width: 125%; /* Увеличил ширину кнопки на 25% */
+    margin-bottom: 3px;
+}
+.addbtn button:hover {
+    background-color: #04659d; /* Цвет при наведении */
+}
+
+.request {
+    margin-top: 45px;
+    margin-left: 15px;
+    width: 100%;
+    height: 323px;
+    
+    display: flex;
+    
+    flex-direction: column;
+    position: relative;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    left: 0;
+}
+
+.numbering {
+    width: 5%;
+    height: 100%;
+    display: flex;
+    
+    flex-direction: column;
+    position: relative;
+}
+.num {
+    width: 100%;
+    height: 100%;
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.281);
+    text-align: center;
+    
+}
+
+.requestedservices {
+    width: 35%;
+    height: 100%;
+    
+}
+
+.rqdsrvc {
+    background: #fff;
+    border-radius: 10px;
+    border: 1px solid rgba(0, 0, 0, 0.281);
+    text-align: left;
+    padding-top: 9px;
+}
+
+.date {
+    width: 13.8%;
+}
+
+.userphone {
+    width: 25%;
+}
+.confirmButtons {
+    width: 20%;
+}
+
+.requestedservices, .date, .userphone, .confirmButtons {
+    padding-left: 15px;
+}
