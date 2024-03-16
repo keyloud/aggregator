@@ -1,0 +1,318 @@
+/*body*/
+body{
+    margin: 0;
+    font-family: "Rubik", sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+  }
+
+/*body*/
+
+/*header*/
+.header {
+    width: 100%;
+    padding-top: 30px;
+    height: 10vh;
+    background: #1e35cd;
+    margin: 0 auto;
+    color: #fff;
+    box-shadow: 0px 3px 4px rgba(0, 0, 0, 0.2);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.header_sticky {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+
+.header_container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.navigation {
+    display: flex;
+    align-items: center;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+.nav_link {
+    margin-left: 20px; /* Добавлено для создания отступов между ссылками */
+    color: #fff;
+    text-decoration: none;
+    transition: color 0.2s ease; /* Анимация цвета с задержкой 0.2 секунды */
+}
+
+.nav_link:hover {
+    color: #ffcc00; /* Желаемый цвет при наведении */
+}
+
+/*header*/
+
+/*org_about*/
+.org_about {
+    width: 100%;
+    max-width: 1200px;
+    min-height: 80vh;
+    margin: 0 auto;
+    position: relative;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    box-shadow: -15px 0 200px rgba(0, 0, 0, 0.1), 15px 0 200px rgba(0, 0, 0, 0.1);
+    border-left: 1px solid #cccccc9b;  /* Граница на левой стороне */
+    border-right: 1px solid #cccccc9b; /* Граница на правой стороне */
+} 
+
+.org_slot {
+    width: 100%;
+    max-width: 1200px;
+    height: 80vh;
+    display: flex;
+}
+
+/*org_info*/
+.org_info {
+    flex: 3.5;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.org_img {
+    flex: 5;
+    width: 100%; /* Фиксированная ширина блока */
+    height: 200px; /* Фиксированная высота блока */
+}
+
+.org_img img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.org_name {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.org_name p {
+    font-weight: bold;
+    margin: 0;
+}
+
+.org_disc {
+    flex: 4;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+
+.org_disc_title {
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.org_disc_text {
+    flex: 1;
+}
+
+.org_disc_text p {
+    margin: 0; /* Убираем внешние отступы у параграфа, если они есть по умолчанию */
+}
+
+.org_img, .org_name, .org_disc {
+    margin-bottom: 10px;
+    border: 1px solid black;
+    
+}
+
+
+/*org_info*/
+
+/*org_service*/
+.org_service {
+    flex: 6.5;
+    padding: 10px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+.scrl_bord_top, .scrl_bord_bottom {
+    height: 3%;
+    padding: 10px;
+    
+}
+
+.scrl_bord_top {
+    border-top: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.scrl_bord_bottom{
+    margin-bottom: 10px;
+    border-bottom: 1px solid black;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+}
+
+.inner_service_conteiner {
+    flex: 1;
+    border: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+}
+
+
+.inner_service_conteiner .service {
+    min-height: 60px;
+    border-bottom: 1px solid black;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.service_title {
+    text-align: left;
+    font-weight: bold;
+    
+}
+
+.service_details {
+    display: flex;
+    align-items: center;
+    width: 100%; 
+    margin-bottom: 10px;
+}
+
+.name_service,
+.price_service,
+.btn_signup {
+    flex: 1; 
+    border: 1px solid black;
+    padding: 10px;
+    text-align: center;
+}
+
+.price_service {
+    color: green;
+}
+
+.btn_signup {
+    margin-right: 5px;
+}
+
+.name_service p,
+.price_service p {
+    margin: 0;
+}
+
+.btn_signup a {
+    margin: 0;
+    text-decoration: none;
+    color: black;
+    transition: color 0.2s ease; 
+}
+
+.btn_signup a:hover {
+    color: #ffcc00; 
+}
+
+/*org_service*/
+/*org_about*/
+
+/*footer*/
+
+footer {
+    position: relative;
+    width: 100%;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: #1e35cd; /* Цвет футера */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-direction: column;
+    box-shadow: 0px -3px 4px rgba(0, 0, 0, 0.2);
+}
+
+footer .wave {
+    display: none; /* Не показывать изображение волны */
+}
+
+.social,
+.menu {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+
+.social li,
+.menu li {
+    list-style: none;
+}
+
+.social li a,
+.menu li a {
+    font-size: 2em;
+    color: #fff;
+    margin: 0 10px;
+    display: inline-block;
+    transition: 0.5s;
+    text-transform: uppercase;
+}
+
+.menu li a {
+    font-size: 1.2em;
+    opacity: 0.75;
+    margin: 0 15px;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.menu li a:hover {
+    transition: color 0.2s ease; 
+    color: #ffcc00; 
+}
+
+footer p {
+    color: #fff;
+    text-align: center;
+    margin-top: 15px;
+    font-size: 1.1em;
+}
+
+.social li a ion-icon {
+    font-size: 1em;
+    color: #fff;
+    margin: 0 10px;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+.social li a ion-icon:hover {
+    transform: scale(1.2);
+}
+
+/*footer*/
