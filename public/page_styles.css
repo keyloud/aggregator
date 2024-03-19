@@ -1,0 +1,86 @@
+
+body{
+  background-color: #112533;
+  margin: 0px;
+}
+section{
+  margin-top: 20px;
+}
+.wrapper{
+    background-color: #003F63;
+}
+.container {
+  max-width: 1328px;
+  margin: auto;
+  padding: 0 0 30px 0;
+
+}
+.benefits{
+  display: flex;
+  flex-direction: row;
+  max-width: 954px;
+  padding: 32px 0 18px 0;
+  margin-left: auto;
+  margin-right: auto;
+  gap: 80px;
+}
+.benefits_item{
+  justify-content: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  color: white;
+  text-align: center;
+  max-width: 160px;
+  
+  font-size: 20px;
+  font-family: Ubuntu;
+  font-weight: 400;
+
+}
+.benefits_text{
+  margin: 0px;
+}
+.search{
+  width: 1144px;
+  height: 50px;
+  border-radius: 0px !important;
+  border: 0px !important;
+  font-size: 20px;
+  color: #ACAFB0;
+  padding-left: 44px;
+}
+.input_button{
+  width: 126px;
+  height: 50px;
+  background-color: #112533;
+  color: white;
+  border: 0px !important;
+  font-size: 20px;
+  border-radius: 100px;
+  margin-left: 24px;
+}
+.card{
+  background-color: white;
+  padding: 46px;
+  display: flex;
+  gap: 98px;
+  max-width: 1308px;
+  font-family: Ubuntu;
+  margin-bottom: 30px;
+}
+.card_h3{
+  margin: 0 0 42px 0;
+  font-weight: 500;
+  color: black;
+  font-size: 35px;
+  
+
+}
+.card_p{
+  font-weight: 400;
+  color: black;
+  font-size: 20px;
+
+}
