@@ -1,0 +1,229 @@
+body {
+    margin: 0;
+    background: #003F63;
+}
+
+p {
+    font-family: "Rubik", sans-serif;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: "Ubuntu", sans-serif;
+    color: white;
+}
+
+
+.org_create {
+    max-width: 1440px;
+    height: 900px;
+    margin: 0 auto;
+    padding: 20px;
+    
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/*info*/
+.info {
+    width: 100%;
+    height: 210px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    
+}
+
+.description, .bio  {
+    margin-left: 15px;
+}
+
+.about {
+    width: 360px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.urlpht, .inn, .kpp, .orgn {
+    width: 100%;
+    height: 25%;
+}
+
+.description {
+    width: 460px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.fullname, .shortname, .dscrpt {
+    width: 100%;
+}
+.fullname {
+    height: 25%;
+}
+.shortname {
+    height: 25%;
+}
+.dscrpt {
+    height: 50%;
+}
+
+.bio {
+    width: 360px;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+}
+.fio, .email, .phone, .adres {
+    width: 100%;
+    height: 25%;
+}
+.urlpht, .inn,.kpp,
+.orgn, .fullname, .shortname,
+.dscrpt, .fio, .email, .phone, .adres {
+    margin-top: 5px;
+    
+}
+
+.urlpht input[type="text"],
+.inn input[type="text"],
+.kpp input[type="text"],
+.orgn input[type="text"],
+.fullname input[type="text"],
+.shortname input[type="text"],
+.fio input[type="text"],
+.email input[type="text"],
+.phone input[type="text"],
+.adres input[type="text"],
+.btnSAVE input[type="text"],
+.srvc input[type="text"],
+.price input[type="text"] {
+    width: 100%;
+    height: 100%;
+    padding: 5px; /* добавляем отступ вокруг текста внутри input */
+    border: 1px solid #ccc; /* стиль границы */
+    border-radius: 5px; /* закругленные углы */
+    box-sizing: border-box; /* учитываем padding и border внутри ширины и высоты */
+    font-size: 14px; /* размер шрифта */
+    
+}
+
+/* Дополнительные стили для акцентирования фокуса на input */
+input[type="text"]:focus {
+    outline: none; /* убираем стандартный фокус */
+    border-color: #007bff; /* изменяем цвет границы при фокусе */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* добавляем тень */
+}
+
+.dscrpt textarea {
+    width: 100%; /* Занимает всю доступную ширину внутри блока */
+    height: 100%; /* Занимает всю доступную высоту внутри блока */
+    padding: 5px; /* Добавляем отступ вокруг текста внутри textarea */
+    border: 1px solid #ccc; /* Стиль границы */
+    border-radius: 5px; /* Закругленные углы */
+    box-sizing: border-box; /* Учитываем padding и border внутри ширины и высоты */
+    font-size: 14px; /* Размер шрифта */
+    resize: none;
+}
+
+/* Дополнительные стили для акцентирования фокуса на textarea */
+textarea:focus {
+    outline: none; /* Убираем стандартный фокус */
+    border-color: #007bff; /* Изменяем цвет границы при фокусе */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Добавляем тень */
+}
+
+
+.btn {
+    width: 260px;
+    height: 100%;
+
+    
+}
+.btnSAVE{
+    width: 260px;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.btnSAVE button {
+    width: 230px;
+    height: 50px;
+    border: none; /* Убираем границу у кнопки */
+    border-radius: 50px; /* Задаем радиус для создания овальной формы */
+    background-color: #112533; /* Цвет фона кнопки */
+    color: #fff; /* Цвет текста кнопки */
+    font-size: 16px; /* Размер шрифта */
+    cursor: pointer; /* Изменяем вид курсора при наведении на кнопку */
+    transition: background-color 0.3s ease; /* Добавляем плавный переход для изменения цвета фона */
+}
+
+.btnSAVE button:hover {
+    background-color: #289FCA; /* Изменяем цвет фона при наведении на кнопку */
+}
+/*info*/
+
+/*services*/
+.services {
+    width: 100%;
+    height: 690px;
+}
+.main {
+    width: 100%;
+    max-height: 100%;
+    display: flex;
+    flex-direction: row;
+    overflow-y: auto; /* Включаем вертикальный скролл при необходимости */
+}
+.myservices {
+    width: 1180px;
+    height: 590px;
+    display: flex;
+    flex-direction: column;
+}
+
+.srvc {
+    margin-bottom: 5px;
+    min-height: 50px;
+}
+
+.prices {
+    width: 260px;
+    height: 590px;
+    display: flex;
+    flex-direction: column;
+} 
+.price {
+    margin-left: 10px;
+    margin-bottom: 5px;
+    min-height: 50px;
+}
+
+
+.addsrvc {
+    margin-top: 15px;
+}
+.addsrvc button {
+    width: 360px;
+    height: 50px;
+    margin-bottom: 5px;
+    border: none; /* Убираем границу у кнопки */
+    border-radius: 50px; /* Задаем радиус для создания овальной формы */
+    background-color: #112533; /* Цвет фона кнопки */
+    color: white; /* Цвет текста кнопки */
+    font-size: 16px; /* Размер шрифта */
+    cursor: pointer; /* Изменяем вид курсора при наведении на кнопку */
+    transition: background-color 0.3s ease; /* Добавляем плавный переход для изменения цвета фона */
+}
+
+.addsrvc button:hover {
+    background-color: #289FCA; /* Изменяем цвет фона при наведении на кнопку */
+}
+/*services*/
