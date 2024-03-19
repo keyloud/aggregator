@@ -40,7 +40,7 @@ app.use(session({
 // Подключаем middleware для парсинга тела запроса
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/organization/:inn/:success", function (req, res) {
+app.get("/org_profile/:inn/:success", function (req, res) {
   const inn = req.params.inn;
   const success = req.params.success;
 
@@ -56,7 +56,7 @@ app.get("/organization/:inn/:success", function (req, res) {
     }
     //Если юзер авторизирован, то покажет страницу, если нет ,то err
     if (req.session.user) {
-      res.render("organization", { organization: data, success: success });
+      res.render("org_profile", { organization: data, success: success });
     } else {
       res.status(401).send('Необходима аутентификация');
     }
@@ -64,15 +64,15 @@ app.get("/organization/:inn/:success", function (req, res) {
 });
 
 // возвращаем форму для регистрации
-app.get("/create_protected", function (req, res) {
+app.get("/org_create", function (req, res) {
   if (req.session.user) {
-    res.render("create_protected");
+    res.render("org_create");
   } else {
     res.status(401).send('Необходима аутентификация');
   }
 });
 
-app.post("/create_protected", (req, res) => {
+app.post("/org_create", (req, res) => {
   let sampleFile;
   let uploadPath;
 
@@ -104,7 +104,7 @@ app.post("/create_protected", (req, res) => {
           res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
         } else {
           // Отправка данных на страницу. Добавить переход по INN!!!
-          res.redirect(`/organization/${INN}/success`);
+          res.redirect(`/org_profile/${INN}/success`);
         }
       });
     });
@@ -138,15 +138,11 @@ app.post('/register', (req, res) => {
       return res.status(500).send('Ошибка при регистрации пользователя');
     }
     // Сохранение хеша пароля в базе данных
-    pool.query(
-      'INSERT INTO registrations (username, password) VALUES (?, ?)',
-      [username, hash],
-      (err, result) => {
+    pool.query('INSERT INTO registrations (username, password) VALUES (?, ?)',[username, hash], (err, result) => {
         if (err) {
           console.error('Ошибка при добавлении пользователя в базу данных:', err);
           return res.status(500).send('Ошибка при регистрации пользователя');
         }
-
         res.redirect("/");
       }
     );
@@ -164,10 +160,7 @@ app.post('/login', (req, res) => {
   const username = req.body.username;
   const password = req.body.password;
 
-  pool.query(
-    'SELECT * FROM registrations WHERE username = ?',
-    [username],
-    (err, result) => {
+  pool.query('SELECT * FROM registrations WHERE username = ?',[username], (err, result) => {
       if (err) {
         res.status(500).send('Ошибка при входе');
       } else if (result.length > 0) {
