@@ -180,7 +180,6 @@ textarea:focus {
     max-height: 100%;
     display: flex;
     flex-direction: row;
-    overflow-y: auto; /* Включаем вертикальный скролл при необходимости */
 }
 .myservices {
     width: 1180px;

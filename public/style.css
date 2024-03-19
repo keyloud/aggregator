@@ -1,4 +1,4 @@
-/*style1.css*/
+/* style1.css*/
 * {
   box-sizing: border-box;
 }
@@ -81,7 +81,6 @@ html, body {
 main {
   padding-top: 200px;
   font-family: arial;
-  background: #eee;
   min-height: 100%;
 }
 
@@ -1431,4 +1430,4 @@ border-spacing: 0;
   color: #ffcc00; 
 }
 
-/*org_about*/
+/*org_about */
