@@ -1,0 +1,241 @@
+body {
+    margin: 0;
+    background: #003F63;
+}
+
+h1,h2,h3,h4,h5,h6 {
+    font-family: "Ubuntu", sans-serif;
+    color: white;
+    margin: 0;
+    font-style: normal;
+}
+.reg_txt, .reg_checkbox, .reg_profile_a {
+    font-family: "Rubik", sans-serif;
+    font-weight: 600;
+    margin: 0;
+    color: #fff;
+
+}
+.org_registration {
+    width: 540px;
+    min-height: 1210px;
+    margin: 0 auto;
+    margin-top: 80px;
+    display: flex;
+    flex-direction: column;
+}
+
+.main_title {
+    width: 100%;
+    height: 70px;
+    margin-bottom: 80px;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.reg_title {
+    width: 100%;
+    height: 50px;
+    margin-top: 10px;
+    margin-bottom: 10px;
+
+    display: flex;
+    align-items: center;
+}
+
+
+.reg_info {
+    width: 100%;
+    height: 240px;
+
+    display: flex;
+    flex-direction: row;
+    
+}
+.leftside {
+    width: 25%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+.reg_full, .reg_short,
+.reg_inn, .reg_kpp,
+.reg_ogrn {
+    width: 100%;
+    height: 20%;
+    display: flex;
+    align-items: center;
+}
+
+.reg_name,
+.reg_secondname, .reg_thirdname,
+.reg_email, .reg_numb, .reg_descrp {
+    width: 100%;
+    height: 15%;
+    display: flex;
+    align-items: center;
+}
+
+.reg_full input[type="text"],
+.reg_short input[type="text"],
+.reg_inn input[type="text"],
+.reg_kpp input[type="text"],
+.reg_ogrn input[type="text"],
+.reg_name input[type="text"],
+.reg_secondname input[type="text"],
+.reg_thirdname input[type="text"],
+.reg_email input[type="text"],
+.reg_numb input[type="text"],
+.reg_descrp input[type="text"] {
+    width: 100%;
+    height: 80%;
+    padding: 5px; /* добавляем отступ вокруг текста внутри input */
+    border: 1px solid #ccc; /* стиль границы */
+    border-radius: 10px; /* закругленные углы */
+    box-sizing: border-box; /* учитываем padding и border внутри ширины и высоты */
+    font-size: 14px; /* размер шрифта */
+    
+}
+
+.reg_password {
+    width: 100%;
+    height: 90px;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.reg_passwrd, .reg_passwrd_again{
+    width: 100%;
+    height: 50%;
+}
+
+.reg_passwrd input[type="text"],
+.reg_passwrd_again input[type="text"]{
+    width: 100%;
+    height: 80%;
+    padding: 5px; /* добавляем отступ вокруг текста внутри input */
+    border: 1px solid #ccc; /* стиль границы */
+    border-radius: 10px; /* закругленные углы */
+    box-sizing: border-box; /* учитываем padding и border внутри ширины и высоты */
+    font-size: 14px; /* размер шрифта */
+}
+
+.rightside {
+    width: 75%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+}
+
+
+.reg_about {
+    width: 100%;
+    height: 330px;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.reg_buttons {
+    width: 100%;
+    height: 215px;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.reg_checkbox {
+    width: 100%;
+    height: 44px;
+    margin-bottom: 25px;
+
+    display: flex;
+    justify-content: center;
+}
+
+.reg_create_acc_btn {
+    width: 100%;
+    height: 35px;
+    margin-bottom: 25px;
+    display: flex;
+    justify-content: center;
+}
+.reg_href_profile {
+    width: 100%;
+    height: 22px;
+    margin-bottom: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.reg_autoriz_acc_btn {
+    width: 100%;
+    height: 35px;
+
+}
+.reg_label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-left: 7px;
+}
+.reg_ahref {
+    text-decoration: none;
+}
+a:visited {
+    color: #289FCA;
+}
+
+.reg_create_acc_btn button {
+    width: 100%;
+    height: 35px;
+    margin-bottom: 5px;
+    border: none; /* Убираем границу у кнопки */
+    border-radius: 50px; /* Задаем радиус для создания овальной формы */
+    background-color: #112533; /* Цвет фона кнопки */
+    color: white; /* Цвет текста кнопки */
+    font-size: 16px; /* Размер шрифта */
+    cursor: pointer; /* Изменяем вид курсора при наведении на кнопку */
+    transition: background-color 0.3s ease; /* Добавляем плавный переход для изменения цвета фона */
+}
+
+.reg_create_acc_btn button:hover {
+    background-color: #289FCA; /* Изменяем цвет фона при наведении на кнопку */
+}
+
+.reg_autoriz_acc_btn button{
+    width: 100%;
+    height: 35px;
+    margin-bottom: 5px;
+    border: none; /* Убираем границу у кнопки */
+    border-radius: 50px; /* Задаем радиус для создания овальной формы */
+    background-color: #289FCA; /* Цвет фона кнопки */
+    color: white; /* Цвет текста кнопки */
+    font-size: 16px; /* Размер шрифта */
+    cursor: pointer; /* Изменяем вид курсора при наведении на кнопку */
+    transition: background-color 0.3s ease; /* Добавляем плавный переход для изменения цвета фона */
+}
+
+.reg_autoriz_acc_btn button:hover {
+    background-color: #112533; /* Изменяем цвет фона при наведении на кнопку */
+}
+
+.reg_create_acc_btn  p {
+    margin: 0;
+}
+
+.reg_autoriz_acc_btn p {
+    margin: 0;
+}
+
+.reg_profile_a {
+    text-decoration: none;
+    color: #fff;
+}
