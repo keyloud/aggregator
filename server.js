@@ -115,13 +115,16 @@ app.get("/about", (req, res) => {
   res.render('about');
 })
 
+
+//------------------здесь был register
+
 // возвращаем форму для регистрации
-app.get("/register", function (req, res) {
-  res.render("register.hbs");
+app.get("/usr_registration", function (req, res) {
+  res.render("usr_registration.hbs");
 });
 
 // Регистрация пользователя
-app.post('/register', (req, res) => {
+app.post('/usr_registration', (req, res) => {
 
   const username = req.body.username;
   const password = req.body.password;
@@ -149,13 +152,15 @@ app.post('/register', (req, res) => {
   });
 });
 
+// ----------------здесь был login
+
 // возвращаем форму для входа
-app.get("/login", function (req, res) {
-  res.render("login.hbs");
+app.get("/usr_authorization", function (req, res) {
+  res.render("usr_authorization.hbs");
 });
 
 // Вход пользователя
-app.post('/login', (req, res) => {
+app.post('/usr_authorization', (req, res) => {
 
   const username = req.body.username;
   const password = req.body.password;
