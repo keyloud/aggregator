@@ -63,6 +63,14 @@ app.get("/org_profile/:inn/:success", function (req, res) {
   });
 });
 
+app.get("/registration", function (req, res) {
+    res.render("registration");
+});
+
+app.get("/org_authorization", function (req, res) {
+  res.render("org_authorization");
+});
+
 // возвращаем форму для регистрации
 app.get("/org_create", function (req, res) {
   if (req.session.user) {
@@ -156,6 +164,33 @@ app.get("/login", function (req, res) {
 
 // Вход пользователя
 app.post('/login', (req, res) => {
+
+  const username = req.body.username;
+  const password = req.body.password;
+
+  pool.query('SELECT * FROM registrations WHERE username = ?',[username], (err, result) => {
+      if (err) {
+        res.status(500).send('Ошибка при входе');
+      } else if (result.length > 0) {
+        bcrypt.compare(password, result[0].password, (err, match) => {
+          if (err) {
+            res.status(500).send('Ошибка при входе');
+          } else if (match) {
+            req.session.user = username;
+            res.status(200).send('Вход выполнен успешно');
+          } else {
+            res.status(401).send('Неверные имя пользователя или пароль');
+          }
+        });
+      } else {
+        res.status(401).send('Неверные имя пользователя или пароль');
+      }
+    }
+  );
+});
+
+// Вход пользователя
+app.post('/org_authorization', (req, res) => {
 
   const username = req.body.username;
   const password = req.body.password;
