@@ -20,7 +20,7 @@ h1,h2,h3,h4,h5,h6 {
     width: 540px;
     min-height: 1210px;
     margin: 0 auto;
-
+    margin-top: 80px;
     display: flex;
     flex-direction: column;
 }
@@ -184,6 +184,7 @@ h1,h2,h3,h4,h5,h6 {
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-left: 7px;
 }
 .reg_ahref {
     text-decoration: none;
