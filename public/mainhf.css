@@ -17,6 +17,11 @@ p {
     color: #fff;
 }
 
+main {
+    margin-top: 220px;
+    min-height: 100%;
+}
+
 /*header-start*/
 
 header {
