@@ -201,7 +201,7 @@ app.post('/usr_authorization', (req, res) => {
 
 // Вход пользователя
 app.post('/org_authorization', (req, res) => {
-
+  const INN = req.body.inn;
   const email = req.body.email;
   const password = req.body.password;
 
@@ -214,7 +214,7 @@ app.post('/org_authorization', (req, res) => {
             res.status(500).send('Ошибка при входе');
           } else if (match) {
             req.session.user = email;
-            res.status(200).send('Вход выполнен успешно');
+            res.redirect(`/org_profile/${INN}/success`);
           } else {
             res.status(404).send('Неверные имя пользователя или пароль');
           }
