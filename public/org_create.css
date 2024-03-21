@@ -1,18 +1,3 @@
-body {
-    margin: 0;
-    background: #003F63;
-}
-
-p {
-    font-family: "Rubik", sans-serif;
-}
-
-h1,h2,h3,h4,h5,h6 {
-    font-family: "Ubuntu", sans-serif;
-    color: white;
-}
-
-
 .org_create {
     max-width: 1440px;
     height: 900px;
