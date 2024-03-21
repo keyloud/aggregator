@@ -1,31 +1,33 @@
-<form method="POST">
+<div>
     <div class="org_autorization">
         <div class="autorization_title">
             <h1>Авторизация</h1>
         </div>
-        <div class="aut_inn">
-            <input name="email" class="field" type="text" placeholder="Введите ваш email">
-        </div>
-        <div class="aut_password">
-            <input name="password" class="field" type="password" placeholder="Введите ваш пароль">
-        </div>
+        <form method="POST" class="org_autorization">
+            <div class="aut_inn">
+                <input name="email" class="field" type="text" placeholder="Введите ваш email">
+            </div>
+            <div class="aut_password">
+                <input name="password" class="field" type="password" placeholder="Введите ваш пароль">
+            </div>
 
-        <div class="aut_checkbox">
-            <input type="checkbox" id="aut_rememberme" name="aut_rememberme" value="aut_rememberme" />
-            <label class="aut_label" for="aut_rememberme">
-                <p>Запомнить меня</p>
-            </label>
-        </div>
-        <div class="aut_btn_login">
-            <button>
-                <p>Войти</p>
-                {{!-- <input type="submit" value="Войти" /> --}}
-            </button>
-        </div>
+            <div class="aut_checkbox">
+                <input type="checkbox" id="aut_rememberme" name="aut_rememberme" value="aut_rememberme" />
+                <label class="aut_label" for="aut_rememberme">
+                    <p>Запомнить меня</p>
+                </label>
+            </div>
+            <div class="aut_btn_login">
+                <button type="submit">
+                    <p>Войти</p>
+                </button>
+            </div>
+        </form>
+
         <div class="aut_btn_createacc">
             <button>
                 <p>Создать аккаунт</p>
             </button>
         </div>
     </div>
-</form>
+</div>
