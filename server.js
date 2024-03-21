@@ -131,6 +131,11 @@ app.get("/usr_registration", function (req, res) {
   res.render("usr_registration.hbs");
 });
 
+// возвращаем форму для регистрации
+app.get("/org_registration", function (req, res) {
+  res.render("org_registration.hbs");
+});
+
 // Регистрация пользователя
 app.post('/usr_registration', (req, res) => {
 
