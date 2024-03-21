@@ -1,95 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIONEER</title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic|Material+Icons" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css">
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
-        rel="stylesheet">
-
-    <link rel="stylesheet" href="/style.css"> <!-- Gem style -->
-    <link rel="stylesheet" href="/org_create.css">
-    <link rel="stylesheet" href="/org_card.css">
-    <link rel="stylesheet" href="/org_profile.css">
-    <link rel="stylesheet" href="/page_styles.css">
-
-    <script src="/client/modernizr.js"></script> <!-- Modernizr -->
-    <script src="/client/pageindex.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <script src="/modernizr.js"></script> <!-- Modernizr -->
+    <script src="/pageindex.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+     
+    <link rel="stylesheet" href="/org_card.css">
+    <link rel="stylesheet" href="/org_create.css">
+    <link rel="stylesheet" href="/org_profile.css">
+    <link rel="stylesheet" href="/org_registration.css">
+    <link rel="stylesheet" href="/org_authorization.css">
+    <link rel="stylesheet" href="/page_styles.css">
+    <link rel="stylesheet" href="/mainhf.css">
+    <title>PIONEER</title>
 </head>
-
 <body>
     <main>
-        <header id="app-header" class="app-header">
-            <div class="background-container">
-                <div id="background-back" class="background"></div>
-                <div id="background-front" class="background"></div>
-            </div>
-
-            <div class="header-content">
-                <div id="small-toolbar" class="app-toolbar">
-                    <div id="small-title" class="small-title">PIONEER</div>
-                </div>
-                <div id="large-toolbar" class="app-toolbar tall">
-                    <div id="large-title" class="large-title">PIONEER</div>
-                </div>
-            </div>
-
-            <div id="header">
-                <div id="navigation">
-                    <div align="left">
-                        <nav class="main-nav">
-                            <ul id="menu" style="margin-left: 8px;">
-                                <li><a href="/">Главная</a></li>
-                                <li><a href="/org_profile">Профиль</a></li> {{!-- для зарегистрированных --}}
-                                <li><a href="/registration">Регистрация(общая)</a></li>
-                                <li><a href="/register">Регистрация(старая)</a></li>
-                                <li><a href="/login">Войти</a></li>
-                                <li><a href="/logout">Выход</a></li>
-                            </ul>
-                        </nav>
-                    </div>
-                </div>
+        <header>
+            <div id="header_title"class="header_title"><h1>PIONEER</h1></div>
+            <div id="header_navbar"class="header_navbar">
+                <li class="hf_list"><a class="hf_ahref" href="/"><p>Главная</p></a></li>
+                <li class="hf_list"><a class="hf_ahref" href="/org_profile"><p>Профиль {{!-- для зарегистрированных --}}</p></a></li> 
+                <li class="hf_list"><a class="hf_ahref" href="/registration"><p>Регистрация(общая)</p></a></li>
+                <li class="hf_list"><a class="hf_ahref" href="/register"><p>Регистрация(старая)</p></a></li>
+                <li class="hf_list"><a class="hf_ahref" href="/login"><p>Войти</p></a></li>
+                <li class="hf_list"><a class="hf_ahref" href="/logout"><p>Выход {{!-- для зарегистрированных --}}</p></a></li>
             </div>
         </header>
+
         {{{body}}}
+
         <footer>
-            <ul class="social">
-                <li><a href="https://vk.com/mkkolibri" target="_blank"><ion-icon name="logo-vk"></ion-icon></a></li>
-                <li><a href="#"><ion-icon name="logo-whatsapp"></ion-icon></a></li>
-                <li><a href="#"><ion-icon name="call"></ion-icon></a></li>
-                <li><a href="https://yandex.ru/maps/?text=Заводская улица, 11В" target="_blank"><ion-icon
-                            name="location"></ion-icon></a></li>
-            </ul>
-            <ul class="menu">
-                <li><a href="#">Каталог</a></li>
-                <li><a href="#">О нас</a></li>
-                <li><a href="#">Вызвать на замер</a></li>
-                <li><a href="#">Отзывы</a></li>
-            </ul>
+            <div id="footer_navbar" class="footer_navbar">
+                <div id="footer_social" class="footer_social">
+                    <li class="hf_list"><a class="hf_ahref_icon" href="https://vk.com/mkkolibri" target="_blank"><ion-icon name="logo-vk"></ion-icon></a></li>
+                    <li class="hf_list"><a class="hf_ahref_icon" href="#"><ion-icon name="logo-whatsapp"></ion-icon></a></li>
+                    <li class="hf_list"><a class="hf_ahref_icon" href="#"><ion-icon name="call"></ion-icon></a></li>
+                    <li class="hf_list"><a class="hf_ahref_icon" href="https://yandex.ru/maps/?text=Заводская улица, 11В" target="_blank"><ion-icon name="location"></ion-icon></a></li>
+                </div>
+                <div id="footer_menu" class="footer_menu">
+                    <li class="hf_list"><a class="hf_ahref" href="#"><p>Каталог</p></a></li>
+                    <li class="hf_list"><a class="hf_ahref" href="#"><p>О нас</p></a></li>
+                    <li class="hf_list"><a class="hf_ahref" href="#"><p>Вызвать на замер</p></a></li>
+                    <li class="hf_list"><a class="hf_ahref" href="#"><p>Отзывы</p></a></li>
+                </div>
+            </div>
         </footer>
-
-
-
-        <script src='https://cdnjs.cloudflare.com/ajax/libs/gsap/1.19.1/TweenMax.min.js'></script>
-        <script src="/client/index.js"></script>
-        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
-        <script src="/client/main.js"></script> <!-- Gem jQuery -->
-
     </main>
 </body>
-
 </html>
