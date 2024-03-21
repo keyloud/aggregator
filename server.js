@@ -131,7 +131,7 @@ app.get("/register", function (req, res) {
 // Регистрация пользователя
 app.post('/register', (req, res) => {
 
-  const username = req.body.username;
+  const email = req.body.email;
   const password = req.body.password;
 
   // Проверка наличия пароля
@@ -146,7 +146,7 @@ app.post('/register', (req, res) => {
       return res.status(500).send('Ошибка при регистрации пользователя');
     }
     // Сохранение хеша пароля в базе данных
-    pool.query('INSERT INTO registrations (username, password) VALUES (?, ?)',[username, hash], (err, result) => {
+    pool.query('INSERT INTO registrations (email, password) VALUES (?, ?)',[email, hash], (err, result) => {
         if (err) {
           console.error('Ошибка при добавлении пользователя в базу данных:', err);
           return res.status(500).send('Ошибка при регистрации пользователя');
@@ -165,10 +165,10 @@ app.get("/login", function (req, res) {
 // Вход пользователя
 app.post('/login', (req, res) => {
 
-  const username = req.body.username;
+  const email = req.body.email;
   const password = req.body.password;
 
-  pool.query('SELECT * FROM registrations WHERE username = ?',[username], (err, result) => {
+  pool.query('SELECT * FROM registrations WHERE email = ?',[email], (err, result) => {
       if (err) {
         res.status(500).send('Ошибка при входе');
       } else if (result.length > 0) {
@@ -176,7 +176,7 @@ app.post('/login', (req, res) => {
           if (err) {
             res.status(500).send('Ошибка при входе');
           } else if (match) {
-            req.session.user = username;
+            req.session.user = email;
             res.status(200).send('Вход выполнен успешно');
           } else {
             res.status(401).send('Неверные имя пользователя или пароль');
@@ -192,10 +192,10 @@ app.post('/login', (req, res) => {
 // Вход пользователя
 app.post('/org_authorization', (req, res) => {
 
-  const username = req.body.username;
+  const email = req.body.email;
   const password = req.body.password;
 
-  pool.query('SELECT * FROM registrations WHERE username = ?',[username], (err, result) => {
+  pool.query('SELECT * FROM registrations WHERE email = ?',[email], (err, result) => {
       if (err) {
         res.status(500).send('Ошибка при входе');
       } else if (result.length > 0) {
@@ -203,14 +203,14 @@ app.post('/org_authorization', (req, res) => {
           if (err) {
             res.status(500).send('Ошибка при входе');
           } else if (match) {
-            req.session.user = username;
+            req.session.user = email;
             res.status(200).send('Вход выполнен успешно');
           } else {
-            res.status(401).send('Неверные имя пользователя или пароль');
+            res.status(404).send('Неверные имя пользователя или пароль');
           }
         });
       } else {
-        res.status(401).send('Неверные имя пользователя или пароль');
+        res.status(404).send('Неверные имя пользователя или пароль');
       }
     }
   );
@@ -229,39 +229,41 @@ app.get('/logout', (req, res) => {
 });
 
 
-// получем id редактируемого пользователя, получаем его из бд и отправлям с формой редактирования
-app.get("/edit/:id", function (req, res) {
-  const id = req.params.id;
-  pool.query("SELECT * FROM users WHERE id=?", [id], function (err, data) {
-    if (err) return console.log(err);
-    res.render("edit.hbs", {
-      user: data[0]
-    });
-  });
-});
-// получаем отредактированные данные и отправляем их в БД
-app.post("/edit", urlencodedParser, function (req, res) {
+// // получем id редактируемого пользователя, получаем его из бд и отправлям с формой редактирования
+// app.get("/edit/:id", function (req, res) {
+//   const id = req.params.id;
+//   pool.query("SELECT * FROM users WHERE id=?", [id], function (err, data) {
+//     if (err) return console.log(err);
+//     res.render("edit.hbs", {
+//       user: data[0]
+//     });
+//   });
+// });
 
-  if (!req.body) return res.sendStatus(400);
-  const name = req.body.name;
-  const age = req.body.age;
-  const id = req.body.id;
 
-  pool.query("UPDATE users SET name=?, age=? WHERE id=?", [name, age, id], function (err, data) {
-    if (err) return console.log(err);
-    res.redirect("/");
-  });
-});
+// // получаем отредактированные данные и отправляем их в БД
+// app.post("/edit", urlencodedParser, function (req, res) {
 
-// получаем id удаляемого пользователя и удаляем его из бд
-app.post("/delete/:id", function (req, res) {
+//   if (!req.body) return res.sendStatus(400);
+//   const name = req.body.name;
+//   const age = req.body.age;
+//   const id = req.body.id;
 
-  const id = req.params.id;
-  pool.query("DELETE FROM users WHERE id=?", [id], function (err, data) {
-    if (err) return console.log(err);
-    res.redirect("/");
-  });
-});
+//   pool.query("UPDATE users SET name=?, age=? WHERE id=?", [name, age, id], function (err, data) {
+//     if (err) return console.log(err);
+//     res.redirect("/");
+//   });
+// });
+
+// // получаем id удаляемого пользователя и удаляем его из бд
+// app.post("/delete/:id", function (req, res) {
+
+//   const id = req.params.id;
+//   pool.query("DELETE FROM users WHERE id=?", [id], function (err, data) {
+//     if (err) return console.log(err);
+//     res.redirect("/");
+//   });
+// });
 
 // отображение главной страницы
 app.get("/", function (req, res) {
