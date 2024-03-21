@@ -26,13 +26,14 @@ main {
 
 header {
     width: 100%;
-    height: 215px;
+    height: 115px;
     background: #112533;
 
     display: flex;
     flex-direction: column;
     position: fixed;
     top: 0;
+    padding-bottom: 15px;
 }
 .header_title {
     width: 1440px;
@@ -73,12 +74,12 @@ header {
 /*footer-start*/
 footer {
     width: 100%;
-    height: 150px;
+    height: 85px;
    
     background: #112533;
     display: flex;
     flex-direction: column;
-    position: absolute;
+    position: relative;
     bottom: 0;
    
 }
@@ -94,18 +95,22 @@ footer {
 
 .footer_social, .footer_menu {
     width: 100%;
-    height: 100%;
+    height: 45%;
     
     display: flex;
-    align-items: center;
+    align-items: flex-end;
     justify-content: center;
 
 }
 
+.footer_menu{
+    
+}
+
 .hf_ahref_icon {
-    font-size: 2em;/*размер иконок*/
+    font-size: 1.3em;/*размер иконок*/
     color: #fff;/*цвет иконок*/
-    margin: 0 10px;
+    margin-top: 15px;
     display: inline-block;/*отображать как строчно-блочный элемент*/
     transition: 0.5s;/*плавный переход*/
 }
@@ -131,6 +136,88 @@ footer {
 .header_navbar .hf_ahref:hover p {
     color: #289FCA; 
 }
+
+section{
+    margin-top: 20px;
+  }
+  .wrapper{
+      background-color: #003F63;
+  }
+  .container {
+    max-width: 1328px;
+    margin: auto;
+    padding: 0 0 30px 0;
+  
+  }
+  .benefits{
+    display: flex;
+    flex-direction: row;
+    max-width: 954px;
+    padding: 32px 0 18px 0;
+    margin-left: auto;
+    margin-right: auto;
+    gap: 80px;
+  }
+  .benefits_item{
+    justify-content: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 16px;
+    color: white;
+    text-align: center;
+    max-width: 160px;
+    
+    font-size: 20px;
+    font-family: Ubuntu;
+    font-weight: 400;
+  
+  }
+  .benefits_text{
+    margin: 0px;
+  }
+  .search{
+    width: 1144px;
+    height: 50px;
+    border-radius: 0px !important;
+    border: 0px !important;
+    font-size: 20px;
+    color: #ACAFB0;
+    padding-left: 44px;
+  }
+  .input_button{
+    width: 126px;
+    height: 50px;
+    background-color: #112533;
+    color: white;
+    border: 0px !important;
+    font-size: 20px;
+    border-radius: 100px;
+    margin-left: 24px;
+  }
+  .card{
+    background-color: white;
+    padding: 46px;
+    display: flex;
+    gap: 98px;
+    max-width: 1308px;
+    font-family: Ubuntu;
+    margin-bottom: 30px;
+  }
+  .card_h3{
+    margin: 0 0 42px 0;
+    font-weight: 500;
+    color: black;
+    font-size: 35px;
+    
+  
+  }
+  .card_p{
+    font-weight: 400;
+    color: black;
+    font-size: 20px;
+  
+  }
 
 /*footer-end*/
 

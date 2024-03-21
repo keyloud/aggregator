@@ -1,13 +1,3 @@
-body {
-    margin: 0;
-    background: #003F63;
-}
-h1,h2,h3,h4,h5,h6 {
-    font-family: "Ubuntu", sans-serif;
-    color: white;
-    margin: 0;
-    font-style: normal;
-}
 p {
     font-family: "Rubik", sans-serif;
     font-weight: 600;
