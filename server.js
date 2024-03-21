@@ -63,12 +63,12 @@ app.get("/org_profile/:inn/:success", function (req, res) {
   });
 });
 
-app.get("/registration", function (req, res) {
-    res.render("registration");
+app.get("/selector", function (req, res) {
+    res.render("selector");
 });
 
-app.get("/org_authorization", function (req, res) {
-  res.render("org_authorization");
+app.get("/auth", function (req, res) {
+  res.render("auth");
 });
 
 // возвращаем форму для регистрации
@@ -200,7 +200,7 @@ app.post('/usr_authorization', (req, res) => {
 });
 
 // Вход пользователя
-app.post('/org_authorization', (req, res) => {
+app.post('/auth', (req, res) => {
   const INN = req.body.inn;
   const email = req.body.email;
   const password = req.body.password;
