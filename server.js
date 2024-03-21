@@ -138,9 +138,7 @@ app.get("/org_registration", function (req, res) {
 
 // Регистрация пользователя
 app.post('/usr_registration', (req, res) => {
-
-  const email = req.body.email;
-  const password = req.body.password;
+  const { email, password, name, surname, patronymic, numb } = req.body;
 
   // Проверка наличия пароля
   if (!password) {
@@ -153,15 +151,41 @@ app.post('/usr_registration', (req, res) => {
       console.error('Ошибка хеширования пароля:', err);
       return res.status(500).send('Ошибка при регистрации пользователя');
     }
-    // Сохранение хеша пароля в базе данных
-    pool.query('INSERT INTO registrations (email, password) VALUES (?, ?)',[email, hash], (err, result) => {
-        if (err) {
-          console.error('Ошибка при добавлении пользователя в базу данных:', err);
-          return res.status(500).send('Ошибка при регистрации пользователя');
-        }
-        res.redirect("/");
+
+    // Сохранение хеша пароля и остальных данных в базе данных
+    const query = 'INSERT INTO registrations (email, password, name, surname, patronymic, numb) VALUES (?, ?, ?, ?, ?, ?)';
+    pool.query(query, [email, hash, name, surname, patronymic, numb], (err, result) => {
+      if (err) {
+        console.error('Ошибка при добавлении пользователя в базу данных:', err);
+        return res.status(500).send('Ошибка при регистрации пользователя');
       }
-    );
+      res.send(`
+              <html>
+                <head>
+                  <style>
+                    body {
+                      background-color: #112533;
+                      font-family: Arial, sans-serif;
+                      padding: 30px;
+                      text-align: center;
+                    }
+                    p {
+                      color: #fff;
+                      font-size: 24px;
+                    }
+                  </style>
+                </head>
+                <body>
+                  <p>Регистрация прошла успешно. Сейчас вы будете перенаправлены на главную страницу...</p>
+                  <script>
+                    setTimeout(function(){
+                      window.location.href = '/';
+                    }, 1500);
+                  </script>
+                </body>
+              </html>
+            `);
+    });
   });
 });
 
@@ -233,7 +257,32 @@ app.get('/logout', (req, res) => {
     if (err) {
       res.status(500).send('Ошибка при выходе');
     } else {
-      res.status(200).send('Выход выполнен успешно');
+      res.send(`
+              <html>
+                <head>
+                  <style>
+                    body {
+                      background-color: #112533;
+                      font-family: Arial, sans-serif;
+                      padding: 30px;
+                      text-align: center;
+                    }
+                    p {
+                      color: #fff;
+                      font-size: 24px;
+                    }
+                  </style>
+                </head>
+                <body>
+                  <p>Выполняется выход. Сейчас вы будете перенаправлены на главную страницу...</p>
+                  <script>
+                    setTimeout(function(){
+                      window.location.href = '/';
+                    }, 1500);
+                  </script>
+                </body>
+              </html>
+            `);
     }
   });
 });
