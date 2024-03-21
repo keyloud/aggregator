@@ -22,7 +22,6 @@ p {
     width: 420px;
     height: 440px;
     margin: 0 auto;
-    margin-top: 80px;
 
     display: flex;
     flex-direction: column;
@@ -36,7 +35,7 @@ p {
 .aut_inn, .aut_email, .aut_password,
 .aut_checkbox, .aut_btn_login, .aut_btn_createacc {
     width: 100%;
-    height: 16%;
+    height: 30%;
 }
 
 .aut_checkbox {
@@ -56,7 +55,7 @@ p {
 .aut_btn_login button {
     width: 100%;
     height: 35px;
-    margin-bottom: 5px;
+
     border: none; /* Убираем границу у кнопки */
     border-radius: 50px; /* Задаем радиус для создания овальной формы */
     background-color: #112533; /* Цвет фона кнопки */
