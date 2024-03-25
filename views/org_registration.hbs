@@ -1,118 +1,150 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="/public/org_registration.css">
     <title>PIONEER - Регистрация организации</title>
 </head>
+
 <body>
     <div class="org_registration">
         <div class="main_title">
             <h1>Регистрация</h1>
         </div>
-        <div class="reg_title">
-            <h2>Наименование организации</h2>
-        </div>
-        <div class="reg_info">
-            <div class="leftside">
-                <div class="reg_full"><p class="reg_txt">Полное</p></div>
-                <div class="reg_short"><p class="reg_txt">Краткое</p></div>
-                <div class="reg_inn"><p class="reg_txt">ИНН</p></div>
-                <div class="reg_kpp"><p class="reg_txt">КПП</p></div>
-                <div class="reg_ogrn"><p class="reg_txt">ОГРН</p></div>
+        <form action="/org_registration" method="POST">
+            <div class="reg_title">
+                <h2>Наименование организации</h2>
             </div>
-            <div class="rightside">
-                <div class="reg_full">
-                    <input type="text" placeholder="Введите полное название организации">
+            <div class="reg_info">
+                <div class="leftside">
+                    <div class="reg_full">
+                        <p class="reg_txt">Полное</p>
+                    </div>
+                    <div class="reg_short">
+                        <p class="reg_txt">Краткое</p>
+                    </div>
+                    <div class="reg_inn">
+                        <p class="reg_txt">ИНН</p>
+                    </div>
+                    <div class="reg_kpp">
+                        <p class="reg_txt">КПП</p>
+                    </div>
+                    <div class="reg_ogrn">
+                        <p class="reg_txt">ОГРН</p>
+                    </div>
                 </div>
-                <div class="reg_short">
-                    <input type="text" placeholder="Введите краткое название организации">
-                </div>
-                <div class="reg_inn">
-                    <input type="text" placeholder="Введите ИНН организации">
-                </div>
-                <div class="reg_kpp">
-                    <input type="text" placeholder="Введите КПП организации">
-                </div>
-                <div class="reg_ogrn">
-                    <input type="text" placeholder="Введите ОГРН организации">
-                </div>
-            </div>
-        </div>
-        <div class="reg_title">
-            <h2>Контактное лицо</h2>
-        </div>
-        <div class="reg_about">
-            <div class="leftside">
-                <div class="reg_name"><p class="reg_txt">Имя</p></div>
-                <div class="reg_secondname"><p class="reg_txt">Фамилия</p></div>
-                <div class="reg_thirdname"><p class="reg_txt">Отчество</p></div>
-                <div class="reg_email"><p class="reg_txt">Emal</p></div>
-                <div class="reg_numb"><p class="reg_txt">Телефон</p></div>
-                <div class="reg_descrp"><p class="reg_txt">Описание</p></div>
-            </div>
-            <div class="rightside">
-                <div class="reg_name">
-                    <input type="text" placeholder="Введите ваше имя">
-                </div>
-                <div class="reg_secondname">
-                    <input type="text" placeholder="Введите вашу фамилию">
-                </div>
-                <div class="reg_thirdname">
-                    <input type="text" placeholder="Введите ваше отчество">
-                </div>
-                <div class="reg_email">
-                    <input type="text" placeholder="Введите ваш emal">
-                </div>
-                <div class="reg_numb">
-                    <input type="text" placeholder="Введите ваш номер телефона">
-                </div>
-                <div class="reg_descrp">
-                    <input type="text" placeholder="Дополнительная информация">
+                <div class="rightside">
+                    <div class="reg_full">
+                        <input type="text" name = "organization_full_name" placeholder="Введите полное название организации">
+                    </div>
+                    <div class="reg_short">
+                        <input type="text" name = "organization_short_name" placeholder="Введите краткое название организации">
+                    </div>
+                    <div class="reg_inn">
+                        <input type="text" name = "inn" placeholder="Введите ИНН организации">
+                    </div>
+                    <div class="reg_kpp">
+                        <input type="text" name = "kpp" placeholder="Введите КПП организации">
+                    </div>
+                    <div class="reg_ogrn">
+                        <input type="text" name = "ogrn" placeholder="Введите ОГРН организации">
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="reg_password">
-            <div class="leftside">
-                <div class="reg_passwrd"></div>
-                <div class="reg_passwrd"></div>
+            <div class="reg_title">
+                <h2>Контактное лицо</h2>
             </div>
-            <div class="rightside">
-                <div class="reg_passwrd">
-                    <input type="text" placeholder="Придумайте пароль">
+            <div class="reg_about">
+                <div class="leftside">
+                    <div class="reg_name">
+                        <p class="reg_txt">Имя</p>
+                    </div>
+                    <div class="reg_secondname">
+                        <p class="reg_txt">Фамилия</p>
+                    </div>
+                    <div class="reg_thirdname">
+                        <p class="reg_txt">Отчество</p>
+                    </div>
+                    <div class="reg_email">
+                        <p class="reg_txt">Email</p>
+                    </div>
+                    <div class="reg_numb">
+                        <p class="reg_txt">Телефон</p>
+                    </div>
+                    <div class="reg_descrp">
+                        <p class="reg_txt">Описание</p>
+                    </div>
+                    <div class="reg_descrp">
+                        <p class="reg_txt">Описание</p>
+                    </div>
                 </div>
-                <div class="reg_passwrd_again">
-                    <input type="text" placeholder="Повторите пароль">
+                <div class="rightside">
+                    <div class="reg_name">
+                        <input type="text" name = "responsible_person_name" placeholder="Введите ваше имя">
+                    </div>
+                    <div class="reg_secondname">
+                        <input type="text" name = "responsible_person_surname" placeholder="Введите вашу фамилию">
+                    </div>
+                    <div class="reg_thirdname">
+                        <input type="text" name = "responsible_person_patronymic" placeholder="Введите ваше отчество">
+                    </div>
+                    <div class="reg_email">
+                        <input type="text" name = "email" placeholder="Введите ваш email">
+                    </div>
+                    <div class="reg_numb">
+                        <input type="text" name = "responsible_person_phone_number" placeholder="Введите ваш номер телефона">
+                    </div>
+                    <div class="reg_descrp">
+                        <input type="text" name = "add_info" placeholder="Дополнительная информация">
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="reg_buttons">
-            <div class="reg_checkbox">
-                <input type="checkbox" id="reg_user_agree" name="reg_user_agree" value="reg_user_agree" />
-                <label class="reg_label" for="reg_user_agree">Принимаю условия<a class="reg_ahref" href="#">политики конфиденциальности</a></label>
+            <div class="reg_password">
+                <div class="leftside">
+                    <div class="reg_passwrd"></div>
+                    <div class="reg_passwrd"></div>
+                </div>
+                <div class="rightside">
+                    <div class="reg_passwrd">
+                        <input type="text" name = "password" placeholder="Придумайте пароль">
+                    </div>
+                </div>
             </div>
-            <div class="reg_create_acc_btn">
-                <button>
-                    <p>Создать аккаунт</p>
-                </button>
+            <div class="reg_buttons">
+                <div class="reg_checkbox">
+                    <input type="checkbox" id="reg_user_agree" name="reg_user_agree" value="reg_user_agree" />
+                    <label class="reg_label" for="reg_user_agree">Принимаю условия<a class="reg_ahref" href="#">политики
+                            конфиденциальности</a></label>
+                </div>
+                <div class="reg_create_acc_btn">
+                    <button>
+                        <p>Создать аккаунт</p>
+                    </button>
+                </div>
+                <div class="reg_href_profile">
+                    <a class="reg_profile_a" href="#">Уже есть профиль?</a>
+                </div>
+                <div class="reg_autoriz_acc_btn">
+                    <button type = "submit">
+                        <p>Войти</p>
+                    </button>
+                </div>
             </div>
-            <div class="reg_href_profile">
-                <a class="reg_profile_a"href="#">Уже есть профиль?</a>
-            </div>
-            <div class="reg_autoriz_acc_btn">
-                <button>
-                    <p>Войти</p>
-                </button>
-            </div>
-        </div>
+        </form>
     </div>
 </body>
+
 </html>

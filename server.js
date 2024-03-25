@@ -124,19 +124,77 @@ app.get("/about", (req, res) => {
 })
 
 
-//------------------здесь был register
+// Регистрация ОРГАНИЗАЦИИ
+app.post('/org_registration', (req, res) => {
+  const { email, password, organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_email, responsible_person_phone_number, add_info, profile_image} = req.body;
 
-// возвращаем форму для регистрации
-app.get("/usr_registration", function (req, res) {
-  res.render("usr_registration.hbs");
+  // Проверка наличия пароля
+  if (!password) {
+    return res.status(400).send('Пароль отсутствует');
+  }
+
+  // Хеширование пароля
+  bcrypt.hash(password, 10, (err, hash) => {
+    if (err) {
+      console.error('Ошибка хеширования пароля:', err);
+      return res.status(500).send('Ошибка при регистрации пользователя');
+    }
+
+    // Сохранение хеша пароля и остальных данных в базе данных
+    const queryOrg = 'INSERT INTO organization (organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_email, responsible_person_phone_number, add_info, profile_image ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
+    const queryReg = 'INSERT INTO registrations (email, password) VALUES (?, ?)';
+    
+    pool.query(queryOrg, [email ,organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_email, responsible_person_phone_number, add_info, profile_image], (err, result) => {
+      if (err) {
+        console.error('Ошибка при добавлении пользователя в базу данных:', err);
+        return res.status(500).send('Ошибка при регистрации пользователя');
+      }
+      
+      // Добавление email и хеша пароля в таблицу 'registrations'
+      pool.query(queryReg, [email, hash], (err, result) => {
+        if (err) {
+          console.error('Ошибка при добавлении пользователя в таблицу "registrations":', err);
+          return res.status(500).send('Ошибка при регистрации пользователя');
+        }
+        
+        res.send(`
+          <html>
+            <head>
+              <style>
+                body {
+                  background-color: #112533;
+                  font-family: Arial, sans-serif;
+                  padding: 30px;
+                  text-align: center;
+                }
+                p {
+                  color: #fff;
+                  font-size: 24px;
+                }
+              </style>
+            </head>
+            <body>
+              <p>Регистрация прошла успешно. Сейчас вы будете перенаправлены на главную страницу...</p>
+              <script>
+                setTimeout(function(){
+                  window.location.href = '/';
+                }, 1500);
+              </script>
+            </body>
+          </html>
+        `);
+      });
+    });
+  });
 });
 
-// возвращаем форму для регистрации
+
+// возвращаем форму для регистрации организации
 app.get("/org_registration", function (req, res) {
   res.render("org_registration.hbs");
 });
 
-// Регистрация пользователя
+// Регистрация ПОЛЬЗОВАТЕЛЯ
 app.post('/usr_registration', (req, res) => {
   const { email, password, name, surname, patronymic, numb } = req.body;
 
@@ -189,14 +247,18 @@ app.post('/usr_registration', (req, res) => {
   });
 });
 
-// ----------------здесь был login
+// возвращаем форму для регистрации пользователя
+app.get("/usr_registration", function (req, res) {
+  res.render("usr_registration.hbs");
+});
+
 
 // возвращаем форму для входа
 app.get("/usr_authorization", function (req, res) {
   res.render("usr_authorization.hbs");
 });
 
-// Вход пользователя
+// Вход под юзером
 app.post('/usr_authorization', (req, res) => {
 
   const email = req.body.email;
