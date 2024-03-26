@@ -196,7 +196,7 @@ app.get("/org_registration", function (req, res) {
 
 // Регистрация ПОЛЬЗОВАТЕЛЯ
 app.post('/usr_registration', (req, res) => {
-  const { email, password, name, surname, patronymic, numb } = req.body;
+  const { email, password, customer_name, customer_surname, customer_patronymic, customer_phone_number, add_info } = req.body;
 
   // Проверка наличия пароля
   if (!password) {
@@ -211,38 +211,49 @@ app.post('/usr_registration', (req, res) => {
     }
 
     // Сохранение хеша пароля и остальных данных в базе данных
-    const query = 'INSERT INTO registrations (email, password, name, surname, patronymic, numb) VALUES (?, ?, ?, ?, ?, ?)';
-    pool.query(query, [email, hash, name, surname, patronymic, numb], (err, result) => {
+    const queryUsr = 'INSERT INTO customer (customer_name, customer_surname, customer_patronymic, customer_phone_number, add_info ) VALUES (?, ?, ?, ?, ?)';
+    const queryUReg = 'INSERT INTO registrations (email, password) VALUES (?, ?)';
+
+    pool.query(queryUsr, [email, customer_name, customer_surname, customer_patronymic, customer_phone_number, add_info], (err, result) => {
       if (err) {
         console.error('Ошибка при добавлении пользователя в базу данных:', err);
         return res.status(500).send('Ошибка при регистрации пользователя');
       }
-      res.send(`
-              <html>
-                <head>
-                  <style>
-                    body {
-                      background-color: #112533;
-                      font-family: Arial, sans-serif;
-                      padding: 30px;
-                      text-align: center;
-                    }
-                    p {
-                      color: #fff;
-                      font-size: 24px;
-                    }
-                  </style>
-                </head>
-                <body>
-                  <p>Регистрация прошла успешно. Сейчас вы будете перенаправлены на главную страницу...</p>
-                  <script>
-                    setTimeout(function(){
-                      window.location.href = '/';
-                    }, 1500);
-                  </script>
-                </body>
-              </html>
-            `);
+      
+      // Добавление email и хеша пароля в таблицу 'registrations'
+      pool.query(queryUReg, [email, hash], (err, result) => {
+        if (err) {
+          console.error('Ошибка при добавлении пользователя в таблицу "registrations":', err);
+          return res.status(500).send('Ошибка при регистрации пользователя');
+        }
+        
+        res.send(`
+          <html>
+            <head>
+              <style>
+                body {
+                  background-color: #112533;
+                  font-family: Arial, sans-serif;
+                  padding: 30px;
+                  text-align: center;
+                }
+                p {
+                  color: #fff;
+                  font-size: 24px;
+                }
+              </style>
+            </head>
+            <body>
+              <p>Регистрация прошла успешно. Сейчас вы будете перенаправлены на главную страницу...</p>
+              <script>
+                setTimeout(function(){
+                  window.location.href = '/';
+                }, 1500);
+              </script>
+            </body>
+          </html>
+        `);
+      });
     });
   });
 });
