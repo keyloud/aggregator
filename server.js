@@ -141,7 +141,8 @@ app.get("/about", (req, res) => {
 
 // Регистрация ОРГАНИЗАЦИИ
 app.post('/org_registration', (req, res) => {
-  const { email, password, organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_email, responsible_person_phone_number, add_info, profile_image, type} = req.body;
+  const { email, password, organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_phone_number, add_info, profile_image, type} = req.body;
+  let responsible_person_email = email;
 
   // Проверка наличия пароля
   if (!password) {
@@ -395,7 +396,10 @@ app.get('/logout', (req, res) => {
 
 // отображение главной страницы
 app.get("/", function (req, res) {
-  res.render("index.hbs");
+  pool.query('SELECT * FROM organization', function (error, results, fields) {
+    if (error) throw error;
+    res.render('index', { organization: results });
+  });
 });
 
 app.listen(PORT, function () {
