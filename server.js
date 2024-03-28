@@ -61,8 +61,8 @@ function checkUser(req, res, next) {
   }
 }
 
-app.get("/org_profile/:email", checkOrganization , function (req, res) {
-  const email = req.params.email;
+app.get("/org_profile/:registrations_id", checkOrganization , function (req, res) {
+  const email = req.session.user.email;
   // Используйте параметризированный запрос для безопасности
   pool.query("SELECT * FROM organization WHERE responsible_person_email = ?", [email], function (err, data) {
     if (err) {
@@ -82,8 +82,20 @@ app.get("/org_profile/:email", checkOrganization , function (req, res) {
   });
 });
 
+app.get("/org_profile", checkOrganization , function (req, res) {
+  res.redirect(`/org_profile/${req.session.user.registrations_id}`);
+});
+
 app.get("/usr_profile", function (req, res) {
-  res.render("usr_profile");
+  if (req.session.user.registrations_id === 19)
+  {
+    res.render("usr_profile");
+  }
+  else 
+  {
+    res.status(401).send('Необходим 19 ');
+  }
+  
 });
 
 app.get("/selector", function (req, res) {
@@ -288,6 +300,7 @@ app.get("/usr_registration", function (req, res) {
 app.post('/auth', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
+  //const registrations_id =
 
   const queryOrg = 'SELECT * FROM organization WHERE responsible_person_email = ?';
   const queryReg = 'SELECT * FROM registrations WHERE email = ?';
@@ -301,7 +314,8 @@ app.post('/auth', (req, res) => {
           res.status(500).send('Ошибка при входе');
         } else if (match) {
           const role = result[0].type; // Предполагается, что тип пользователя хранится здесь
-          req.session.user = { email: email, type: role };
+          const registrations_id = result[0].registrations_id
+          req.session.user = { email: email, type: role, registrations_id: registrations_id };
           if (role === 'ORG') {
             // Выполняем запрос к базе данных для получения данных об организации
             pool.query(queryOrg, [email], (err, orgResults) => {
@@ -310,7 +324,7 @@ app.post('/auth', (req, res) => {
               } else if (orgResults.length > 0) {
                 // Здесь можно добавить информацию об организации в сессию, если нужно
                 req.session.org = orgResults[0];
-                res.redirect(`/org_profile/${req.session.user.email}`);
+                res.redirect(`/org_profile/${req.session.user.registrations_id}`);
               } else {
                 res.status(404).send('Организация не найдена');
               }
