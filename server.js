@@ -63,6 +63,10 @@ app.get("/org_profile/:inn/:success", function (req, res) {
   });
 });
 
+app.get("/usr_profile", function (req, res) {
+  res.render("usr_profile");
+});
+
 app.get("/selector", function (req, res) {
     res.render("selector");
 });
