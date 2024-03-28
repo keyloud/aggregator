@@ -61,8 +61,8 @@ function checkUser(req, res, next) {
   }
 }
 
-app.get("/org_profile/:email", checkOrganization , function (req, res) {
-  const email = req.params.email;
+app.get("/org_profile/:registrations_id", checkOrganization , function (req, res) {
+  const email = req.session.user.email;
   // Используйте параметризированный запрос для безопасности
   pool.query("SELECT * FROM organization WHERE responsible_person_email = ?", [email], function (err, data) {
     if (err) {
@@ -82,12 +82,24 @@ app.get("/org_profile/:email", checkOrganization , function (req, res) {
   });
 });
 
+app.get("/org_profile", checkOrganization , function (req, res) {
+  res.redirect(`/org_profile/${req.session.user.registrations_id}`);
+});
+
 app.get("/usr_profile", function (req, res) {
-  res.render("usr_profile");
+  if (req.session.user.registrations_id === 19)
+  {
+    res.render("usr_profile");
+  }
+  else 
+  {
+    res.status(401).send('Необходим 19 ');
+  }
+  
 });
 
 app.get("/selector", function (req, res) {
-    res.render("selector");
+  res.render("selector");
 });
 
 // // возвращаем форму для регистрации
@@ -145,8 +157,17 @@ app.get("/about", (req, res) => {
 
 // Регистрация ОРГАНИЗАЦИИ
 app.post('/org_registration', (req, res) => {
-  const { email, password, organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_phone_number, add_info, profile_image, type} = req.body;
+  const { email, password, organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_phone_number, add_info, profile_image, type } = req.body;
   let responsible_person_email = email;
+
+  let sampleFile;
+  let uploadPath;
+
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send('Файлы не были загружены.');
+  }
+  sampleFile = req.files.sampleFile;
+  uploadPath = __dirname + '/public/upload/' + sampleFile.name;
 
   // Проверка наличия пароля
   if (!password) {
@@ -163,21 +184,23 @@ app.post('/org_registration', (req, res) => {
     // Сохранение хеша пароля и остальных данных в базе данных
     const queryOrg = 'INSERT INTO organization (organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_email, responsible_person_phone_number, add_info, profile_image ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     const queryReg = 'INSERT INTO registrations (email, password, type) VALUES (?, ?, ?)';
-    
-    pool.query(queryOrg, [organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_email, responsible_person_phone_number, add_info, profile_image], (err, result) => {
-      if (err) {
-        console.error('Ошибка при добавлении пользователя в базу данных:', err);
-        return res.status(500).send('Ошибка при регистрации пользователя');
-      }
-      
-      // Добавление email, хеша пароля и типа аккаунта в таблицу 'registrations'
-      pool.query(queryReg, [email, hash, type], (err, result) => {
+
+    sampleFile.mv(uploadPath, function (err) {
+      if (err) return res.status(500).send(err);
+      pool.query(queryOrg, [organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_email, responsible_person_phone_number, add_info, sampleFile.name], (err, result) => {
         if (err) {
-          console.error('Ошибка при добавлении пользователя в таблицу "registrations":', err);
+          console.error('Ошибка при добавлении пользователя в базу данных:', err);
           return res.status(500).send('Ошибка при регистрации пользователя');
         }
-        
-        res.send(`
+
+        // Добавление email, хеша пароля и типа аккаунта в таблицу 'registrations'
+        pool.query(queryReg, [email, hash, type], (err, result) => {
+          if (err) {
+            console.error('Ошибка при добавлении пользователя в таблицу "registrations":', err);
+            return res.status(500).send('Ошибка при регистрации пользователя');
+          }
+
+          res.send(`
           <html>
             <head>
               <style>
@@ -203,6 +226,7 @@ app.post('/org_registration', (req, res) => {
             </body>
           </html>
         `);
+        });
       });
     });
   });
@@ -240,14 +264,14 @@ app.post('/usr_registration', (req, res) => {
         console.error('Ошибка при добавлении пользователя в базу данных:', err);
         return res.status(500).send('Ошибка при регистрации пользователя');
       }
-      
+
       // Добавление email и хеша пароля в таблицу 'registrations'
       pool.query(queryUReg, [email, hash], (err, result) => {
         if (err) {
           console.error('Ошибка при добавлении пользователя в таблицу "registrations":', err);
           return res.status(500).send('Ошибка при регистрации пользователя');
         }
-        
+
         res.send(`
           <html>
             <head>
@@ -288,6 +312,7 @@ app.get("/usr_registration", function (req, res) {
 app.post('/auth', (req, res) => {
   const email = req.body.email;
   const password = req.body.password;
+  //const registrations_id =
 
   const queryOrg = 'SELECT * FROM organization WHERE responsible_person_email = ?';
   const queryReg = 'SELECT * FROM registrations WHERE email = ?';
@@ -301,7 +326,8 @@ app.post('/auth', (req, res) => {
           res.status(500).send('Ошибка при входе');
         } else if (match) {
           const role = result[0].type; // Предполагается, что тип пользователя хранится здесь
-          req.session.user = { email: email, type: role };
+          const registrations_id = result[0].registrations_id
+          req.session.user = { email: email, type: role, registrations_id: registrations_id };
           if (role === 'ORG') {
             // Выполняем запрос к базе данных для получения данных об организации
             pool.query(queryOrg, [email], (err, orgResults) => {
@@ -310,7 +336,7 @@ app.post('/auth', (req, res) => {
               } else if (orgResults.length > 0) {
                 // Здесь можно добавить информацию об организации в сессию, если нужно
                 req.session.org = orgResults[0];
-                res.redirect(`/org_profile/${req.session.user.email}`);
+                res.redirect(`/org_profile/${req.session.user.registrations_id}`);
               } else {
                 res.status(404).send('Организация не найдена');
               }
