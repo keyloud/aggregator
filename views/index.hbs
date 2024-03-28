@@ -87,7 +87,19 @@
             </form>
         </section>
         <section>
-
+            {{#each organization}}
+            <div class="card">
+                {{#if this.profile_image}}
+                <img class="card_img" src="/upload/{{this.profile_image}}" alt="User Profile">
+                {{else}}
+                <img class="card_img" style="width: 20%;" src="/img/default.jpg" alt="User Profile">
+                {{/if}}
+                <div class="card_content">
+                    <h3 class="card_h3">{{this.organization_full_name}}</h3>
+                    <p class="card_p">{{this.add_info}}</p>
+                </div>
+            </div>
+            {{/each}}
             <div class="card">
                 <img src="/img/Rectangle 3.png" class="card_img">
                 <div class="card_content">

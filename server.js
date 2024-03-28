@@ -5,7 +5,6 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload')
 const exphbs = require('express-handlebars')
-
 const app = express();
 
 const urlencodedParser = express.urlencoded({ extended: false });
@@ -33,19 +32,39 @@ app.set("view engine", "hbs");
 app.use(express.json());
 app.use(session({
   secret: 'secret',
-  resave: true,
+  resave: false,
   saveUninitialized: true
 }));
 
 // Подключаем middleware для парсинга тела запроса
 app.use(bodyParser.urlencoded({ extended: true }));
 
-app.get("/org_profile/:inn/:success", function (req, res) {
-  const inn = req.params.inn;
-  const success = req.params.success;
+// Middleware для проверки роли "организация"
+function checkOrganization(req, res, next) {
+  if (req.session && req.session.user && req.session.user.type === 'ORG') {
+    // Если пользователь - организация, переходим к следующему обработчику
+    next();
+  } else {
+    // Если роль не соответствует, отправляем сообщение об ошибке
+    res.status(403).send('Доступ запрещен');
+  }
+}
 
+// Middleware для проверки роли "пользователь"
+function checkUser(req, res, next) {
+  if (req.session && req.session.user && req.session.user.type === 'USER') {
+    // Если пользователь - обычный пользователь, переходим к следующему обработчику
+    next();
+  } else {
+    // Если роль не соответствует, отправляем сообщение об ошибке
+    res.status(403).send('Доступ запрещен');
+  }
+}
+
+app.get("/org_profile/:email", checkOrganization , function (req, res) {
+  const email = req.params.email;
   // Используйте параметризированный запрос для безопасности
-  pool.query("SELECT organization_full_name, profile_image, inn FROM organization WHERE inn = ?", [inn], function (err, data) {
+  pool.query("SELECT * FROM organization WHERE responsible_person_email = ?", [email], function (err, data) {
     if (err) {
       console.error(err);
       return res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
@@ -56,7 +75,7 @@ app.get("/org_profile/:inn/:success", function (req, res) {
     }
     //Если юзер авторизирован, то покажет страницу, если нет ,то err
     if (req.session.user) {
-      res.render("org_profile", { organization: data, success: success });
+      res.render("org_profile", { organization: data });
     } else {
       res.status(401).send('Необходима аутентификация');
     }
@@ -67,57 +86,53 @@ app.get("/selector", function (req, res) {
     res.render("selector");
 });
 
-app.get("/auth", function (req, res) {
-  res.render("auth");
-});
+// // возвращаем форму для регистрации
+// app.get("/org_create", function (req, res) {
+//   if (req.session.user) {
+//     res.render("org_create");
+//   } else {
+//     res.status(401).send('Необходима аутентификация');
+//   }
+// });
 
-// возвращаем форму для регистрации
-app.get("/org_create", function (req, res) {
-  if (req.session.user) {
-    res.render("org_create");
-  } else {
-    res.status(401).send('Необходима аутентификация');
-  }
-});
+// app.post("/org_create", (req, res) => {
+//   let sampleFile;
+//   let uploadPath;
 
-app.post("/org_create", (req, res) => {
-  let sampleFile;
-  let uploadPath;
+//   if (!req.files || Object.keys(req.files).length === 0) {
+//     return res.status(400).send('Файлы не были загружены.');
+//   }
+//   const fullName = req.body.organization_full_name;
+//   const INN = req.body.inn;
 
-  if (!req.files || Object.keys(req.files).length === 0) {
-    return res.status(400).send('Файлы не были загружены.');
-  }
-  const fullName = req.body.organization_full_name;
-  const INN = req.body.inn;
+//   // Проверка наличия пароля
+//   if (!fullName || !INN) {
+//     return res.status(400).send('Данные отстутствуют.');
+//   }
+//   sampleFile = req.files.sampleFile;
+//   uploadPath = __dirname + '/public/upload/' + sampleFile.name;
 
-  // Проверка наличия пароля
-  if (!fullName || !INN) {
-    return res.status(400).send('Данные отстутствуют.');
-  }
-  sampleFile = req.files.sampleFile;
-  uploadPath = __dirname + '/public/upload/' + sampleFile.name;
+//   sampleFile.mv(uploadPath, function (err) {
+//     if (err) return res.status(500).send(err);
 
-  sampleFile.mv(uploadPath, function (err) {
-    if (err) return res.status(500).send(err);
+//     pool.getConnection((err, connection) => {
+//       if (err) throw err; // not connection
+//       //console.log('Connected!');
+//       connection.query("INSERT INTO organization (organization_full_name, inn, profile_image) VALUES (?,?,?)", [fullName, INN, sampleFile.name], (err, rows) => {
+//         // После того как закончим запрос, отсоединяемся.  
+//         connection.release();
 
-    pool.getConnection((err, connection) => {
-      if (err) throw err; // not connection
-      //console.log('Connected!');
-      connection.query("INSERT INTO organization (organization_full_name, inn, profile_image) VALUES (?,?,?)", [fullName, INN, sampleFile.name], (err, rows) => {
-        // После того как закончим запрос, отсоединяемся.  
-        connection.release();
-
-        if (err) {
-          console.log(err);
-          res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
-        } else {
-          // Отправка данных на страницу. Добавить переход по INN!!!
-          res.redirect(`/org_profile/${INN}/success`);
-        }
-      });
-    });
-  });
-});
+//         if (err) {
+//           console.log(err);
+//           res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
+//         } else {
+//           // Отправка данных на страницу. Добавить переход по INN!!!
+//           res.redirect(`/org_profile/${INN}`);
+//         }
+//       });
+//     });
+//   });
+// });
 
 app.get("/about", (req, res) => {
   res.render('about');
@@ -126,7 +141,8 @@ app.get("/about", (req, res) => {
 
 // Регистрация ОРГАНИЗАЦИИ
 app.post('/org_registration', (req, res) => {
-  const { email, password, organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_email, responsible_person_phone_number, add_info, profile_image} = req.body;
+  const { email, password, organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_phone_number, add_info, profile_image, type} = req.body;
+  let responsible_person_email = email;
 
   // Проверка наличия пароля
   if (!password) {
@@ -142,16 +158,16 @@ app.post('/org_registration', (req, res) => {
 
     // Сохранение хеша пароля и остальных данных в базе данных
     const queryOrg = 'INSERT INTO organization (organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_email, responsible_person_phone_number, add_info, profile_image ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
-    const queryReg = 'INSERT INTO registrations (email, password) VALUES (?, ?)';
+    const queryReg = 'INSERT INTO registrations (email, password, type) VALUES (?, ?, ?)';
     
-    pool.query(queryOrg, [email ,organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_email, responsible_person_phone_number, add_info, profile_image], (err, result) => {
+    pool.query(queryOrg, [organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_email, responsible_person_phone_number, add_info, profile_image], (err, result) => {
       if (err) {
         console.error('Ошибка при добавлении пользователя в базу данных:', err);
         return res.status(500).send('Ошибка при регистрации пользователя');
       }
       
-      // Добавление email и хеша пароля в таблицу 'registrations'
-      pool.query(queryReg, [email, hash], (err, result) => {
+      // Добавление email, хеша пароля и типа аккаунта в таблицу 'registrations'
+      pool.query(queryReg, [email, hash, type], (err, result) => {
         if (err) {
           console.error('Ошибка при добавлении пользователя в таблицу "registrations":', err);
           return res.status(500).send('Ошибка при регистрации пользователя');
@@ -187,6 +203,7 @@ app.post('/org_registration', (req, res) => {
     });
   });
 });
+
 
 
 // возвращаем форму для регистрации организации
@@ -264,63 +281,54 @@ app.get("/usr_registration", function (req, res) {
 });
 
 
-// возвращаем форму для входа
-app.get("/usr_authorization", function (req, res) {
-  res.render("usr_authorization.hbs");
-});
-
-// Вход под юзером
-app.post('/usr_authorization', (req, res) => {
-
-  const email = req.body.email;
-  const password = req.body.password;
-
-  pool.query('SELECT * FROM registrations WHERE email = ?',[email], (err, result) => {
-      if (err) {
-        res.status(500).send('Ошибка при входе');
-      } else if (result.length > 0) {
-        bcrypt.compare(password, result[0].password, (err, match) => {
-          if (err) {
-            res.status(500).send('Ошибка при входе');
-          } else if (match) {
-            req.session.user = email;
-            res.status(200).send('Вход выполнен успешно');
-          } else {
-            res.status(401).send('Неверные имя пользователя или пароль');
-          }
-        });
-      } else {
-        res.status(401).send('Неверные имя пользователя или пароль');
-      }
-    }
-  );
-});
-
-// Вход пользователя
 app.post('/auth', (req, res) => {
-  const INN = req.body.inn;
   const email = req.body.email;
   const password = req.body.password;
 
-  pool.query('SELECT * FROM registrations WHERE email = ?',[email], (err, result) => {
-      if (err) {
-        res.status(500).send('Ошибка при входе');
-      } else if (result.length > 0) {
-        bcrypt.compare(password, result[0].password, (err, match) => {
-          if (err) {
-            res.status(500).send('Ошибка при входе');
-          } else if (match) {
-            req.session.user = email;
-            res.redirect(`/org_profile/${INN}/success`);
+  const queryOrg = 'SELECT * FROM organization WHERE responsible_person_email = ?';
+  const queryReg = 'SELECT * FROM registrations WHERE email = ?';
+
+  pool.query(queryReg, [email], (err, result) => {
+    if (err) {
+      res.status(500).send('Ошибка при входе');
+    } else if (result.length > 0) {
+      bcrypt.compare(password, result[0].password, (err, match) => {
+        if (err) {
+          res.status(500).send('Ошибка при входе');
+        } else if (match) {
+          const role = result[0].type; // Предполагается, что тип пользователя хранится здесь
+          req.session.user = { email: email, type: role };
+          if (role === 'ORG') {
+            // Выполняем запрос к базе данных для получения данных об организации
+            pool.query(queryOrg, [email], (err, orgResults) => {
+              if (err) {
+                res.status(500).send('Ошибка при получении данных об организации');
+              } else if (orgResults.length > 0) {
+                // Здесь можно добавить информацию об организации в сессию, если нужно
+                req.session.org = orgResults[0];
+                res.redirect(`/org_profile/${req.session.user.email}`);
+              } else {
+                res.status(404).send('Организация не найдена');
+              }
+            });
           } else {
-            res.status(404).send('Неверные имя пользователя или пароль');
+            // Перенаправление на профиль пользователя, если это не организация
+            res.redirect('/user_profile');
           }
-        });
-      } else {
-        res.status(404).send('Неверные имя пользователя или пароль');
-      }
+        } else {
+          res.status(404).send('Неверный пароль');
+        }
+      });
+    } else {
+      res.status(404).send('Пользователь не найден');
     }
-  );
+  });
+});
+
+
+
+app.get("/auth", function (req, res) {
+  res.render("auth");
 });
 
 
@@ -399,7 +407,10 @@ app.get('/logout', (req, res) => {
 
 // отображение главной страницы
 app.get("/", function (req, res) {
-  res.render("index.hbs");
+  pool.query('SELECT * FROM organization', function (error, results, fields) {
+    if (error) throw error;
+    res.render('index', { organization: results });
+  });
 });
 
 app.listen(PORT, function () {
