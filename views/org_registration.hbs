@@ -24,7 +24,7 @@
         <div class="main_title">
             <h1>Регистрация</h1>
         </div>
-        <form action="/org_registration" method="POST">
+        <form action="/org_registration" method="POST" enctype="multipart/form-data">
             <div class="reg_title">
                 <h2>Наименование организации</h2>
             </div>
@@ -48,19 +48,21 @@
                 </div>
                 <div class="rightside">
                     <div class="reg_full">
-                        <input type="text" name = "organization_full_name" placeholder="Введите полное название организации">
+                        <input type="text" name="organization_full_name"
+                            placeholder="Введите полное название организации">
                     </div>
                     <div class="reg_short">
-                        <input type="text" name = "organization_short_name" placeholder="Введите краткое название организации">
+                        <input type="text" name="organization_short_name"
+                            placeholder="Введите краткое название организации">
                     </div>
                     <div class="reg_inn">
-                        <input type="text" name = "inn" placeholder="Введите ИНН организации">
+                        <input type="text" name="inn" placeholder="Введите ИНН организации">
                     </div>
                     <div class="reg_kpp">
-                        <input type="text" name = "kpp" placeholder="Введите КПП организации">
+                        <input type="text" name="kpp" placeholder="Введите КПП организации">
                     </div>
                     <div class="reg_ogrn">
-                        <input type="text" name = "ogrn" placeholder="Введите ОГРН организации">
+                        <input type="text" name="ogrn" placeholder="Введите ОГРН организации">
                     </div>
                 </div>
             </div>
@@ -93,22 +95,23 @@
                 </div>
                 <div class="rightside">
                     <div class="reg_name">
-                        <input type="text" name = "responsible_person_name" placeholder="Введите ваше имя">
+                        <input type="text" name="responsible_person_name" placeholder="Введите ваше имя">
                     </div>
                     <div class="reg_secondname">
-                        <input type="text" name = "responsible_person_surname" placeholder="Введите вашу фамилию">
+                        <input type="text" name="responsible_person_surname" placeholder="Введите вашу фамилию">
                     </div>
                     <div class="reg_thirdname">
-                        <input type="text" name = "responsible_person_patronymic" placeholder="Введите ваше отчество">
+                        <input type="text" name="responsible_person_patronymic" placeholder="Введите ваше отчество">
                     </div>
                     <div class="reg_email">
-                        <input type="text" name = "email" placeholder="Введите ваш email">
+                        <input type="text" name="email" placeholder="Введите ваш email">
                     </div>
                     <div class="reg_numb">
-                        <input type="text" name = "responsible_person_phone_number" placeholder="Введите ваш номер телефона">
+                        <input type="text" name="responsible_person_phone_number"
+                            placeholder="Введите ваш номер телефона">
                     </div>
                     <div class="reg_descrp">
-                        <input type="text" name = "add_info" placeholder="Дополнительная информация">
+                        <input type="text" name="add_info" placeholder="Дополнительная информация">
                     </div>
                 </div>
             </div>
@@ -120,15 +123,16 @@
                 <div class="rightside">
                     <div class="reg_passwrd">
                         <input type="hidden" name="type" value="ORG">
-                        <input type="text" name = "password" placeholder="Придумайте пароль">
+                        <input type="text" name="password" placeholder="Придумайте пароль">
                     </div>
                 </div>
             </div>
-            <div class="reg_buttons">
-                <div class="reg_checkbox">
-                    <input type="checkbox" id="reg_user_agree" name="reg_user_agree" value="reg_user_agree" />
-                    <label class="reg_label" for="reg_user_agree">Принимаю условия<a class="reg_ahref" href="#">Политики конфиденциальности</a></label>
+            <div class="add-image">
+                    <h3>Загрузка фото профиля</h3>
+                    <input type="file" name="sampleFile" accept="image/*" />
                 </div>
+            <div class="reg_buttons">
+                
                 <div class="reg_create_acc_btn">
                     <button>
                         <p>Создать аккаунт организации</p>
@@ -138,7 +142,7 @@
                     <a class="reg_profile_a" href="#">Уже есть профиль?</a>
                 </div>
                 <div class="reg_autoriz_acc_btn">
-                    <button type = "submit">
+                    <button type="submit">
                         <p>Войти</p>
                     </button>
                 </div>

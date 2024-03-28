@@ -99,7 +99,7 @@ app.get("/usr_profile", function (req, res) {
 });
 
 app.get("/selector", function (req, res) {
-    res.render("selector");
+  res.render("selector");
 });
 
 // // возвращаем форму для регистрации
@@ -157,8 +157,17 @@ app.get("/about", (req, res) => {
 
 // Регистрация ОРГАНИЗАЦИИ
 app.post('/org_registration', (req, res) => {
-  const { email, password, organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_phone_number, add_info, profile_image, type} = req.body;
+  const { email, password, organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_phone_number, add_info, profile_image, type } = req.body;
   let responsible_person_email = email;
+
+  let sampleFile;
+  let uploadPath;
+
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send('Файлы не были загружены.');
+  }
+  sampleFile = req.files.sampleFile;
+  uploadPath = __dirname + '/public/upload/' + sampleFile.name;
 
   // Проверка наличия пароля
   if (!password) {
@@ -175,21 +184,23 @@ app.post('/org_registration', (req, res) => {
     // Сохранение хеша пароля и остальных данных в базе данных
     const queryOrg = 'INSERT INTO organization (organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_email, responsible_person_phone_number, add_info, profile_image ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     const queryReg = 'INSERT INTO registrations (email, password, type) VALUES (?, ?, ?)';
-    
-    pool.query(queryOrg, [organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_email, responsible_person_phone_number, add_info, profile_image], (err, result) => {
-      if (err) {
-        console.error('Ошибка при добавлении пользователя в базу данных:', err);
-        return res.status(500).send('Ошибка при регистрации пользователя');
-      }
-      
-      // Добавление email, хеша пароля и типа аккаунта в таблицу 'registrations'
-      pool.query(queryReg, [email, hash, type], (err, result) => {
+
+    sampleFile.mv(uploadPath, function (err) {
+      if (err) return res.status(500).send(err);
+      pool.query(queryOrg, [organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_email, responsible_person_phone_number, add_info, sampleFile.name], (err, result) => {
         if (err) {
-          console.error('Ошибка при добавлении пользователя в таблицу "registrations":', err);
+          console.error('Ошибка при добавлении пользователя в базу данных:', err);
           return res.status(500).send('Ошибка при регистрации пользователя');
         }
-        
-        res.send(`
+
+        // Добавление email, хеша пароля и типа аккаунта в таблицу 'registrations'
+        pool.query(queryReg, [email, hash, type], (err, result) => {
+          if (err) {
+            console.error('Ошибка при добавлении пользователя в таблицу "registrations":', err);
+            return res.status(500).send('Ошибка при регистрации пользователя');
+          }
+
+          res.send(`
           <html>
             <head>
               <style>
@@ -215,6 +226,7 @@ app.post('/org_registration', (req, res) => {
             </body>
           </html>
         `);
+        });
       });
     });
   });
@@ -252,14 +264,14 @@ app.post('/usr_registration', (req, res) => {
         console.error('Ошибка при добавлении пользователя в базу данных:', err);
         return res.status(500).send('Ошибка при регистрации пользователя');
       }
-      
+
       // Добавление email и хеша пароля в таблицу 'registrations'
       pool.query(queryUReg, [email, hash], (err, result) => {
         if (err) {
           console.error('Ошибка при добавлении пользователя в таблицу "registrations":', err);
           return res.status(500).send('Ошибка при регистрации пользователя');
         }
-        
+
         res.send(`
           <html>
             <head>
