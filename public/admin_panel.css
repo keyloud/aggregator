@@ -1,0 +1,91 @@
+.body_adm {
+    margin: 0;
+    background: #289FCA; 
+    margin-top: 220px;
+}
+h1,h2,h3,h4,h5,h6 {
+    font-family: "Ubuntu", sans-serif;
+    color: white;
+    margin: 0;
+    font-style: normal;
+}
+p {
+    font-family: "Rubik", sans-serif;
+    font-weight: 600;
+    margin: 0;
+    color: #fff;
+}
+.admin_buttons {
+    width: 720px;
+    height: 35px;
+    display: flex;
+    flex-direction: row;
+    justify-content: start;
+
+    margin-bottom: 20px;
+}
+
+.admin_buttons a {
+    font-family: "Ubuntu", sans-serif;
+    text-decoration: none;
+    color: white !important;
+    
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.admin_panel {
+    width: 1440px;
+    min-height: 860px;
+    margin: 0 auto;
+
+    margin-top: 20px;
+}
+
+.user_btn {
+    width: 33.3%;
+    margin-right: 3px;
+    border: none; /* Убираем границу у кнопки */
+    border-radius: 50px 0px 0px 50px; /* Задаем радиус для создания овальной формы */
+    background-color: #112533; /* Цвет фона кнопки */
+    color: white; /* Цвет текста кнопки */
+    font-size: 16px; /* Размер шрифта */
+    cursor: pointer; /* Изменяем вид курсора при наведении на кнопку */
+    transition: background-color 0.3s ease; /* Добавляем плавный переход для изменения цвета фона */
+}
+.org_btn {
+    width: 33.3%;
+    margin-right: 3px;
+    border: none; /* Убираем границу у кнопки */ 
+    background-color: #112533; /* Цвет фона кнопки */
+    color: white; /* Цвет текста кнопки */
+    font-size: 16px; /* Размер шрифта */
+    cursor: pointer; /* Изменяем вид курсора при наведении на кнопку */
+    transition: background-color 0.3s ease; /* Добавляем плавный переход для изменения цвета фона */
+}
+.rewiews_btn {
+    width: 33.3%;
+    border: none; /* Убираем границу у кнопки */
+    border-radius: 0px 50px 50px 0px; /* Задаем радиус для создания овальной формы */
+    background-color: #112533; /* Цвет фона кнопки */
+    color: white; /* Цвет текста кнопки */
+    font-size: 16px; /* Размер шрифта */
+    cursor: pointer; /* Изменяем вид курсора при наведении на кнопку */
+    transition: background-color 0.3s ease; /* Добавляем плавный переход для изменения цвета фона */
+}
+
+.admin_buttons button:hover {
+    background-color: #003F63; /* Изменяем цвет фона при наведении на кнопку */
+}
+
+.admin_main {
+    width: 100%;
+    height: 805px;
+
+    margin-bottom: 20px;
+    background: #fff;
+}

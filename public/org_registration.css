@@ -240,6 +240,105 @@ a:visited {
     color: #fff;
 }
 
-/*selector-start*/
 
-/*selector-end*/
+
+.selector_main {
+    width: 500px;
+    height: 260px;
+
+    margin: 0 auto;
+    margin-top: 220px;
+    margin-bottom: 338px;
+
+    display: flex;
+    flex-direction: column;
+
+}
+
+.selector_login, .selector_choose {
+    width: 100%;
+    height: 50%;
+}
+
+.selector_login {
+    display: flex;
+    flex-direction: column;
+}
+
+.selector_login_title, .selector_login_btn {
+    height: 50%;
+    width: 100%;
+}
+
+.selector_login_title, .selector_choose_title{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.selector_login_btn, .selector_org, .selector_user {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.selector_main a {
+    font-family: "Ubuntu", sans-serif;
+    text-decoration: none;
+    color: white !important;
+    
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.selector_login_href{
+    width: 50%;
+    height: 60%;
+    border: none; /* Убираем границу у кнопки */
+    border-radius: 50px 50px 50px 50px; /* Задаем радиус для создания овальной формы */
+    background-color: #112533; /* Цвет фона кнопки */
+    color: white; /* Цвет текста кнопки */
+    font-size: 16px; /* Размер шрифта */
+    cursor: pointer; /* Изменяем вид курсора при наведении на кнопку */
+    transition: background-color 0.3s ease; /* Добавляем плавный переход для изменения цвета фона */
+}
+
+.selector_choose_href {
+    width: 90%;
+    height: 60%;
+    border: none; /* Убираем границу у кнопки */
+    border-radius: 50px 50px 50px 50px; /* Задаем радиус для создания овальной формы */
+    background-color: #112533; /* Цвет фона кнопки */
+    color: white; /* Цвет текста кнопки */
+    font-size: 16px; /* Размер шрифта */
+    cursor: pointer; /* Изменяем вид курсора при наведении на кнопку */
+    transition: background-color 0.3s ease; /* Добавляем плавный переход для изменения цвета фона */
+}
+
+.selector_choose {
+    display: flex;
+    flex-direction: column;
+}
+
+.selector_choose_title, .selector_choose_main {
+    width: 100%;
+    height: 50%;
+}
+
+.selector_choose_main{
+    display: flex;
+    flex-direction: row;
+}
+
+.selector_org, .selector_user {
+    width: 50%;
+    height: 100%;
+}
+
+.selector_main button:hover {
+    background-color: #289FCA; /* Изменяем цвет фона при наведении на кнопку */
+}
+
