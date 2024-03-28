@@ -3,7 +3,7 @@
     background: #003F63;
     margin-top:20px;
 }
-.card {
+.usr_profile_card{
     position: relative;
     display: flex;
     flex-direction: column;
