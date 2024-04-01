@@ -37,3 +37,24 @@ document.querySelector(".org_btn").addEventListener("click", () => {
         })
         .catch(error => console.error("Ошибка при получении данных об организациях:", error));
 });
+
+function searchTable() {
+    var input, filter, table, tr, td, i, txtValue;
+    input = document.getElementById("searchInput");
+    filter = input.value.toUpperCase();
+    table = document.querySelector(".table-fill");
+    tr = table.getElementsByTagName("tr");
+
+    // Проходим по всем строкам таблицы и скрываем те, которые не соответствуют запросу поиска
+    for (i = 0; i < tr.length; i++) {
+        td = tr[i].getElementsByTagName("td")[0]; // Ищем в столбце с индексом 0, но можно адаптировать под любой столбец
+        if (td) {
+            txtValue = td.textContent || td.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                tr[i].style.display = "";
+            } else {
+                tr[i].style.display = "none";
+            }
+        }
+    }
+}

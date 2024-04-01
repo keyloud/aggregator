@@ -1,91 +1,105 @@
+/* Общие стили страницы */
 .body_adm {
+    font-family: 'Rubick', sans-serif;
+    background-color: #f4f4f4;
     margin: 0;
-    background: #289FCA; 
-    margin-top: 220px;
-}
-h1,h2,h3,h4,h5,h6 {
-    font-family: "Ubuntu", sans-serif;
-    color: white;
-    margin: 0;
-    font-style: normal;
-}
-p {
-    font-family: "Rubik", sans-serif;
-    font-weight: 600;
-    margin: 0;
-    color: #fff;
-}
-.admin_buttons {
-    width: 720px;
-    height: 35px;
-    display: flex;
-    flex-direction: row;
-    justify-content: start;
-
-    margin-bottom: 20px;
-}
-
-.admin_buttons a {
-    font-family: "Ubuntu", sans-serif;
-    text-decoration: none;
-    color: white !important;
-    
-    display: flex;
-    width: 100%;
-    height: 100%;
-    justify-content: center;
-    align-items: center;
-
+    padding: 0;
 }
 
 .admin_panel {
-    width: 1440px;
-    min-height: 860px;
-    margin: 0 auto;
-
-    margin-top: 20px;
+    width: 90%;
+   
+    margin-left: 5%;
+    margin-bottom: 360px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    padding: 20px;
 }
 
-.user_btn {
-    width: 33.3%;
-    margin-right: 3px;
-    border: none; /* Убираем границу у кнопки */
-    border-radius: 50px 0px 0px 50px; /* Задаем радиус для создания овальной формы */
-    background-color: #112533; /* Цвет фона кнопки */
-    color: white; /* Цвет текста кнопки */
-    font-size: 16px; /* Размер шрифта */
-    cursor: pointer; /* Изменяем вид курсора при наведении на кнопку */
-    transition: background-color 0.3s ease; /* Добавляем плавный переход для изменения цвета фона */
+.table-title h3, .table-title h2 {
+    margin: 0;
+    padding: 10px 0;
+    color: #333;
 }
-.org_btn {
-    width: 33.3%;
-    margin-right: 3px;
-    border: none; /* Убираем границу у кнопки */ 
-    background-color: #112533; /* Цвет фона кнопки */
-    color: white; /* Цвет текста кнопки */
-    font-size: 16px; /* Размер шрифта */
-    cursor: pointer; /* Изменяем вид курсора при наведении на кнопку */
-    transition: background-color 0.3s ease; /* Добавляем плавный переход для изменения цвета фона */
+
+/* Стили для кнопок */
+.admin_buttons {
+    margin-bottom: 20px;
 }
-.rewiews_btn {
-    width: 33.3%;
-    border: none; /* Убираем границу у кнопки */
-    border-radius: 0px 50px 50px 0px; /* Задаем радиус для создания овальной формы */
-    background-color: #112533; /* Цвет фона кнопки */
-    color: white; /* Цвет текста кнопки */
-    font-size: 16px; /* Размер шрифта */
-    cursor: pointer; /* Изменяем вид курсора при наведении на кнопку */
-    transition: background-color 0.3s ease; /* Добавляем плавный переход для изменения цвета фона */
+
+.admin_buttons button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    margin-right: 10px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .admin_buttons button:hover {
-    background-color: #003F63; /* Изменяем цвет фона при наведении на кнопку */
+    background-color: #0056b3;
 }
 
-.admin_main {
+.admin_buttons a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Стили для таблицы */
+.table-fill {
     width: 100%;
-    height: 805px;
-
-    margin-bottom: 20px;
-    background: #fff;
+    border-collapse: collapse;
+    margin-top: 20px;
 }
+
+.table-fill thead {
+    background-color: #007bff;
+    color: #ffffff;
+}
+
+.table-fill thead th {
+    padding: 10px;
+    text-align: left;
+}
+
+.table-fill tbody tr:nth-child(odd) {
+    background-color: #f2f2f2;
+}
+
+.table-fill tbody tr:hover {
+    background-color: #ddd;
+}
+
+.table-fill th, .table-fill td {
+    padding: 10px;
+    border: 1px solid #ddd;
+}
+
+.table-hover {
+    cursor: pointer;
+}
+
+/* Стиль для поля поиска */
+#searchInput {
+    font-family: 'Rubik', sans-serif; /* Используем тот же шрифт, что и для основного контента */
+    width: 100%; /* Занимает всю доступную ширину */
+    padding: 10px; /* Добавляем внутренние отступы для удобства */
+    margin-bottom: 20px; /* Отступ снизу для разделения от следующих элементов */
+    border: 1px solid #ddd; /* Тонкая граница вокруг поля */
+    border-radius: 5px; /* Скругляем углы для более мягкого внешнего вида */
+    box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); /* Небольшая тень для эффекта "всплывания" */
+    transition: all 0.3s ease; /* Плавное изменение стилей */
+}
+
+#searchInput:focus {
+    outline: none; /* Убираем стандартный контур при фокусе */
+    border-color: #007bff; /* Меняем цвет границы при фокусе */
+    box-shadow: 0px 0px 8px rgba(50, 50, 250, 0.5); /* Увеличиваем тень при фокусе */
+}
+
+/* Стиль для обёртки поля поиска, если нужно */
+.searchWrapper {
+    max-width: 500px; /* Ограничиваем максимальную ширину */
+}
+
