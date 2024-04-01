@@ -89,15 +89,6 @@ function checkAdmin(req, res, next) {
   }
 }
 
-function checkAdmin(req, res, next) {
-  if (req.session && req.session.user && req.session.user.type === 'ADM') {
-    // Если пользователь - обычный пользователь, переходим к следующему обработчику
-    next();
-  } else {
-    // Если роль не соответствует, отправляем сообщение об ошибке
-    res.status(403).send('Доступ запрещен');
-  }
-}
 
 app.get("/org_profile/:registrations_id", checkOrganization, function (req, res) {
   const email = req.session.user.email;
@@ -474,10 +465,6 @@ app.get('/logout', (req, res) => {
   });
 });
 
-app.get("/admin_panel", function(req, res) {
-  res.render("admin_panel")
-})
-
 // // получем id редактируемого пользователя, получаем его из бд и отправлям с формой редактирования
 // app.get("/edit/:id", function (req, res) {
 //   const id = req.params.id;
@@ -519,13 +506,13 @@ app.get("/admin_panel", checkAdmin, function (req,res){
 })
 
 // Маршрут для получения списка пользователей (можете реализовать по аналогии с organizations)
-app.get("/admin_panel/users", (req, res) => {
+app.get("/admin_panel/users", checkAdmin, (req, res) => {
   // Здесь вы можете выполнить запрос к базе данных, чтобы получить список пользователей
   // Затем отправить этот список обратно клиенту для отображения на странице администратора
 });
 
 // Маршрут для получения списка организаций в формате JSON
-app.get("/admin_panel/organizations", (req, res) => {
+app.get("/admin_panel/organizations", checkAdmin, (req, res) => {
   pool.query("SELECT * FROM organization", (error, results) => {
     if (error) {
       console.error("Ошибка при выполнении запроса к базе данных:", error);
@@ -539,7 +526,7 @@ app.get("/admin_panel/organizations", (req, res) => {
 
 
 // Маршрут для получения списка заявок (можете реализовать по аналогии с users)
-app.get("/admin/reviews", (req, res) => {
+app.get("/admin/reviews", checkAdmin, (req, res) => {
   // Здесь вы можете выполнить запрос к базе данных, чтобы получить список заявок
   // Затем отправить этот список обратно клиенту для отображения на странице администратора
 });
