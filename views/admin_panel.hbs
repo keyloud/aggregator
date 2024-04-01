@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/admin_panel.css">
+    <title>PIONEER - Панель администратора</title>
+    <style>
+        /* Добавляем стили для таблицы */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+    </style>
+</head>
+<body class="body_adm">
+    <div class="admin_panel">
+        <div class="admin_buttons">
+            <button class="user_btn"><a href="#">Пользователи</a></button>
+            <button class="org_btn"><a href="#">Организации</a></button>
+            <button class="rewiews_btn"><a href="#">Заявки</a></button>
+        </div>
+        <div class="admin_main">
+            <h2>Список организаций</h2>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Email</th>
+                        <th>Полное название организации</th>
+                        <th>Краткое название организации</th>
+                        <th>ИНН</th>
+                        <th>КПП</th>
+                        <th>ОГРН</th>
+                        <th>Фамилия ответственного лица</th>
+                        <th>Имя ответственного лица</th>
+                        <th>Отчество ответственного лица</th>
+                        <th>Номер телефона ответственного лица</th>
+                        <th>Дополнительная информация</th>
+                        <th>Изображение профиля</th>
+                        <th>Тип</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {{#each organization}}
+                    <tr>
+                        <td>{{email}}</td>
+                        <td>{{organization_full_name}}</td>
+                        <td>{{organization_short_name}}</td>
+                        <td>{{inn}}</td>
+                        <td>{{kpp}}</td>
+                        <td>{{ogrn}}</td>
+                        <td>{{responsible_person_surname}}</td>
+                        <td>{{responsible_person_name}}</td>
+                        <td>{{responsible_person_patronymic}}</td>
+                        <td>{{responsible_person_phone_number}}</td>
+                        <td>{{add_info}}</td>
+                        <td>{{profile_image}}</td>
+                        <td>{{type}}</td>
+                    </tr>
+                    {{/each}}
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="adminPanel.js"></script>
+</body>
+</html>

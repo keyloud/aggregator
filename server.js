@@ -33,17 +33,6 @@ app.engine('hbs', exphbs.engine({
 
 app.set("view engine", "hbs");
 
-// Передача userType в макет при каждом запросе
-app.use(function(req, res, next) {
-  let userType = null;
-
-  if(req.session) {
-    userType = req.session.user.type
-    res.locals.userType = userType
-  }
-  next();
-});
-
 // Middleware для парсинга JSON и работы с сессиями
 app.use(express.json());
 app.use(session({
@@ -54,6 +43,19 @@ app.use(session({
 
 // Подключаем middleware для парсинга тела запроса
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Передача userType в макет при каждом запросе
+app.use(function(req, res, next) {
+  let userType = null;
+  if(req.session.user) {
+    userType = req.session.user.type
+    res.locals.userType = userType
+    console.log(res.locals.userType)
+  }else{
+    console.log('Нет сессии')
+  }
+  next();
+});
 
 // Middleware для проверки роли "организация"
 function checkOrganization(req, res, next) {
@@ -69,6 +71,16 @@ function checkOrganization(req, res, next) {
 // Middleware для проверки роли "пользователь"
 function checkUser(req, res, next) {
   if (req.session && req.session.user && req.session.user.type === 'USER') {
+    // Если пользователь - обычный пользователь, переходим к следующему обработчику
+    next();
+  } else {
+    // Если роль не соответствует, отправляем сообщение об ошибке
+    res.status(403).send('Доступ запрещен');
+  }
+}
+
+function checkAdmin(req, res, next) {
+  if (req.session && req.session.user && req.session.user.type === 'ADM') {
     // Если пользователь - обычный пользователь, переходим к следующему обработчику
     next();
   } else {
@@ -108,7 +120,7 @@ app.get("/usr_profile", function (req, res) {
     res.render("usr_profile");
   }
   else {
-    res.status(401).send('Необходим 19 ');
+    res.status(401).send('Необходим 19');
   }
 
 });
@@ -358,7 +370,7 @@ app.post('/auth', (req, res) => {
             });
           } else {
             // Перенаправление на профиль пользователя, если это не организация
-            res.redirect('/user_profile');
+            res.redirect('/usr_profile');
           }
         } else {
           res.status(404).send('Неверный пароль');
@@ -450,22 +462,46 @@ app.get('/logout', (req, res) => {
 //   });
 // });
 
+app.get("/admin_panel", checkAdmin, function (req,res){
+  res.render('admin_panel')
+})
+
+// Маршрут для получения списка пользователей (можете реализовать по аналогии с organizations)
+app.get("/admin/users", (req, res) => {
+  // Здесь вы можете выполнить запрос к базе данных, чтобы получить список пользователей
+  // Затем отправить этот список обратно клиенту для отображения на странице администратора
+});
+
+// Маршрут для получения списка организаций в формате JSON
+app.get("/admin/organizations", (req, res) => {
+  pool.query("SELECT * FROM organization", (error, results) => {
+    if (error) {
+      console.error("Ошибка при выполнении запроса к базе данных:", error);
+      return res.status(500).json({ error: 'Ошибка при получении данных об организациях' });
+    }
+    // Преобразуем результаты запроса в массив организаций
+    const organizations = results.rows;
+    // Отправляем данные об организациях в формате JSON
+    res.json({ organizations: organizations });
+  });
+});
+
+// Маршрут для получения списка заявок (можете реализовать по аналогии с users)
+app.get("/admin/reviews", (req, res) => {
+  // Здесь вы можете выполнить запрос к базе данных, чтобы получить список заявок
+  // Затем отправить этот список обратно клиенту для отображения на странице администратора
+});
+
 // отображение главной страницы
-app.get("/", function (req, res) {  //ВОЗМОЖНО ЛИШНИЙ КОД
+app.get("/", function (req, res) {
   if (req.session.user) {
-    //let types = ["USR", "ORG", "ADM"]
-    //types.includes(req.session.user.type) ? userType = req.session.user.type : userType = "USR"
-    
     let userType = req.session.user.type;
-    console.log(userType)
     pool.query('SELECT * FROM organization', function (error, results, fields) {
       if (error) throw error;
       res.render('index', { organization: results, userType: userType });
-      //res.locals.userType = userType;
     });
   } 
   else {
-    //console.log("Сессии нет")
     pool.query('SELECT * FROM organization', function (error, results, fields) {
       if (error) throw error;
       res.render('index', { organization: results });
