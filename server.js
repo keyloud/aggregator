@@ -33,17 +33,6 @@ app.engine('hbs', exphbs.engine({
 
 app.set("view engine", "hbs");
 
-// Передача userType в макет при каждом запросе
-app.use(function(req, res, next) {
-  let userType = null;
-
-  if(req.session) {
-    userType = req.session.user.type
-    res.locals.userType = userType
-  }
-  next();
-});
-
 // Middleware для парсинга JSON и работы с сессиями
 app.use(express.json());
 app.use(session({
@@ -54,6 +43,19 @@ app.use(session({
 
 // Подключаем middleware для парсинга тела запроса
 app.use(bodyParser.urlencoded({ extended: true }));
+
+// Передача userType в макет при каждом запросе
+app.use(function(req, res, next) {
+  let userType = null;
+  if(req.session.user) {
+    userType = req.session.user.type
+    res.locals.userType = userType
+    console.log(res.locals.userType)
+  } else {
+    console.log("Нет сессии")
+  }
+  next();
+});
 
 // Middleware для проверки роли "организация"
 function checkOrganization(req, res, next) {
@@ -68,7 +70,7 @@ function checkOrganization(req, res, next) {
 
 // Middleware для проверки роли "пользователь"
 function checkUser(req, res, next) {
-  if (req.session && req.session.user && req.session.user.type === 'USER') {
+  if (req.session && req.session.user && req.session.user.type === 'USR') {
     // Если пользователь - обычный пользователь, переходим к следующему обработчику
     next();
   } else {
@@ -103,14 +105,30 @@ app.get("/org_profile", checkOrganization, function (req, res) {
   res.redirect(`/org_profile/${req.session.user.registrations_id}`);
 });
 
-app.get("/usr_profile", function (req, res) {
-  if (req.session.user.registrations_id === 19) {
-    res.render("usr_profile");
-  }
-  else {
-    res.status(401).send('Необходим 19 ');
-  }
+app.get("/usr_profile/:registrations_id", checkUser, function (req, res) {
+  const email = req.session.user.email;
 
+  // Используйте параметризированный запрос для безопасности
+  pool.query("SELECT * FROM customer WHERE customer_email = ?", [email], function (err, data) {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
+    }
+    // Проверьте, найдены ли данные
+    if (data.length === 0) {
+      return res.status(404).send('Пользователь не найдена.');
+    }
+    //Если юзер авторизирован, то покажет страницу, если нет ,то err
+    if (req.session.user) {
+      res.render("usr_profile", { customer: data });
+    } else {
+      res.status(401).send('Необходима аутентификация');
+    }
+  });
+});
+
+app.get("/usr_profile", checkUser, function (req, res) {
+  res.redirect(`/usr_profile/${req.session.user.registrations_id}`);
 });
 
 app.get("/selector", function (req, res) {
@@ -256,7 +274,17 @@ app.get("/org_registration", function (req, res) {
 
 // Регистрация ПОЛЬЗОВАТЕЛЯ
 app.post('/usr_registration', (req, res) => {
-  const { email, password, customer_name, customer_surname, customer_patronymic, customer_phone_number, add_info } = req.body;
+  const { email, password, customer_name, customer_surname, customer_patronymic, customer_phone_number, add_info, profile_image, type } = req.body;
+  let customer_email = email;
+
+  let sampleFile;
+  let uploadPath;
+
+  if (!req.files || Object.keys(req.files).length === 0) {
+    return res.status(400).send('Файлы не были загружены.');
+  }
+  sampleFile = req.files.sampleFile;
+  uploadPath = __dirname + '/public/upload/' + sampleFile.name;
 
   // Проверка наличия пароля
   if (!password) {
@@ -271,17 +299,17 @@ app.post('/usr_registration', (req, res) => {
     }
 
     // Сохранение хеша пароля и остальных данных в базе данных
-    const queryUsr = 'INSERT INTO customer (customer_name, customer_surname, customer_patronymic, customer_phone_number, add_info ) VALUES (?, ?, ?, ?, ?)';
-    const queryUReg = 'INSERT INTO registrations (email, password) VALUES (?, ?)';
+    const queryUsr = 'INSERT INTO customer (customer_name, customer_surname, customer_patronymic, customer_phone_number, customer_email, add_info ) VALUES (?, ?, ?, ?, ?, ?)';
+    const queryReg = 'INSERT INTO registrations (email, password, type) VALUES (?, ?, ?)';
 
-    pool.query(queryUsr, [email, customer_name, customer_surname, customer_patronymic, customer_phone_number, add_info], (err, result) => {
+    pool.query(queryUsr, [customer_name, customer_surname, customer_patronymic, customer_phone_number, customer_email, add_info], (err, result) => {
       if (err) {
         console.error('Ошибка при добавлении пользователя в базу данных:', err);
         return res.status(500).send('Ошибка при регистрации пользователя');
       }
 
       // Добавление email и хеша пароля в таблицу 'registrations'
-      pool.query(queryUReg, [email, hash], (err, result) => {
+      pool.query(queryReg, [email, hash, type], (err, result) => {
         if (err) {
           console.error('Ошибка при добавлении пользователя в таблицу "registrations":', err);
           return res.status(500).send('Ошибка при регистрации пользователя');
@@ -330,6 +358,7 @@ app.post('/auth', (req, res) => {
   //const registrations_id =
 
   const queryOrg = 'SELECT * FROM organization WHERE responsible_person_email = ?';
+  const queryUsr = 'SELECT * FROM customer WHERE customer_email = ?';
   const queryReg = 'SELECT * FROM registrations WHERE email = ?';
 
   pool.query(queryReg, [email], (err, result) => {
@@ -356,9 +385,21 @@ app.post('/auth', (req, res) => {
                 res.status(404).send('Организация не найдена');
               }
             });
-          } else {
-            // Перенаправление на профиль пользователя, если это не организация
-            res.redirect('/user_profile');
+          } else if (role === "USR") {
+            // Выполняем запрос к базе данных для получения данных о пользователе
+            pool.query(queryUsr, [email], (err, usrResults) => {
+              if (err) {
+                res.status(500).send('Ошибка при получении данных об организации');
+              } else if (usrResults.length > 0) {
+                // Здесь можно добавить информацию об пользователе в сессию, если нужно
+                req.session.usr = usrResults[0];
+                res.redirect(`/usr_profile/${req.session.user.registrations_id}`);
+              } else {
+                res.status(404).send('Пользователь не найден');
+              }
+            });
+          } else if (role === "ADM") {
+            res.redirect("admin_panel")
           }
         } else {
           res.status(404).send('Неверный пароль');
@@ -413,6 +454,9 @@ app.get('/logout', (req, res) => {
   });
 });
 
+app.get("/admin_panel", function(req, res) {
+  res.render("admin_panel")
+})
 
 // // получем id редактируемого пользователя, получаем его из бд и отправлям с формой редактирования
 // app.get("/edit/:id", function (req, res) {
@@ -457,7 +501,7 @@ app.get("/", function (req, res) {  //ВОЗМОЖНО ЛИШНИЙ КОД
     //types.includes(req.session.user.type) ? userType = req.session.user.type : userType = "USR"
     
     let userType = req.session.user.type;
-    console.log(userType)
+    //console.log(userType)
     pool.query('SELECT * FROM organization', function (error, results, fields) {
       if (error) throw error;
       res.render('index', { organization: results, userType: userType });
