@@ -29,10 +29,22 @@
             <div id="header_title"class="header_title"><h1>PIONEER</h1></div>
             <div id="header_navbar"class="header_navbar">
                 <li class="hf_list"><a class="hf_ahref" href="/"><p>Главная</p></a></li>
-                <li class="hf_list"><a class="hf_ahref" href="/usr_profile"><p>Страница</p></a></li>
-                <li class="hf_list"><a class="hf_ahref" href="/org_profile"><p>Профиль {{!-- для зарегистрированных --}}</p></a></li> 
-                <li class="hf_list"><a class="hf_ahref" href="/selector"><p>Войти</p></a></li>
-                <li class="hf_list"><a class="hf_ahref" href="/logout"><p>Выход {{!-- для зарегистрированных --}}</p></a></li>
+                {{#if userType }} {{!-- для зарегистрированных --}}
+                    {{#if (eq userType "ORG") }} {{!-- Если организация --}}
+                        <li class="hf_list"><a class="hf_ahref" href="/org_profile"><p>Профиль</p></a></li>
+                    {{/if}}
+
+                    {{#if (eq userType "USR") }} {{!-- Если пользователь --}}
+                        <li class="hf_list"><a class="hf_ahref" href="/usr_profile"><p>Страница</p></a></li>
+                    {{/if}}
+
+                    {{#if (eq userType "ADM") }} {{!-- Если админ --}}
+                        <li class="hf_list"><a class="hf_ahref" href="/admin_panel"><p>Панель администратора</p></a></li>
+                    {{/if}}
+                    <li class="hf_list"><a class="hf_ahref" href="/logout"><p>Выход {{!-- для зарегистрированных --}}</p></a></li>
+                {{else}}
+                    <li class="hf_list"><a class="hf_ahref" href="/selector"><p>Войти</p></a></li>
+                {{/if}}
             </div>
         </header>
 
