@@ -1,5 +1,5 @@
 document.querySelector(".org_btn").addEventListener("click", () => {
-    fetch("/admin/organizations")
+    fetch("/admin_panel/organizations")
         .then(response => {
             if (!response.ok) {
                 throw new Error('Ошибка HTTP: ' + response.status);
@@ -7,11 +7,20 @@ document.querySelector(".org_btn").addEventListener("click", () => {
             return response.json();
         })
         .then(data => {
-            console.log(data);
-            data.forEach(organization => {
+            // Проверяем, есть ли данные в ответе
+            if (!data.organizations || data.organizations.length === 0) {
+                console.error("Нет данных об организациях");
+                return;
+            }
+            // Обновляем содержимое таблицы с данными об организациях
+            const tableBody = document.querySelector("tbody");
+            tableBody.innerHTML = ""; // Очищаем содержимое таблицы перед обновлением
+            
+            // Перебираем каждую организацию и добавляем ее данные в таблицу
+            data.organizations.forEach(organization => {
                 const row = document.createElement("tr");
                 row.innerHTML = `
-                    <td>${organization.email}</td>
+                    <td>${organization.responsible_person_email}</td>
                     <td>${organization.organization_full_name}</td>
                     <td>${organization.organization_short_name}</td>
                     <td>${organization.inn}</td>
@@ -22,12 +31,9 @@ document.querySelector(".org_btn").addEventListener("click", () => {
                     <td>${organization.responsible_person_patronymic}</td>
                     <td>${organization.responsible_person_phone_number}</td>
                     <td>${organization.add_info}</td>
-                    <td>${organization.profile_image}</td>
-                    <td>${organization.type}</td>
                 `;
                 tableBody.appendChild(row);
             });
         })
         .catch(error => console.error("Ошибка при получении данных об организациях:", error));
-
 });
