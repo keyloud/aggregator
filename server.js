@@ -467,24 +467,24 @@ app.get("/admin_panel", checkAdmin, function (req,res){
 })
 
 // Маршрут для получения списка пользователей (можете реализовать по аналогии с organizations)
-app.get("/admin/users", (req, res) => {
+app.get("/admin_panel/users", (req, res) => {
   // Здесь вы можете выполнить запрос к базе данных, чтобы получить список пользователей
   // Затем отправить этот список обратно клиенту для отображения на странице администратора
 });
 
 // Маршрут для получения списка организаций в формате JSON
-app.get("/admin/organizations", (req, res) => {
+app.get("/admin_panel/organizations", (req, res) => {
   pool.query("SELECT * FROM organization", (error, results) => {
     if (error) {
       console.error("Ошибка при выполнении запроса к базе данных:", error);
       return res.status(500).json({ error: 'Ошибка при получении данных об организациях' });
     }
-    // Преобразуем результаты запроса в массив организаций
-    const organizations = results.rows;
+    const organizations = results;
     // Отправляем данные об организациях в формате JSON
-    res.json({ organizations: organizations });
+    res.json({ organizations: JSON.parse(JSON.stringify(organizations)) });
   });
 });
+
 
 // Маршрут для получения списка заявок (можете реализовать по аналогии с users)
 app.get("/admin/reviews", (req, res) => {
