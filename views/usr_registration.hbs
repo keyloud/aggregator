@@ -18,7 +18,7 @@
         <div class="main_title">
             <h1>Регистрация</h1>
         </div>
-        <form action="/usr_registration" method="POST">
+        <form action="/usr_registration" method="POST" enctype="multipart/form-data">
             <div class="reg_title">
                 <h2>Контактное лицо</h2>
             </div>
@@ -59,10 +59,15 @@
                 </div>
                 <div class="rightside">
                     <div class="reg_passwrd">
+                        <input type="hidden" name="type" value="USR">
                         <input type="text" name = "password" placeholder="Придумайте пароль">
                     </div>
                 </div>
             </div>
+            <div class="add-image">
+                    <h3>Загрузка фото профиля</h3>
+                    <input type="file" name="sampleFile" accept="image/*" />
+                </div>
             <div class="reg_buttons">
                 <div class="reg_checkbox">
                     <input type="checkbox" id="reg_user_agree" name="reg_user_agree" value="reg_user_agree" />
