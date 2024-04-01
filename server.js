@@ -5,7 +5,13 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const fileUpload = require('express-fileupload')
 const exphbs = require('express-handlebars')
+const handlebars = require('handlebars')
+const helpers = require('handlebars-helpers')();
+
 const app = express();
+
+// Регистрируем хелперы Handlebars
+handlebars.registerHelper(helpers);
 
 const urlencodedParser = express.urlencoded({ extended: false });
 const path = require('path'); // Добавленная строка
@@ -27,6 +33,16 @@ app.engine('hbs', exphbs.engine({
 
 app.set("view engine", "hbs");
 
+// Передача userType в макет при каждом запросе
+app.use(function(req, res, next) {
+  let userType = null;
+
+  if(req.session) {
+    userType = req.session.user.type
+    res.locals.userType = userType
+  }
+  next();
+});
 
 // Middleware для парсинга JSON и работы с сессиями
 app.use(express.json());
@@ -61,8 +77,9 @@ function checkUser(req, res, next) {
   }
 }
 
-app.get("/org_profile/:registrations_id", checkOrganization , function (req, res) {
+app.get("/org_profile/:registrations_id", checkOrganization, function (req, res) {
   const email = req.session.user.email;
+
   // Используйте параметризированный запрос для безопасности
   pool.query("SELECT * FROM organization WHERE responsible_person_email = ?", [email], function (err, data) {
     if (err) {
@@ -82,20 +99,18 @@ app.get("/org_profile/:registrations_id", checkOrganization , function (req, res
   });
 });
 
-app.get("/org_profile", checkOrganization , function (req, res) {
+app.get("/org_profile", checkOrganization, function (req, res) {
   res.redirect(`/org_profile/${req.session.user.registrations_id}`);
 });
 
 app.get("/usr_profile", function (req, res) {
-  if (req.session.user.registrations_id === 19)
-  {
+  if (req.session.user.registrations_id === 19) {
     res.render("usr_profile");
   }
-  else 
-  {
+  else {
     res.status(401).send('Необходим 19 ');
   }
-  
+
 });
 
 app.get("/selector", function (req, res) {
@@ -436,11 +451,26 @@ app.get('/logout', (req, res) => {
 // });
 
 // отображение главной страницы
-app.get("/", function (req, res) {
-  pool.query('SELECT * FROM organization', function (error, results, fields) {
-    if (error) throw error;
-    res.render('index', { organization: results });
-  });
+app.get("/", function (req, res) {  //ВОЗМОЖНО ЛИШНИЙ КОД
+  if (req.session.user) {
+    //let types = ["USR", "ORG", "ADM"]
+    //types.includes(req.session.user.type) ? userType = req.session.user.type : userType = "USR"
+    
+    let userType = req.session.user.type;
+    console.log(userType)
+    pool.query('SELECT * FROM organization', function (error, results, fields) {
+      if (error) throw error;
+      res.render('index', { organization: results, userType: userType });
+      //res.locals.userType = userType;
+    });
+  } 
+  else {
+    //console.log("Сессии нет")
+    pool.query('SELECT * FROM organization', function (error, results, fields) {
+      if (error) throw error;
+      res.render('index', { organization: results });
+    });
+  }
 });
 
 app.listen(PORT, function () {
