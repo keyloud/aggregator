@@ -116,6 +116,37 @@ app.get("/org_profile", checkOrganization, function (req, res) {
   res.redirect(`/org_profile/${req.session.user.registrations_id}`);
 });
 
+// Middleware для проверки аутентификации пользователя
+function checkAuthentication(req, res, next) {
+  if (req.session.user) {
+      next();
+  } else {
+      res.status(401).send('Необходима аутентификация');
+  }
+}
+
+// Маршрут для отображения страницы org_card конкретной организации
+app.get("/org_card/:organization_id", checkAuthentication, function (req, res) {
+  const organization_id = req.params.organization_id;
+
+  // Параметризированный запрос к базе данных для получения информации об организации
+  pool.query("SELECT * FROM organization WHERE organization_id = ?", [organization_id], function (err, data) {
+      if (err) {
+          console.error(err);
+          return res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
+      }
+
+      // Проверяем, найдена ли организация
+      if (data.length === 0) {
+          return res.status(404).send('Организация не найдена.');
+      }
+
+      // Отображаем страницу org_card с данными об организации
+      res.render("org_card", { organization: data });
+  });
+});
+
+
 app.get("/usr_profile/:registrations_id", checkUser, function (req, res) {
   const email = req.session.user.email;
 
