@@ -146,58 +146,9 @@ app.get("/selector", function (req, res) {
   res.render("selector");
 });
 
-// // возвращаем форму для регистрации
-// app.get("/org_create", function (req, res) {
-//   if (req.session.user) {
-//     res.render("org_create");
-//   } else {
-//     res.status(401).send('Необходима аутентификация');
-//   }
-// });
-
-// app.post("/org_create", (req, res) => {
-//   let sampleFile;
-//   let uploadPath;
-
-//   if (!req.files || Object.keys(req.files).length === 0) {
-//     return res.status(400).send('Файлы не были загружены.');
-//   }
-//   const fullName = req.body.organization_full_name;
-//   const INN = req.body.inn;
-
-//   // Проверка наличия пароля
-//   if (!fullName || !INN) {
-//     return res.status(400).send('Данные отстутствуют.');
-//   }
-//   sampleFile = req.files.sampleFile;
-//   uploadPath = __dirname + '/public/upload/' + sampleFile.name;
-
-//   sampleFile.mv(uploadPath, function (err) {
-//     if (err) return res.status(500).send(err);
-
-//     pool.getConnection((err, connection) => {
-//       if (err) throw err; // not connection
-//       //console.log('Connected!');
-//       connection.query("INSERT INTO organization (organization_full_name, inn, profile_image) VALUES (?,?,?)", [fullName, INN, sampleFile.name], (err, rows) => {
-//         // После того как закончим запрос, отсоединяемся.  
-//         connection.release();
-
-//         if (err) {
-//           console.log(err);
-//           res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
-//         } else {
-//           // Отправка данных на страницу. Добавить переход по INN!!!
-//           res.redirect(`/org_profile/${INN}`);
-//         }
-//       });
-//     });
-//   });
-// });
-
 app.get("/about", (req, res) => {
   res.render('about');
 })
-
 
 // Регистрация ОРГАНИЗАЦИИ
 app.post('/org_registration', (req, res) => {
@@ -465,50 +416,21 @@ app.get('/logout', (req, res) => {
   });
 });
 
-// // получем id редактируемого пользователя, получаем его из бд и отправлям с формой редактирования
-// app.get("/edit/:id", function (req, res) {
-//   const id = req.params.id;
-//   pool.query("SELECT * FROM users WHERE id=?", [id], function (err, data) {
-//     if (err) return console.log(err);
-//     res.render("edit.hbs", {
-//       user: data[0]
-//     });
-//   });
-// });
-
-
-// // получаем отредактированные данные и отправляем их в БД
-// app.post("/edit", urlencodedParser, function (req, res) {
-
-//   if (!req.body) return res.sendStatus(400);
-//   const name = req.body.name;
-//   const age = req.body.age;
-//   const id = req.body.id;
-
-//   pool.query("UPDATE users SET name=?, age=? WHERE id=?", [name, age, id], function (err, data) {
-//     if (err) return console.log(err);
-//     res.redirect("/");
-//   });
-// });
-
-// // получаем id удаляемого пользователя и удаляем его из бд
-// app.post("/delete/:id", function (req, res) {
-
-//   const id = req.params.id;
-//   pool.query("DELETE FROM users WHERE id=?", [id], function (err, data) {
-//     if (err) return console.log(err);
-//     res.redirect("/");
-//   });
-// });
-
 app.get("/admin_panel", checkAdmin, function (req,res){
   res.render('admin_panel')
 })
 
 // Маршрут для получения списка пользователей (можете реализовать по аналогии с organizations)
 app.get("/admin_panel/users", checkAdmin, (req, res) => {
-  // Здесь вы можете выполнить запрос к базе данных, чтобы получить список пользователей
-  // Затем отправить этот список обратно клиенту для отображения на странице администратора
+  pool.query("SELECT * FROM customer", (error, results) => {
+    if (error) {
+      console.error("Ошибка при выполнении запроса к базе данных:", error);
+      return res.status(500).json({ error: 'Ошибка при получении данных об организациях' });
+    }
+    const customers = results;
+    // Отправляем данные об организациях в формате JSON
+    res.json({ customers: JSON.parse(JSON.stringify(customers)) });
+  });
 });
 
 // Маршрут для получения списка организаций в формате JSON
