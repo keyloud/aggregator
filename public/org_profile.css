@@ -178,7 +178,7 @@
 .adres, .srvc, .price, .nmrqst,
 .dtrqst, .numbuser {
     background: #fff;
-
+    border-radius: 6px;
 }
 
 .txt{
