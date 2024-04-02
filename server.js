@@ -299,10 +299,10 @@ app.post('/usr_registration', (req, res) => {
     }
 
     // Сохранение хеша пароля и остальных данных в базе данных
-    const queryUsr = 'INSERT INTO customer (customer_name, customer_surname, customer_patronymic, customer_phone_number, customer_email, add_info, profile_image, profile_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
+    const queryUsr = 'INSERT INTO customer (customer_name, customer_surname, customer_patronymic, customer_phone_number, customer_email, add_info, profile_image) VALUES (?, ?, ?, ?, ?, ?, ?)';
     const queryReg = 'INSERT INTO registrations (email, password, type) VALUES (?, ?, ?)';
 
-    pool.query(queryUsr, [customer_name, customer_surname, customer_patronymic, customer_phone_number, customer_email, add_info, sampleFile.name, sampleFile.name], (err, result) => {
+    pool.query(queryUsr, [customer_name, customer_surname, customer_patronymic, customer_phone_number, customer_email, add_info, sampleFile.name], (err, result) => {
       if (err) {
         console.error('Ошибка при добавлении пользователя в базу данных:', err);
         return res.status(500).send('Ошибка при регистрации пользователя');
