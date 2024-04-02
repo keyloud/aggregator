@@ -297,6 +297,13 @@ app.post('/usr_registration', (req, res) => {
   sampleFile = req.files.sampleFile;
   uploadPath = __dirname + '/public/upload/' + sampleFile.name;
 
+  sampleFile.mv(uploadPath, function(err) {
+    if (err)
+      return res.status(500).send(err);
+  
+    console.log('File uploaded!');
+  });
+
   // Проверка наличия пароля
   if (!password) {
     return res.status(400).send('Пароль отсутствует');
@@ -313,7 +320,7 @@ app.post('/usr_registration', (req, res) => {
     const queryUsr = 'INSERT INTO customer (customer_name, customer_surname, customer_patronymic, customer_phone_number, customer_email, add_info, profile_image ) VALUES (?, ?, ?, ?, ?, ?, ?)';
     const queryReg = 'INSERT INTO registrations (email, password, type) VALUES (?, ?, ?)';
 
-    pool.query(queryUsr, [customer_name, customer_surname, customer_patronymic, customer_phone_number, customer_email, add_info, profile_image], (err, result) => {
+    pool.query(queryUsr, [customer_name, customer_surname, customer_patronymic, customer_phone_number, customer_email, add_info, sampleFile.name], (err, result) => {
       if (err) {
         console.error('Ошибка при добавлении пользователя в базу данных:', err);
         return res.status(500).send('Ошибка при регистрации пользователя');
