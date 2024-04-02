@@ -32,9 +32,6 @@
     min-height: 80vh;
     
     margin: 0 auto;
-    position: relative;
-
-  
 } 
 
 .org_about h1,h2,h3,h4,h5,h6 {
@@ -213,7 +210,6 @@
 
 .price_service {
     color: green;
-    z-index: 101;
 }
 
 .btn_signup {
