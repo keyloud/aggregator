@@ -2,21 +2,17 @@
         <div id="org_slot" class="org_slot">
             <div id="org_info" class="org_info">
                 <div id="org_img" class="org_img">
-                    <img src="upload/Dm__hBmR8qc.jpg" alt="Изображение организации">
+                    <img src="/upload/{{organization.profile_image}}" alt="Изображение организации">
                 </div>
                 <div id="org_name" class="org_name">
-                    <p>"ОАО" Обманули слегка</p>
+                    <p class="org_nam">{{organization.organization_full_name}}</p>
                 </div>
                 <div id="org_disc" class="org_disc">
                     <div class="org_disc_title">
                         <p>Описание организации:</p>
                     </div>
                     <div class="org_disc_text">
-                        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo reiciendis vel qui quibusdam
-                            optio est eius doloribus aliquid ratione natus, perspiciatis pariatur distinctio labore,
-                            veritatis totam rerum alias beatae nesciunt nisi, reprehenderit similique. Similique ex
-                            voluptate eum illo quibusdam. Magni tenetur excepturi, amet molestiae magnam sequi obcaecati
-                            optio aliquid quidem?</p>
+                        <p class="org_add">{{organization.add_info}}</p>
                     </div>
                 </div>
             </div>

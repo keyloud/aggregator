@@ -142,7 +142,7 @@ app.get("/org_card/:organization_id", checkAuthentication, function (req, res) {
       }
 
       // Отображаем страницу org_card с данными об организации
-      res.render("org_card", { organization: data });
+      res.render("org_card", { organization: data[0] });
   });
 });
 
