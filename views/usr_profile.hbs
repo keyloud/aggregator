@@ -1,3 +1,6 @@
+<head>
+  <link rel="stylesheet" href="/public/user_profile.css">
+</head>
 <div class="profile-container">
     <div class="main-body">
         <div class="row">
@@ -5,8 +8,8 @@
                 <div class="profile-card">
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-center text-center">
-                            <img src="/upload/{{customer.profile_image}}" alt="Admin" class="avatar"
-                                width="350" height="350" border-radius="20">
+                            <img src="/upload/{{customer.profile_image}}" alt="Admin" class="avatar" width="350"
+                                height="350" border-radius="20">
                             <div class="mt-3">
                             </div>
                         </div>
@@ -18,10 +21,15 @@
                     <div class="card-body">
                         <div class="row mb-3">
                             <div class="col-sm-3">
+                                <label class="field-label">Фамилия:</label>
                                 <p class="surname">{{customer.customer_surname}}</p>
+                                <label class="field-label">Имя:</label>
                                 <p class="name">{{customer.customer_name}}</p>
+                                <label class="field-label">Отчество:</label>
                                 <p class="middle_name">{{customer.customer_patronymic}}</p>
+                                <label class="field-label">Email:</label>
                                 <p class="email">{{customer.customer_email}}</p>
+                                <label class="field-label">Телефон:</label>
                                 <p class="phone_number">{{customer.customer_phone_number}}</p>
                                 <input type="button" class="Save" value="Сохранить">
                                 <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
