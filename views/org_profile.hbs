@@ -2,43 +2,38 @@
     <div class="info">
         <div class="about">
             <div class="urlpht">
-                <p class="txt">url_photo</p>
+                <img src="/pload/{{organization.profile_image}}">
             </div>
             <div class="inn">
-                <p class="txt">ИНН</p>
+                <p class="txt">{{organization.inn}}</p>
             </div>
             <div class="kpp">
-                <p class="txt">КПП</p>
+                <p class="txt">{{organization.kpp}}</p>
             </div>
             <div class="orgn">
-                <p class="txt">ОГРН</p>
+                <p class="txt">{{organization.kpp}}</p>
             </div>
         </div>
         <div class="description">
             <div class="fullname">
-                <p class="txt">Полное имя</p>
+                <p class="txt">{{organization.organization_full_name}}</p>
             </div>
             <div class="shortname">
-                <p class="txt">Короткое имя</p>
+                <p class="txt">{{organization.organization_short_name}}</p>
             </div>
             <div class="dscrpt">
-                <p class="txt">Lorem ipsum dolor sit amet consectetur, adipisicing elit. Suscipit sed magnam dolorum
-                    laborum aspernatur fugiat ipsa quibusdam expedita quos quia, nulla illo veritatis repellendus amet
-                    velit. Asperiores optio deleniti dolorem?</p>
+                <p class="txt">{{organization.add_info}}</p>
             </div>
         </div>
         <div class="bio">
             <div class="fio">
-                <p class="txt">ФИО</p>
+                <p class="txt">{{organization.responsible_person_surname}} {{organization.responsible_person_name}} {{organization.responsible_person_patronymic}}</p>
             </div>
             <div class="org_prof_email">
-                <p class="txt">Email</p>
+                <p class="txt">{{organization.responsible_person_email}}</p>
             </div>
             <div class="phone">
-                <p class="txt">+792784552</p>
-            </div>
-            <div class="adres">
-                <p class="txt">Адрес</p>
+                <p class="txt">{{organization.responsible_person_phone_number}}</p>
             </div>
         </div>
         <div class="btn">
