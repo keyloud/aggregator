@@ -125,26 +125,41 @@ function checkAuthentication(req, res, next) {
   }
 }
 
-// Маршрут для отображения страницы org_card конкретной организации
 app.get("/org_card/:organization_id", checkAuthentication, function (req, res) {
   const organization_id = req.params.organization_id;
+  const service_detail_code = organization_id;
 
   // Параметризированный запрос к базе данных для получения информации об организации
-  pool.query("SELECT * FROM organization WHERE organization_id = ?", [organization_id], function (err, data) {
+  pool.query("SELECT * FROM organization WHERE organization_id = ?", [organization_id], function (err, orgData) {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
+    }
+
+    // Проверяем, найдена ли организация
+    if (orgData.length === 0) {
+      return res.status(404).send('Организация не найдена.');
+    }
+
+    // Параметризированный запрос к базе данных для получения информации о детализации услуги
+    pool.query("SELECT * FROM service_detail WHERE service_detail_code = ?", [service_detail_code], function (err, serviceData) {
       if (err) {
-          console.error(err);
-          return res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
+        console.error(err);
+        return res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
       }
 
-      // Проверяем, найдена ли организация
-      if (data.length === 0) {
-          return res.status(404).send('Организация не найдена.');
+      // Если данные о детализации услуги не найдены, то продолжаем отображение страницы org_card только с данными об организации
+      if (serviceData.length === 0) {
+        return res.render("org_card", { organization: orgData[0], service_detail: null });
       }
 
-      // Отображаем страницу org_card с данными об организации
-      res.render("org_card", { organization: data[0] });
+      // Отображаем страницу org_card с данными об организации и детализации услуги
+      res.render("org_card", { organization: orgData[0], service_detail: serviceData[0] });
+    });
   });
 });
+
+
 
 
 app.get("/usr_profile/:registrations_id", checkUser, function (req, res) {
