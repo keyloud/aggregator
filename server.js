@@ -162,7 +162,7 @@ app.get("/usr_profile/:registrations_id", checkUser, function (req, res) {
     }
     //Если юзер авторизирован, то покажет страницу, если нет ,то err
     if (req.session.user) {
-      res.render("usr_profile", { customer: data });
+      res.render("usr_profile", { customer: data[0] });
     } else {
       res.status(401).send('Необходима аутентификация');
     }
@@ -279,6 +279,13 @@ app.post('/usr_registration', (req, res) => {
   sampleFile = req.files.sampleFile;
   uploadPath = __dirname + '/public/upload/' + sampleFile.name;
 
+  sampleFile.mv(uploadPath, function(err) {
+    if (err)
+      return res.status(500).send(err);
+  
+    console.log('File uploaded!');
+  });
+
   // Проверка наличия пароля
   if (!password) {
     return res.status(400).send('Пароль отсутствует');
@@ -292,10 +299,10 @@ app.post('/usr_registration', (req, res) => {
     }
 
     // Сохранение хеша пароля и остальных данных в базе данных
-    const queryUsr = 'INSERT INTO customer (customer_name, customer_surname, customer_patronymic, customer_phone_number, customer_email, add_info, profile_image) VALUES (?, ?, ?, ?, ?, ?, ?)';
+    const queryUsr = 'INSERT INTO customer (customer_name, customer_surname, customer_patronymic, customer_phone_number, customer_email, add_info, profile_image, profile_image) VALUES (?, ?, ?, ?, ?, ?, ?, ?)';
     const queryReg = 'INSERT INTO registrations (email, password, type) VALUES (?, ?, ?)';
 
-    pool.query(queryUsr, [customer_name, customer_surname, customer_patronymic, customer_phone_number, customer_email, add_info, sampleFile.name], (err, result) => {
+    pool.query(queryUsr, [customer_name, customer_surname, customer_patronymic, customer_phone_number, customer_email, add_info, sampleFile.name, sampleFile.name], (err, result) => {
       if (err) {
         console.error('Ошибка при добавлении пользователя в базу данных:', err);
         return res.status(500).send('Ошибка при регистрации пользователя');

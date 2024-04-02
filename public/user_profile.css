@@ -4,130 +4,48 @@
     margin-top:20px;
 }
 .usr_profile_card{
-    position: relative;
+    width: 55%;
     display: flex;
     flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #003F63;
-    background-clip: border-box;
-    border: 0 solid transparent;
-    border-radius: .25rem;
-    margin-bottom: 1.5rem;
+    justify-content: center;
    
 }
 .me-2 {
     margin-right: .5rem!important;
 }
+
+.profile-card {
+    width: 40%;
+    margin-right: 10px;
+}
+
+.field-label {
+    font-family: Rubik; /* Используйте тот же шрифт, что и для остальной страницы */
+    font-size: 16px; /* Или любой другой размер, который вам нравится */
+    color: #fff; /* Или любой другой цвет, который вам нравится */
+    margin-bottom: 5px; /* Добавьте немного отступа снизу, чтобы подпись не прилипала к полю */
+}
+
 .avatar{
-    height: 335px;
-    width:335px;
+    height: 400px;
+    width: 400px;
     border-radius: 20px;
-    margin-left: 50px;
 }
 
 .profile-container{
-    width:1440px;
-    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
 }
 
-.surname{
-    width: 875px;
+.surname, .name, .middle_name, .email, .phone_number {
+    width: 100%;
     height: 50px;
-    padding: 5px; /* добавляем отступ вокруг текста внутри input */
-    border: 1px solid #ccc; /* стиль границы */
-    border-radius: 10px; /* закругленные углы */
-    box-sizing: border-box; /* учитываем padding и border внутри ширины и высоты */
-    font-size: 14px; /* размер шрифта */
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-sizing: border-box;
+    font-size: 14px;
     margin-bottom: 20px;
-
-    font-size: 20px;
-    font-family: Rubik;
-    font-weight: 400;
-}
-.name{
-    width: 875px;
-    height: 50px;
-    padding: 5px; /* добавляем отступ вокруг текста внутри input */
-    border: 1px solid #ccc; /* стиль границы */
-    border-radius: 10px; /* закругленные углы */
-    box-sizing: border-box; /* учитываем padding и border внутри ширины и высоты */
-    font-size: 14px; /* размер шрифта */
-    margin-bottom: 20px;
-
-    font-size: 20px;
-    font-family: Rubik;
-    font-weight: 400;
-
-}
-.middle_name{
-    width: 875px;
-    height: 50px;
-    padding: 5px; /* добавляем отступ вокруг текста внутри input */
-    border: 1px solid #ccc; /* стиль границы */
-    border-radius: 10px; /* закругленные углы */
-    box-sizing: border-box; /* учитываем padding и border внутри ширины и высоты */
-    font-size: 14px; /* размер шрифта */
-    margin-bottom: 20px;
-
-    font-size: 20px;
-    font-family: Rubik;
-    font-weight: 400;
-}
-.email{
-    width: 875px;
-    height: 50px;
-    padding: 5px; /* добавляем отступ вокруг текста внутри input */
-    border: 1px solid #ccc; /* стиль границы */
-    border-radius: 10px; /* закругленные углы */
-    box-sizing: border-box; /* учитываем padding и border внутри ширины и высоты */
-    font-size: 14px; /* размер шрифта */
-    margin-bottom: 20px;
-
-    font-size: 20px;
-    font-family: Rubik;
-    font-weight: 400;
-
-}
-.password{
-    width: 875px;
-    height: 50px;
-    padding: 5px; /* добавляем отступ вокруг текста внутри input */
-    border: 1px solid #ccc; /* стиль границы */
-    border-radius: 10px; /* закругленные углы */
-    box-sizing: border-box; /* учитываем padding и border внутри ширины и высоты */
-    font-size: 14px; /* размер шрифта */
-    margin-bottom: 20px;  
-
-    font-size: 20px;
-    font-family: Rubik;
-    font-weight: 400;
-}
-.pass{
-    width: 875px;
-    height: 50px;
-    padding: 5px; /* добавляем отступ вокруг текста внутри input */
-    border: 1px solid #ccc; /* стиль границы */
-    border-radius: 10px; /* закругленные углы */
-    box-sizing: border-box; /* учитываем padding и border внутри ширины и высоты */
-    font-size: 14px; /* размер шрифта */
-    margin-bottom: 20px;  
-    margin-top: 5px;
-
-    font-size: 20px;
-    font-family: Rubik;
-    font-weight: 400;
-}
-.phone_number{
-    width: 875px;
-    height: 50px;
-    padding: 5px; /* добавляем отступ вокруг текста внутри input */
-    border: 1px solid #ccc; /* стиль границы */
-    border-radius: 10px; /* закругленные углы */
-    box-sizing: border-box; /* учитываем padding и border внутри ширины и высоты */
-    font-size: 14px; /* размер шрифта */
-    margin-bottom: 20px;  
-    margin-top: 5px;
 
     font-size: 20px;
     font-family: Rubik;
