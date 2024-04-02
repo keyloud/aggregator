@@ -32,7 +32,7 @@
     min-height: 80vh;
     
     margin: 0 auto;
-    position: relative;
+
 
   
 } 
@@ -213,7 +213,6 @@
 
 .price_service {
     color: green;
-    z-index: 101;
 }
 
 .btn_signup {
