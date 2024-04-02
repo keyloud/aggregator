@@ -1,25 +1,69 @@
+.org_card_body {
+    margin: 0;
+    background: #003F63;
+    margin-top: 220px;
+
+
+}
+
+/* полоса прокрутки (скроллбар) */
+.org_card_body ::-webkit-scrollbar {
+    width: 10px; /* ширина для вертикального скролла */
+    height: 8px; /* высота для горизонтального скролла */
+    background-color: #003F63;
+}
+
+/* ползунок скроллбара */
+.org_card_body ::-webkit-scrollbar-thumb {
+    background-color: #289FCA;
+    border-radius: 5px;
+    box-shadow: inset 1px 1px 10px #f3faf7;
+}
+
+.org_card_body::-webkit-scrollbar-thumb:hover {
+    background-color: #289FCA;
+}
+
 
 /*org_about*/
 .org_about {
     width: 100%;
     max-width: 1200px;
     min-height: 80vh;
-    margin-top: 150px;
+    
     margin: 0 auto;
     position: relative;
-    padding-top: 20px;
-    padding-bottom: 20px;
-    box-shadow: -15px 0 200px rgba(0, 0, 0, 0.1), 15px 0 200px rgba(0, 0, 0, 0.1);
-    border-left: 1px solid #cccccc9b;  /* Граница на левой стороне */
-    border-right: 1px solid #cccccc9b; /* Граница на правой стороне */
+
+  
 } 
+
+.org_about h1,h2,h3,h4,h5,h6 {
+    font-family: "Ubuntu", sans-serif;
+    color: #fff;
+    margin: 0;
+    font-style: normal;
+    margin-bottom: 5px;
+    
+}
+
+.org_about p {
+    font-family: "Rubik", sans-serif;
+    font-weight: 600;
+    margin: 0;
+    color: black;
+
+}
+
 
 .org_slot {
     width: 100%;
     max-width: 1200px;
     height: 80vh;
     display: flex;
+   
 
+    
+   
 }
 
 /*org_info*/
@@ -47,6 +91,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    background: #fff;
 }
 
 .org_name p {
@@ -59,11 +104,13 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
+    background: #fff;
 }
 
 .org_disc_title {
     font-weight: bold;
     margin-bottom: 5px;
+    
 }
 
 .org_disc_text {
@@ -77,6 +124,7 @@
 .org_img, .org_name, .org_disc {
     margin-bottom: 10px;
     border: 1px solid black;
+    
     
 }
 
@@ -92,7 +140,7 @@
     flex-direction: column;
 }
 
-.scrl_bord_top, .scrl_bord_bottom {
+/* .scrl_bord_top, .scrl_bord_bottom {
     height: 3%;
     padding: 10px;
     
@@ -109,7 +157,7 @@
     border-bottom: 1px solid black;
     border-left: 1px solid black;
     border-right: 1px solid black;
-}
+} */
 
 .inner_service_conteiner {
     flex: 1;
@@ -122,18 +170,22 @@
 
 .inner_service_conteiner .service {
     min-height: 60px;
-    border-bottom: 1px solid black;
+    
     display: flex;
     flex-direction: column;
     justify-content: space-around;
     align-items: flex-start;
     margin-bottom: 10px;
     padding: 10px;
+
+    
 }
 
 .service_title {
     text-align: left;
     font-weight: bold;
+
+    
     
 }
 
@@ -142,19 +194,26 @@
     align-items: center;
     width: 100%; 
     margin-bottom: 10px;
+    background: #fff;
 }
 
 .name_service,
 .price_service,
 .btn_signup {
     flex: 1; 
-    border: 1px solid black;
+    
     padding: 10px;
     text-align: center;
 }
 
+.btn_signup, .price_service {
+    border-left: 1px solid black;
+}
+
+
 .price_service {
     color: green;
+    z-index: 101;
 }
 
 .btn_signup {
