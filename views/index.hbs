@@ -88,21 +88,24 @@
         </section>
         <section>
             {{#each organization}}
-    <div class="card">
-        {{#if this.profile_image}}
-            <img class="card_img" height="210" width="210" border-radius="10" src="/upload/{{this.profile_image}}" alt="User Profile">
-        {{else}}
-            <img class="card_img" height="210" width="210" border-radius="10" src="/img/default.jpg" alt="User Profile">
-        {{/if}}
-        <div class="card_content">
-            <h3 class="card_h3">{{this.organization_full_name}}</h3>
-            <p class="card_p">{{this.add_info}}</p>
-            <div class="org_card_btn">
-                    <button class="card_button_href"><a href="/org_card/{{this.organization_id}}" >Посмотреть профиль</a>
+            <div class="card">
+                {{#if this.profile_image}}
+                <img class="card_img" height="210" width="210" border-radius="10" src="/upload/{{this.profile_image}}"
+                    alt="User Profile">
+                {{else}}
+                <img class="card_img" height="210" width="210" border-radius="10" src="/img/default.jpg"
+                    alt="User Profile">
+                {{/if}}
+                <div class="card_content">
+                    <h3 class="card_h3">{{this.organization_full_name}}</h3>
+                    <p class="card_p">{{this.add_info}}</p>
+                    <div class="org_card_btn">
+                        <button class="card_button_href"><a href="/org_card/{{this.organization_id}}">Посмотреть
+                                профиль</a>
+                    </div>
+                </div>
             </div>
-        </div>
-        </div>
-    {{/each}}
+            {{/each}}
         </section>
     </div>
 </div>

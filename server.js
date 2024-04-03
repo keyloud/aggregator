@@ -105,7 +105,7 @@ app.get("/org_profile/:registrations_id", checkOrganization, function (req, res)
     }
     //Если юзер авторизирован, то покажет страницу, если нет ,то err
     if (req.session.user) {
-      res.render("org_profile", { organization: data[0] });
+      res.render("org_profile", { organization: data });
     } else {
       res.status(401).send('Необходима аутентификация');
     }
@@ -124,6 +124,8 @@ function checkAuthentication(req, res, next) {
       res.status(401).send('Необходима аутентификация');
   }
 }
+
+// Маршрут для отображения страницы org_card конкретной организации
 
 app.get("/org_card/:organization_id", checkAuthentication, function (req, res) {
   const organization_id = req.params.organization_id;
@@ -158,8 +160,6 @@ app.get("/org_card/:organization_id", checkAuthentication, function (req, res) {
     });
   });
 });
-
-
 
 
 app.get("/usr_profile/:registrations_id", checkUser, function (req, res) {
