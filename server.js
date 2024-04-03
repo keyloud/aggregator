@@ -154,9 +154,9 @@ app.get("/org_card/:organization_id", checkAuthentication, function (req, res) {
       if (serviceData.length === 0) {
         return res.render("org_card", { organization: orgData[0], service_detail: null });
       }
-
+      
       // Отображаем страницу org_card с данными об организации и детализации услуги
-      res.render("org_card", { organization: orgData[0], service_detail: serviceData[0] });
+      res.render("org_card", { organization: orgData[0], service_detail: serviceData });
     });
   });
 });

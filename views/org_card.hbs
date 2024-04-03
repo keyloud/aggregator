@@ -20,15 +20,16 @@
             <div class="scrl_bord_top"></div>
             <div class="inner_service_conteiner">
                 <div class="service">
+                    {{#each service_detail}}
                     <div class="service_title">
                         <h4>Услуга</h4>
                     </div>
                     <div class="service_details">
                         <div class="name_service">
-                            <p class="name_service">{{service_detail.service_detail_name}}</p>
+                            <p class="name_service">{{this.service_detail_name}}</p>
                         </div>
                         <div class="price_service">
-                            <p class="price_service">{{service_detail.service_detail_cost}}</p>
+                            <p class="price_service">{{this.service_detail_cost}}</p>
                         </div>
                         <div class="btn_signup">
                             <a href="#">
@@ -36,6 +37,7 @@
                             </a>
                         </div>
                     </div>
+                    {{/each}}
                 </div>
             </div>
             <div class="scrl_bord_bottom"></div>
