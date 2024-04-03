@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Запись на услугу</title>
+<!-- Подключаем стили для календаря -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css">
+</head>
+<body>
+
+<button id="selectDateButton">Выбрать дату</button>
+<input type="text" id="selectedDate" readonly>
+
+<div id="timeSelection">
+    <h3>Выберите время:</h3>
+    <div>
+        <label for="hour">Часы:</label>
+        <select id="hour">
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+        </select>
+    </div>
+    <div>
+        <label for="minute">Минуты:</label>
+        <select id="minute">
+            <option value="00">00</option>
+            <option value="15">15</option>
+            <option value="30">30</option>
+            <option value="45">45</option>
+        </select>
+    </div>
+</div>
+
+<button id="confirmButton">Подтвердить</button>
+
+<!-- Подключаем скрипт для работы с календарем -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js"></script>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        // Инициализируем календарь
+        const datepicker = new Datepicker(document.getElementById('selectedDate'), {
+            autohide: true
+        });
+
+        // Показываем календарь при клике на кнопку
+        document.getElementById('selectDateButton').addEventListener('click', function () {
+            datepicker.show();
+        });
+
+        // Обработка подтверждения
+        document.getElementById('confirmButton').addEventListener('click', function () {
+            const selectedDate = document.getElementById('selectedDate').value;
+            const selectedHour = document.getElementById('hour').value;
+            const selectedMinute = document.getElementById('minute').value;
+            // Делаем что-то с выбранной датой и временем, например, отправляем на сервер
+            console.log('Выбранная дата:', selectedDate);
+            console.log('Выбранное время:', selectedHour + ':' + selectedMinute);
+        });
+    });
+</script>
+
+</body>
+</html>

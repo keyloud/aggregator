@@ -2,7 +2,7 @@
     <div class="info">
         <div class="about">
             <div class="urlpht">
-                <img src="/upload/{{organization.profile_image}}">
+                <img src="/pload/{{organization.profile_image}}">
             </div>
             <div class="inn">
                 <p class="txt">{{organization.inn}}</p>
@@ -27,7 +27,8 @@
         </div>
         <div class="bio">
             <div class="fio">
-                <p class="txt">{{organization.responsible_person_surname}} {{organization.responsible_person_name}} {{organization.responsible_person_patronymic}}</p>
+                <p class="txt">{{organization.responsible_person_surname}} {{organization.responsible_person_name}}
+                    {{organization.responsible_person_patronymic}}</p>
             </div>
             <div class="org_prof_email">
                 <p class="txt">{{organization.responsible_person_email}}</p>
@@ -47,17 +48,18 @@
             <h3>Мои услуги</h3>
         </div>
         <div class="main">
+            {{#each service_detail}}
             <div class="myservices">
                 <div class="srvc">
-                    <p class="txt">Мойка днища</p>
+                    <p class="txt">{{this.service_detail_name}}</p>
                 </div>
-
             </div>
             <div class="prices">
                 <div class="price">
-                    <p class="txt">200 руб.</p>
+                    <p class="txt">{{this.service_detail_cost}}</p>
                 </div>
             </div>
+            {{/each}}
         </div>
     </div>
     <div class="request">

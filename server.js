@@ -89,33 +89,6 @@ function checkAdmin(req, res, next) {
   }
 }
 
-
-app.get("/org_profile/:registrations_id", checkOrganization, function (req, res) {
-  const email = req.session.user.email;
-
-  // Используйте параметризированный запрос для безопасности
-  pool.query("SELECT * FROM organization WHERE responsible_person_email = ?", [email], function (err, data) {
-    if (err) {
-      console.error(err);
-      return res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
-    }
-    // Проверьте, найдены ли данные
-    if (data.length === 0) {
-      return res.status(404).send('Организация не найдена.');
-    }
-    //Если юзер авторизирован, то покажет страницу, если нет ,то err
-    if (req.session.user) {
-      res.render("org_profile", { organization: data[0] });
-    } else {
-      res.status(401).send('Необходима аутентификация');
-    }
-  });
-});
-
-app.get("/org_profile", checkOrganization, function (req, res) {
-  res.redirect(`/org_profile/${req.session.user.registrations_id}`);
-});
-
 // Middleware для проверки аутентификации пользователя
 function checkAuthentication(req, res, next) {
   if (req.session.user) {
@@ -124,6 +97,46 @@ function checkAuthentication(req, res, next) {
       res.status(401).send('Необходима аутентификация');
   }
 }
+
+app.get("/submit_page", checkAuthentication, function(req, res) {
+  res.render("submit_page")
+})
+
+app.get("/org_profile/:registrations_id", checkOrganization, function (req, res) {
+  const email = req.session.user.email;
+
+  // Используйте параметризированный запрос для безопасности
+  pool.query("SELECT * FROM organization WHERE responsible_person_email = ?", [email], function (err, orgData) {
+    if (err) {
+      console.error(err);
+      return res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
+    }
+    
+    // Проверьте, найдены ли данные об организации
+    if (orgData.length === 0) {
+      return res.status(404).send('Организация не найдена.');
+    }
+
+    // Используем registration_id из параметров запроса для получения service_detail
+    const service_detail_code = req.params.registrations_id;
+    
+    // Параметризированный запрос к базе данных для получения информации о детализации услуги
+    pool.query("SELECT * FROM service_detail WHERE service_detail_code = ?", [service_detail_code], function (err, serviceData) {
+      if (err) {
+        console.error(err);
+        return res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
+      }
+      console.log(serviceData);
+      // Отображаем страницу org_profile с данными об организации и детализации услуги
+      res.render("org_profile", { organization: orgData[0], service_detail: serviceData });
+    });
+  });
+});
+
+
+app.get("/org_profile", checkOrganization, function (req, res) {
+  res.redirect(`/org_profile/${req.session.user.registrations_id}`);
+});
 
 // Маршрут для отображения страницы org_card конкретной организации
 
@@ -154,7 +167,6 @@ app.get("/org_card/:organization_id", checkAuthentication, function (req, res) {
       if (serviceData.length === 0) {
         return res.render("org_card", { organization: orgData[0], service_detail: null });
       }
-      
       // Отображаем страницу org_card с данными об организации и детализации услуги
       res.render("org_card", { organization: orgData[0], service_detail: serviceData });
     });
