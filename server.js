@@ -98,7 +98,7 @@ function checkAuthentication(req, res, next) {
   }
 }
 
-app.get("submit_page", checkAuthentication, function(req, res) {
+app.get("/submit_page", checkAuthentication, function(req, res) {
   res.render("submit_page")
 })
 

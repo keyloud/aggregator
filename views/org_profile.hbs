@@ -43,12 +43,12 @@
             </div>
         </div>
     </div>
-    <div class="service">
+    <div class="services">
         <div class="title">
             <h3>Мои услуги</h3>
         </div>
-        {{#each service_detail}}
         <div class="main">
+            {{#each service_detail}}
             <div class="myservices">
                 <div class="srvc">
                     <p class="txt">{{this.service_detail_name}}</p>
@@ -59,8 +59,8 @@
                     <p class="txt">{{this.service_detail_cost}}</p>
                 </div>
             </div>
+            {{/each}}
         </div>
-        {{/each}}
     </div>
     <div class="request">
         <div class="title">
