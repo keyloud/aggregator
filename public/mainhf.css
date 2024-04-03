@@ -135,7 +135,7 @@ footer {
 }
 
 .usr_profile_card{
-  position: relative;
+  
   display: flex;
   flex-direction: column;
   min-width: 0;
@@ -151,19 +151,40 @@ footer {
   margin-right: .5rem!important;
 }
 .avatar{
-  height: 335px;
-  width:335px;
+  height: 450px;
+  width: 450px;
   border-radius: 20px;
   margin-left: 50px;
 }
 
+.roww{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 317px;
+}
+
+.profile-column {
+  flex: 1;
+  max-width: 50%;
+}
+
 .profile-container{
-  width:1440px;
-  margin: 0 auto;
+    width: 100%;
+    display: flex;
+    align-content: space-around;
+    justify-content: center;
+}
+
+.field-label {
+  font-family: Rubik; /* Используйте тот же шрифт, что и для остальной страницы */
+  font-size: 16px; /* Или любой другой размер, который вам нравится */
+  color: #fff; /* Или любой другой цвет, который вам нравится */
+  margin-bottom: 5px; /* Добавьте немного отступа снизу, чтобы подпись не прилипала к полю */
 }
 
 .surname{
-  width: 875px;
+  width: 600px;
   height: 50px;
   padding: 5px; /* добавляем отступ вокруг текста внутри input */
   border: 1px solid #ccc; /* стиль границы */
@@ -177,7 +198,7 @@ footer {
   font-weight: 400;
 }
 .name{
-  width: 875px;
+  width: 600px;
   height: 50px;
   padding: 5px; /* добавляем отступ вокруг текста внутри input */
   border: 1px solid #ccc; /* стиль границы */
@@ -192,7 +213,7 @@ footer {
 
 }
 .middle_name{
-  width: 875px;
+  width: 600px;
   height: 50px;
   padding: 5px; /* добавляем отступ вокруг текста внутри input */
   border: 1px solid #ccc; /* стиль границы */
@@ -206,7 +227,7 @@ footer {
   font-weight: 400;
 }
 .email{
-  width: 875px;
+  width: 600px;
   height: 50px;
   padding: 5px; /* добавляем отступ вокруг текста внутри input */
   border: 1px solid #ccc; /* стиль границы */
@@ -250,7 +271,7 @@ footer {
   font-weight: 400;
 }
 .phone_number{
-  width: 875px;
+  width: 600px;
   height: 50px;
   padding: 5px; /* добавляем отступ вокруг текста внутри input */
   border: 1px solid #ccc; /* стиль границы */
@@ -265,7 +286,11 @@ footer {
   font-weight: 400;
 }
 
-.Save{
+.button-class{
+  
+}
+
+.button-class button{
   width: 170px;
   height: 56px;
   border: none; /* Убираем границу */
