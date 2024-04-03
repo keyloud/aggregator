@@ -117,7 +117,7 @@ app.get("/org_profile/:registrations_id", checkOrganization, function (req, res)
     }
     //Если юзер авторизирован, то покажет страницу, если нет ,то err
     if (req.session.user) {
-      res.render("org_profile", { organization: data });
+      res.render("org_profile", { organization: data[0] });
     } else {
       res.status(401).send('Необходима аутентификация');
     }
