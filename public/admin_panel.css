@@ -103,3 +103,25 @@
     max-width: 500px; /* Ограничиваем максимальную ширину */
 }
 
+.save-btn i {
+    color: #048b2d; /* Цвет иконок */
+    font-size: 12px; /* Размер иконок */
+    background: none;
+}
+
+.delete-btn i{
+    color: #9e0606; /* Цвет иконок */
+    font-size: 12px; /* Размер иконок */
+    background: none;
+}
+
+.edit-btn i{
+    color: #2f368d; /* Цвет иконок */
+    font-size: 12px; /* Размер иконок */
+    background: none;
+}
+
+.edit-btn , .delete-btn , .save-btn {
+    border: none;
+    background: none; /* Убираем фон у кнопок */
+}
