@@ -89,6 +89,18 @@ function checkAdmin(req, res, next) {
   }
 }
 
+// Middleware для проверки аутентификации пользователя
+function checkAuthentication(req, res, next) {
+  if (req.session.user) {
+      next();
+  } else {
+      res.status(401).send('Необходима аутентификация');
+  }
+}
+
+app.get("submit_page", checkAuthentication, function(req, res) {
+  res.render("submit_page")
+})
 
 app.get("/org_profile/:registrations_id", checkOrganization, function (req, res) {
   const email = req.session.user.email;
@@ -115,15 +127,6 @@ app.get("/org_profile/:registrations_id", checkOrganization, function (req, res)
 app.get("/org_profile", checkOrganization, function (req, res) {
   res.redirect(`/org_profile/${req.session.user.registrations_id}`);
 });
-
-// Middleware для проверки аутентификации пользователя
-function checkAuthentication(req, res, next) {
-  if (req.session.user) {
-      next();
-  } else {
-      res.status(401).send('Необходима аутентификация');
-  }
-}
 
 // Маршрут для отображения страницы org_card конкретной организации
 
