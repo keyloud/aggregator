@@ -1,10 +1,7 @@
-<head>
-  <link rel="stylesheet" href="/public/user_profile.css">
-</head>
 <div class="profile-container">
     <div class="main-body">
-        <div class="row">
-            <div class="col-lg-4">
+        <div class="roww">
+            <div class="profile-column">
                 <div class="profile-card">
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-center text-center">
@@ -16,11 +13,11 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-8">
+            <div class="profile-column">
                 <div class="usr_profile_card">
                     <div class="card-body">
                         <div class="row mb-3">
-                            <div class="col-sm-3">
+                            <div class="col-sm-12">
                                 <label class="field-label">Фамилия:</label>
                                 <p class="surname">{{customer.customer_surname}}</p>
                                 <label class="field-label">Имя:</label>
@@ -31,22 +28,6 @@
                                 <p class="email">{{customer.customer_email}}</p>
                                 <label class="field-label">Телефон:</label>
                                 <p class="phone_number">{{customer.customer_phone_number}}</p>
-                                <input type="button" class="Save" value="Сохранить">
-                                <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-                                <script
-                                    src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
-                                <script type="text/javascript">
-                                </script>
-                                <script>
-                                    function myFunction() {
-                                        var x = document.getElementById("myInput");
-                                        if (x.type === "password") {
-                                            x.type = "text";
-                                        } else {
-                                            x.type = "password";
-                                        }
-                                    }
-                                </script>
                             </div>
                         </div>
                     </div>

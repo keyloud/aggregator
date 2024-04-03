@@ -1,10 +1,10 @@
 /*  */
-    	body{
+body{
     background: #003F63;
     margin-top:20px;
 }
-.usr_profile_card{
-    width: 55%;
+.usr_profile_cardd{
+    width: 50%;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -14,11 +14,11 @@
     margin-right: .5rem!important;
 }
 
-.profile-card {
-    width: 40%;
+.profile-cardd{
+    width: 50%;
     margin-right: 10px;
 }
-
+*/
 .field-label {
     font-family: Rubik; /* Используйте тот же шрифт, что и для остальной страницы */
     font-size: 16px; /* Или любой другой размер, который вам нравится */
@@ -27,14 +27,15 @@
 }
 
 .avatar{
-    height: 400px;
-    width: 400px;
+    height: 325px;
+    width: 325px;
     border-radius: 20px;
 }
 
-.profile-container{
+.profile-containerr{
+    width: 90%;
     display: flex;
-    justify-content: space-between;
+    flex-wrap: nowrap;
 }
 
 .surname, .name, .middle_name, .email, .phone_number {
@@ -52,17 +53,4 @@
     font-weight: 400;
 }
 
-.Save{
-    width: 170px;
-    height: 56px;
-    border: none; /* Убираем границу */
-    border-radius: 30px; /* Закругляем углы */
-    background-color: #112533; /* Цвет фона кнопок */
-    color: white; /* Цвет текста */
-    font-size: 20px; /* Размер шрифта */
-    cursor: pointer; /* Устанавливаем курсор на кнопках */
-    transition: background-color 0.3s ease;
-    margin-left: 700px;
-    font-weight: medium;
-}
 
