@@ -9,10 +9,20 @@
     
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: end;
 }
 
-.urlpht, .inn, .kpp, .orgn {
+img {
+    border-radius: 10px;
+    padding-bottom: 30px;
+    width: 80%;
+}
+
+.hidden {
+    display: none;
+}
+
+.urlpht, .inn, .kpp, .ogrn {
     width: 100%;
     height: 25%;
 }
@@ -45,13 +55,13 @@
     align-items: center;
 
 }
-.fio, .org_prof_email, .phone, .adres {
+.fio, .org_prof_email, .phone, .adres, .org_prof_surname, .org_prof_name, .org_prof_patronymic {
     width: 100%;
     height: 25%;
 }
 .urlpht, .inn,.kpp,
-.orgn, .fullname, .shortname,
-.dscrpt, .fio, .org_prof_email, .phone, .adres {
+.ogrn, .fullname, .shortname,
+.dscrpt, .fio, .org_prof_email, .phone, .adres, .org_prof_surname, .org_prof_name, .org_prof_patronymic {
     margin-top: 5px;
     
 }
@@ -70,9 +80,9 @@
 }
 
 .btn {
+    margin-top: 15px;
     width: 260px;
     height: 100%;
-
     
 }
 .btnSAVE{
@@ -172,11 +182,11 @@
 }
 
 
-.urlpht, .inn, .kpp, .orgn,
+.urlpht, .inn, .kpp, .ogrn,
 .fullname, .shortname, .dscrpt, 
 .fio, .org_prof_email, .phone, 
 .adres, .srvc, .price, .nmrqst,
-.dtrqst, .numbuser {
+.dtrqst, .numbuser, .org_prof_surname, .org_prof_name, .org_prof_patronymic {
     background: #fff;
     border-radius: 6px;
 }
