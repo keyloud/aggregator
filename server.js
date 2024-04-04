@@ -45,9 +45,9 @@ app.use(session({
 app.use(bodyParser.urlencoded({ extended: true }));
 
 // Передача userType в макет при каждом запросе
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
   let userType = null;
-  if(req.session.user) {
+  if (req.session.user) {
     userType = req.session.user.type
     res.locals.userType = userType
     console.log(res.locals.userType)
@@ -92,13 +92,13 @@ function checkAdmin(req, res, next) {
 // Middleware для проверки аутентификации пользователя
 function checkAuthentication(req, res, next) {
   if (req.session.user) {
-      next();
+    next();
   } else {
-      res.status(401).send('Необходима аутентификация');
+    res.status(401).send('Необходима аутентификация');
   }
 }
 
-app.get("/submit_page", checkAuthentication, function(req, res) {
+app.get("/submit_page", checkAuthentication, function (req, res) {
   res.render("submit_page")
 })
 
@@ -111,7 +111,7 @@ app.get("/org_profile/:registrations_id", checkOrganization, function (req, res)
       console.error(err);
       return res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
     }
-    
+
     // Проверьте, найдены ли данные об организации
     if (orgData.length === 0) {
       return res.status(404).send('Организация не найдена.');
@@ -119,7 +119,7 @@ app.get("/org_profile/:registrations_id", checkOrganization, function (req, res)
 
     // Используем registration_id из параметров запроса для получения service_detail
     const service_detail_code = req.params.registrations_id;
-    
+
     // Параметризированный запрос к базе данных для получения информации о детализации услуги
     pool.query("SELECT * FROM service_detail WHERE service_detail_code = ?", [service_detail_code], function (err, serviceData) {
       if (err) {
@@ -306,10 +306,10 @@ app.post('/usr_registration', (req, res) => {
   sampleFile = req.files.sampleFile;
   uploadPath = __dirname + '/public/upload/' + sampleFile.name;
 
-  sampleFile.mv(uploadPath, function(err) {
+  sampleFile.mv(uploadPath, function (err) {
     if (err)
       return res.status(500).send(err);
-  
+
     console.log('File uploaded!');
   });
 
@@ -481,7 +481,7 @@ app.get('/logout', (req, res) => {
   });
 });
 
-app.get("/admin_panel", checkAdmin, function (req,res){
+app.get("/admin_panel", checkAdmin, function (req, res) {
   res.render('admin_panel')
 })
 
@@ -518,6 +518,62 @@ app.get("/admin/reviews", checkAdmin, (req, res) => {
   // Затем отправить этот список обратно клиенту для отображения на странице администратора
 });
 
+// // получем id редактируемого пользователя, получаем его из бд и отправлям с формой редактирования
+// app.get("/edit/:id", function (req, res) {
+//   const id = req.params.id;
+//   pool.query("SELECT * FROM users WHERE id=?", [id], function (err, data) {
+//     if (err) return console.log(err);
+//     res.render("edit.hbs", {
+//       user: data[0]
+//     });
+//   });
+// });
+
+
+// // получаем отредактированные данные и отправляем их в БД
+// app.post("/edit", urlencodedParser, function (req, res) {
+
+//   if (!req.body) return res.sendStatus(400);
+//   const name = req.body.name;
+//   const age = req.body.age;
+//   const id = req.body.id;
+
+//   pool.query("UPDATE users SET name=?, age=? WHERE id=?", [name, age, id], function (err, data) {
+//     if (err) return console.log(err);
+//     res.redirect("/");
+//   });
+// });
+
+// // получаем id удаляемого пользователя и удаляем его из бд
+// app.post("/delete/:id", function (req, res) {
+
+//   const id = req.params.id;
+//   pool.query("DELETE FROM users WHERE id=?", [id], function (err, data) {
+//     if (err) return console.log(err);
+//     res.redirect("/");
+//   });
+// });
+
+app.post('/saveDataOrg', (req, res) => {
+  const organization_id = req.session.org.organization_id;
+  const { fullname, shortname, inn, kpp, ogrn, surname, name, patronymic, email, phone, dscrpt } = req.body;
+  console.log(organization_id)
+  const updateData = `UPDATE organization SET organization_full_name = ?, organization_short_name = ?,
+    inn = ?, kpp = ?, ogrn = ?, responsible_person_surname = ?, responsible_person_name = ?, 
+    responsible_person_patronymic = ?, responsible_person_email = ?, responsible_person_phone_number = ?, 
+    add_info = ? WHERE organization_id = ?`;
+
+  pool.query(updateData, [fullname, shortname, inn, kpp, ogrn, surname, name, patronymic, email, phone, dscrpt, organization_id], (err, result) => {
+    if (err) {
+      console.error('Ошибка при выполнении SQL запроса:', err);
+      res.status(500).send('Ошибка при сохранении данных в базе данных');
+      return;
+    }
+    console.log('Данные успешно сохранены в базе данных');
+  });
+
+});
+
 // отображение главной страницы
 app.get("/", function (req, res) {
   if (req.session.user) {
@@ -527,7 +583,7 @@ app.get("/", function (req, res) {
       if (error) throw error;
       res.render('index', { organization: results, userType: userType });
     });
-  } 
+  }
   else {
     pool.query('SELECT * FROM organization', function (error, results, fields) {
       if (error) throw error;
