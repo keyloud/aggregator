@@ -85,3 +85,16 @@ p {
 .aut_btn_createacc button:hover {
     background-color: #112533; /* Изменяем цвет фона при наведении на кнопку */
 }
+
+.aut_btn_createacc a {
+    font-family: "Rubik", sans-serif;
+    font-weight: 600;
+text-decoration: none;
+color: white !important;
+    
+display: flex;
+width: 100%;
+height: 100%;
+justify-content: center;
+align-items: center;
+}
