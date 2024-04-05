@@ -34,7 +34,7 @@ header {
     top: 0;
     padding-bottom: 15px;
 }
-.header_title {
+.header_logo {
     width: 1440px;
     height: 75%;
     margin: 0 auto;
@@ -42,6 +42,29 @@ header {
     display: flex;
     text-align: left;
     align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.header_title {
+  width: 150px;
+  height: 37px;
+}
+
+.header_img{
+  width: 250px;
+  height: 130px;
+  margin-top: 40px;
+  overflow: hidden;
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+}  
+
+.header_img img{
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
 .header_navbar  {
@@ -285,9 +308,7 @@ footer {
   font-weight: 400;
 }
 
-.button-class{
-  
-}
+
 
 .button-class button{
   width: 170px;
