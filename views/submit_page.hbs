@@ -6,16 +6,21 @@
 <title>Запись на услугу</title>
 <!-- Подключаем стили для календаря -->
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css">
-</head>
+<link rel="stylesheet" href="/public/mainhf.css">
+ </head>
 <body>
-
-<button id="selectDateButton">Выбрать дату</button>
-<input type="text" id="selectedDate" readonly>
-
-<div id="timeSelection">
-    <h3>Выберите время:</h3>
-    <div>
-        <label for="hour">Часы:</label>
+<div id="timeSelection" class="time_selection">
+    <form action="reservation.php" method="post">
+        <div class="elem-group">
+            <div class="Date_text" >
+                <label for="checkin-date">Дата и время записи</label>
+            </div>
+            <div class="calendar">
+                <input type="date" id="checkin-date" name="checkin" required>
+            </div>
+           
+        <div clas="clock">
+        <label for="hour" class="clock_text">Часы:</label>
         <select id="hour">
             <option value="08">08</option>
             <option value="09">09</option>
@@ -26,9 +31,7 @@
             <option value="14">14</option>
             <option value="15">15</option>
         </select>
-    </div>
-    <div>
-        <label for="minute">Минуты:</label>
+        <label for="minute"  class="clock_text">Минуты:</label>
         <select id="minute">
             <option value="00">00</option>
             <option value="15">15</option>
@@ -36,34 +39,18 @@
             <option value="45">45</option>
         </select>
     </div>
+    <div class="confirmation_button">
+                <button id="confirmButton" class="confirmation_button">Подтвердить</button>
+    </div>
 </div>
 
-<button id="confirmButton">Подтвердить</button>
+        </div>
+    </form>
+    
 
-<!-- Подключаем скрипт для работы с календарем -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.js"></script>
+
 <script>
-    document.addEventListener('DOMContentLoaded', function () {
-        // Инициализируем календарь
-        const datepicker = new Datepicker(document.getElementById('selectedDate'), {
-            autohide: true
-        });
 
-        // Показываем календарь при клике на кнопку
-        document.getElementById('selectDateButton').addEventListener('click', function () {
-            datepicker.show();
-        });
-
-        // Обработка подтверждения
-        document.getElementById('confirmButton').addEventListener('click', function () {
-            const selectedDate = document.getElementById('selectedDate').value;
-            const selectedHour = document.getElementById('hour').value;
-            const selectedMinute = document.getElementById('minute').value;
-            // Делаем что-то с выбранной датой и временем, например, отправляем на сервер
-            console.log('Выбранная дата:', selectedDate);
-            console.log('Выбранное время:', selectedHour + ':' + selectedMinute);
-        });
-    });
 </script>
 
 </body>
