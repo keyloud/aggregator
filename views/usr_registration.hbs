@@ -1,93 +1,152 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300..900;1,300..900&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="/org_registration.css">
-    <title>PIONEER - Регистрация организации</title>
-</head>
-<body>
-    <div class="org_registration">
-        <div class="main_title">
-            <h1>Регистрация</h1>
-        </div>
-        <form action="/usr_registration" method="POST" enctype="multipart/form-data">
-            <div class="reg_title">
-                <h2>Контактное лицо</h2>
-            </div>
-            <div class="reg_about">
-                    <div class="leftside">
-                    <div class="reg_name"><p class="reg_txt">Имя</p></div>
-                    <div class="reg_secondname"><p class="reg_txt">Фамилия</p></div>
-                    <div class="reg_thirdname"><p class="reg_txt">Отчество</p></div>
-                    <div class="reg_email"><p class="reg_txt">Email</p></div>
-                    <div class="reg_numb"><p class="reg_txt">Телефон</p></div>
-                    <div class="reg_descrp"><p class="reg_txt">Описание</p></div>
-                </div>
-                <div class="rightside">
-                    <div class="reg_name">
-                        <input type="text" name = "customer_name" placeholder="Введите ваше имя">
-                    </div>
-                    <div class="reg_secondname">
-                        <input type="text" name = "customer_surname" placeholder="Введите вашу фамилию">
-                    </div>
-                    <div class="reg_thirdname">
-                        <input type="text" name = "customer_patronymic" placeholder="Введите ваше отчество">
-                    </div>
-                    <div class="reg_email">
-                        <input type="text" name = "email" placeholder="Введите ваш emal">
-                    </div>
-                    <div class="reg_numb">
-                        <input type="text" name = "customer_phone_number" placeholder="Введите ваш номер телефона">
-                    </div>
-                    <div class="reg_descrp">
-                        <input type="text" name = "add_info" placeholder="Дополнительная информация">
-                    </div>
-                </div>
-            </div>
-            <div class="reg_password">
-                <div class="leftside">
-                    <div class="reg_passwrd"></div>
-                    <div class="reg_passwrd"></div>
-                </div>
-                <div class="rightside">
-                    <div class="reg_passwrd">
-                        <input type="hidden" name="type" value="USR">
-                        <input type="text" name = "password" placeholder="Придумайте пароль">
-                    </div>
-                </div>
-            </div>
-            <div class="add-image">
-                    <h3>Загрузка фото профиля</h3>
-                    <input type="file" name="sampleFile" accept="image/*" />
-                </div>
-            <div class="reg_buttons">
-                <div class="reg_checkbox">
-                    <input type="checkbox" id="reg_user_agree" name="reg_user_agree" value="reg_user_agree" />
-                    <label class="reg_label" for="reg_user_agree">Принимаю условия<a class="reg_ahref" href="#">политики конфиденциальности</a></label>
-                </div>
-                <div class="reg_create_acc_btn">
-                    <button>
-                        <p>Создать аккаунт</p>
-                    </button>
-                </div>
-                <div class="reg_href_profile">
-                    <a class="reg_profile_a"href="#">Уже есть профиль?</a>
-                </div>
-                <div class="reg_autoriz_acc_btn">
-                    <button type = "submit">
-                        <p>Войти</p>
-                    </button>
-                </div>
-            </div>
-        </form>    
+<style>
+    .error {
+        color: red;
+    }
+</style>
+<div class="org_registration">
+    <div class="main_title">
+        <h1>Регистрация</h1>
     </div>
-</body>
-</html>
+    <form action="/usr_registration" method="POST" enctype="multipart/form-data">
+        <div class="reg_title">
+            <h2>Контактное лицо</h2>
+        </div>
+        <div class="reg_about">
+            <div class="leftside">
+                <div class="reg_name">
+                    <p class="reg_txt">Имя</p>
+                </div>
+                <div class="reg_secondname">
+                    <p class="reg_txt">Фамилия</p>
+                </div>
+                <div class="reg_thirdname">
+                    <p class="reg_txt">Отчество</p>
+                </div>
+                <div class="reg_email">
+                    <p class="reg_txt">Email</p>
+                </div>
+                <div class="reg_numb">
+                    <p class="reg_txt">Телефон</p>
+                </div>
+                <div class="reg_descrp">
+                    <p class="reg_txt">Описание</p>
+                </div>
+            </div>
+            <div class="rightside">
+                <div class="reg_name">
+                    <input type="text" name="customer_name" id="customer_name" placeholder="Введите ваше имя">
+                    <span id="name_error" class="error"></span>
+                </div>
+                <div class="reg_secondname">
+                    <input type="text" name="customer_surname" id="customer_surname" placeholder="Введите вашу фамилию">
+                    <span id="surname_error" class="error"></span>
+                </div>
+                <div class="reg_thirdname">
+                    <input type="text" name="customer_patronymic" id="customer_patronymic"
+                        placeholder="Введите ваше отчество">
+                    <span id="patronymic_error" class="error"></span>
+                </div>
+                <div class="reg_email">
+                    <input type="text" name="email" id="email" placeholder="Введите ваш emal">
+                    <span id="email_error" class="error"></span>
+                </div>
+                <div class="reg_numb">
+                    <input type="text" name="customer_phone_number" id="customer_phone_number"
+                        placeholder="Введите ваш номер телефона">
+                    <span id="phone_error" class="error"></span>
+                </div>
+                <div class="reg_descrp">
+                    <input type="text" name="add_info" id="add_info" placeholder="Дополнительная информация">
+                    <span id="info_error" class="error"></span>
+                </div>
+            </div>
+        </div>
+        <div class="reg_password">
+            <div class="leftside">
+                <div class="reg_passwrd"></div>
+                <div class="reg_passwrd"></div>
+            </div>
+            <div class="rightside">
+                <div class="reg_passwrd">
+                    <input type="hidden" name="type" value="USR">
+                    <input type="text" name="password" placeholder="Придумайте пароль">
+                </div>
+            </div>
+        </div>
+        <div class="add-image">
+            <h3>Загрузка фото профиля</h3>
+            <input type="file" name="sampleFile" accept="image/*" />
+        </div>
+        <div class="reg_buttons">
+            <div class="reg_checkbox">
+                <input type="checkbox" id="reg_user_agree" name="reg_user_agree" value="reg_user_agree" />
+                <label class="reg_label" for="reg_user_agree">Принимаю условия<a class="reg_ahref" href="#">политики
+                        конфиденциальности</a></label>
+            </div>
+            <div class="reg_create_acc_btn">
+                <button>
+                    <p>Создать аккаунт</p>
+                </button>
+            </div>
+            <div class="reg_href_profile">
+                <a class="reg_profile_a" href="#">Уже есть профиль?</a>
+            </div>
+            <div class="reg_autoriz_acc_btn">
+                <button type="submit">
+                    <p>Войти</p>
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<script>
+    const nameInput = document.getElementById('customer_name');
+    const surnameInput = document.getElementById('customer_surname');
+    const patronymicInput = document.getElementById('customer_patronymic');
+    const emailInput = document.getElementById('email');
+    const phoneInput = document.getElementById('customer_phone_number');
+    const infoInput = document.getElementById('add_info');
+
+    const nameError = document.getElementById('name_error');
+    const surnameError = document.getElementById('surname_error');
+    const patronymicError = document.getElementById('patronymic_error');
+    const emailError = document.getElementById('email_error');
+    const phoneError = document.getElementById('phone_error');
+    const infoError = document.getElementById('info_error');
+
+    nameInput.addEventListener('input', validateName);
+    surnameInput.addEventListener('input', validateSurname);
+    patronymicInput.addEventListener('input', validatePatronymic);
+    emailInput.addEventListener('input', validateEmail);
+    phoneInput.addEventListener('input', validatePhone);
+    infoInput.addEventListener('input', validateInfo);
+
+    function validateName() {
+        // Add your validation logic for name here
+    }
+
+    function validateSurname() {
+        // Add your validation logic for surname here
+    }
+
+    function validatePatronymic() {
+        // Add your validation logic for patronymic here
+    }
+
+    function validateEmail() {
+        const email = emailInput.value;
+        if (!email.includes('@')) {
+            emailError.textContent = 'Адрес электронной почты должен содержать символ "@"';
+        } else {
+            emailError.textContent = '';
+        }
+    }
+
+    function validatePhone() {
+        // Add your validation logic for phone number here
+    }
+
+    function validateInfo() {
+        // Add your validation logic for additional info here
+    }
+</script>

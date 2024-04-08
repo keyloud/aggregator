@@ -14,12 +14,13 @@ h1,h2,h3,h4,h5,h6 {
     display: none;
 }
 
-.org_profile_txt {
+.org_profile_txt, .org_profile_titles_txt  {
     font-family: "Rubik", sans-serif;
     font-weight: 600;
     margin: 0;
     color: black;
 }
+
 
 .org_profile_srvctxt {
     font-family: "Rubik", sans-serif;
@@ -109,15 +110,18 @@ h1,h2,h3,h4,h5,h6 {
     
 }
 
-.org_profile_info .org_profile_txt {
+.org_profile_titles_txt p {
+    text-align: left;
+}
+
+.org_profile_discription h4{
+    margin-top: 15px;
+}
+.org_profile_info .org_profile_txt, .org_profile_titles_txt {
     margin-left: 10px;
 }
 
-/* .org_profile_secondname, .org_profile_name,
-.org_profile_email, .org_profile_thirdname
-.org_profile_phone {
-    flex: 1;
-} */
+
 
 .org_profile_info_button{
     flex: 1;
@@ -328,4 +332,55 @@ h1,h2,h3,h4,h5,h6 {
 }
 .buttonrequest button:hover {
     background-color: #289FCA; /* Изменяем цвет фона при наведении на кнопку */
+}
+
+.edit-inn, .edit-kpp {
+    width: 65%;
+    height: 50%;
+}
+
+.edit-ogrn{
+    width: 62%;
+    height: 50%;
+}
+
+.edit-fullname {
+    width: 78%;
+    height: 50%;
+}
+
+.edit-shortname{
+    width: 76.8%;
+    height: 50%;
+}
+
+.edit-surname, .edit-patronymic  {
+    width: 80%;
+    height: 50%;
+}
+.edit-phone{
+    width: 70%;
+    height: 50%;
+}
+.edit-email {
+    width: 500px;
+    height: 50%;
+}
+.edit-name {
+    width: 510px;
+    height: 50%; 
+}
+
+.edit-dscrpt{
+    width: 81%;
+    height: 90%;
+    resize: none;
+}
+
+    
+.edit-dscrpt, .edit-email, .edit-fullname, .edit-inn
+,.edit-kpp, .edit-name, .edit-ogrn, .edit-patronymic,
+.edit-phone, .edit-shortname, .edit-surname{
+    font-family:"Rubik", sans-serif;
+    font-weight: 600;
 }
