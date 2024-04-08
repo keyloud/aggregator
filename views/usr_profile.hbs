@@ -1,28 +1,96 @@
-<body>
-    <div class="user_profile">
-        <div class="user_profile_img">
-            <img src="/public/img/mamo.jpg" alt="Пользовательское изображение">
+<div class="user_profile">
+    <div class="user_profile_img">
+        <img src="/upload/{{customer.profile_image}}" alt="Пользовательское изображение">
+    </div>
+    <div class="user_profile_info">
+        <div class="user_profile_secondname">
+            <h4 class="user_profile_title_txt">Фамилия:</h4>
+            <p class="user_profile_txt">{{customer.customer_surname}}</p>
+            <input type="text" class="edit-secondname hidden">
         </div>
-        <div class="user_profile_info">
-            <div class="user_profile_secondname">
-                <h4 class="user_profile_title_txt">Фамилия:</h4> <p class="user_profile_txt">Мельникова</p>
-            </div>
-            <div class="user_profile_name">
-                <h4 class="user_profile_title_txt">Имя:</h4> <p class="user_profile_txt">Анастасия</p>
-            </div>
-            <div class="user_profile_thirdname">
-                <h4 class="user_profile_title_txt">Отчество:</h4> <p class="user_profile_txt">Максимовна</p>
-            </div>
-            <div class="user_profile_email">
-                <h4 class="user_profile_title_txt">Email:</h4> <p class="user_profile_txt">nasya2010@mail.ru</p>
-            </div>
-            <div class="user_profile_phone">
-                <h4 class="user_profile_title_txt">Номер телефона:</h4> <p class="user_profile_txt">+79421150211</p>
-            </div>
-            <div class="user_profile_buttonchange">
-                <button class=""><p class="user_profile_button_txt">Изменить данные</p></button>
-            </div>
+        <div class="user_profile_name">
+            <h4 class="user_profile_title_txt">Имя:</h4>
+            <p class="user_profile_txt">{{customer.customer_name}}</p>
+            <input type="text" class="edit-name hidden">
+        </div>
+        <div class="user_profile_thirdname">
+            <h4 class="user_profile_title_txt">Отчество:</h4>
+            <p class="user_profile_txt">{{customer.customer_patronymic}}</p>
+            <input type="text" class="edit-thirdname hidden">
+        </div>
+        <div class="user_profile_email">
+            <h4 class="user_profile_title_txt">Email:</h4>
+            <p class="user_profile_txt">{{customer.customer_email}}</p>
+            <input type="text" class="edit-email hidden">
+        </div>
+        <div class="user_profile_phone">
+            <h4 class="user_profile_title_txt">Номер телефона:</h4>
+            <p class="user_profile_txt">{{customer.customer_phone_number}}</p>
+            <input type="text" class="edit-phone hidden">
+        </div>
+        <div class="user_profile_buttonchange">
+            <button onclick="toggleEdit()">Изменить данные</button>
         </div>
     </div>
-</body>
-</html>
+</div>
+<script>
+    function saveData() {
+        // Создаем объект FormData для сбора данных из полей
+        var formData = new FormData();
+
+        // Добавляем данные из каждого поля в объект FormData
+        fields.forEach(function (field) {
+            var inputElement = document.querySelector(field.inputSelector);
+            formData.append(field.inputSelector.replace('.edit-', ''), inputElement.value);
+            console.log(formData)
+        });
+
+        // Отправляем AJAX запрос
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', '/saveDataCus', true);
+        xhr.onload = function () {
+            if (xhr.status === 200) {
+                alert('Данные успешно сохранены!');
+            } else {
+                alert('Произошла ошибка при сохранении данных.');
+            }
+        };
+        xhr.onerror = function () {
+            alert('Произошла ошибка при отправке запроса.');
+        };
+        xhr.send(formData);
+    }
+    var fields = [
+        { textSelector: '.user_profile_secondname .user_profile_txt', inputSelector: '.edit-secondname' },
+        { textSelector: '.user_profile_name .user_profile_txt', inputSelector: '.edit-name' },
+        { textSelector: '.user_profile_thirdname .user_profile_txt', inputSelector: '.edit-thirdname' },
+        { textSelector: '.user_profile_email .user_profile_txt', inputSelector: '.edit-email' },
+        { textSelector: '.user_profile_phone .user_profile_txt', inputSelector: '.edit-phone' }
+    ];
+
+    var saveButton = document.querySelector('.user_profile_buttonchange button');
+
+    function toggleEdit() {
+        fields.forEach(function (field) {
+            var textElement = document.querySelector(field.textSelector);
+            var inputElement = document.querySelector(field.inputSelector);
+
+            if (inputElement.classList.contains('hidden')) {
+                textElement.classList.add('hidden');
+                inputElement.classList.remove('hidden');
+                inputElement.value = textElement.textContent.trim();
+            } else {
+                textElement.classList.remove('hidden');
+                inputElement.classList.add('hidden');
+                textElement.textContent = inputElement.value.trim();
+            }
+        });
+
+        if (saveButton.textContent === 'Изменить данные') {
+            saveButton.textContent = 'Сохранить';
+        } else {
+            saveButton.textContent = 'Изменить данные';
+            saveData();
+        }
+    }
+</script>
