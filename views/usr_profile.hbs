@@ -1,38 +1,28 @@
-<div class="profile-container">
-    <div class="main-body">
-        <div class="roww">
-            <div class="profile-column">
-                <div class="profile-card">
-                    <div class="card-body">
-                        <div class="d-flex flex-column align-items-center text-center">
-                            <img src="/upload/{{customer.profile_image}}" alt="Admin" class="avatar" width="350"
-                                height="350" border-radius="20">
-                            <div class="mt-3">
-                            </div>
-                        </div>
-                    </div>
-                </div>
+<body>
+    <div class="user_profile">
+        <div class="user_profile_img">
+            <img src="/public/img/mamo.jpg" alt="Пользовательское изображение">
+        </div>
+        <div class="user_profile_info">
+            <div class="user_profile_secondname">
+                <h4 class="user_profile_title_txt">Фамилия:</h4> <p class="user_profile_txt">Мельникова</p>
             </div>
-            <div class="profile-column">
-                <div class="usr_profile_card">
-                    <div class="card-body">
-                        <div class="row mb-3">
-                            <div class="col-sm-12">
-                                <label class="field-label">Фамилия:</label>
-                                <p class="surname">{{customer.customer_surname}}</p>
-                                <label class="field-label">Имя:</label>
-                                <p class="name">{{customer.customer_name}}</p>
-                                <label class="field-label">Отчество:</label>
-                                <p class="middle_name">{{customer.customer_patronymic}}</p>
-                                <label class="field-label">Email:</label>
-                                <p class="email">{{customer.customer_email}}</p>
-                                <label class="field-label">Телефон:</label>
-                                <p class="phone_number">{{customer.customer_phone_number}}</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="user_profile_name">
+                <h4 class="user_profile_title_txt">Имя:</h4> <p class="user_profile_txt">Анастасия</p>
+            </div>
+            <div class="user_profile_thirdname">
+                <h4 class="user_profile_title_txt">Отчество:</h4> <p class="user_profile_txt">Максимовна</p>
+            </div>
+            <div class="user_profile_email">
+                <h4 class="user_profile_title_txt">Email:</h4> <p class="user_profile_txt">nasya2010@mail.ru</p>
+            </div>
+            <div class="user_profile_phone">
+                <h4 class="user_profile_title_txt">Номер телефона:</h4> <p class="user_profile_txt">+79421150211</p>
+            </div>
+            <div class="user_profile_buttonchange">
+                <button class=""><p class="user_profile_button_txt">Изменить данные</p></button>
             </div>
         </div>
     </div>
-</div>
+</body>
+</html>
