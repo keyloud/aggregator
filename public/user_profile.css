@@ -28,7 +28,7 @@ h1,h2,h3,h4,h5,h6 {
 
     display: flex;
     flex-direction: row;
-    margin-bottom: 258px;
+    margin-bottom: 334px;
 }
 
 .user_profile_img  {
@@ -100,4 +100,31 @@ h1,h2,h3,h4,h5,h6 {
 
 .user_profile_button_txt {
     color:white;
+}
+
+.edit-secondname {
+    width: 80%;
+    height: 50%;
+}
+.edit-name{
+    width: 87.5%;
+    height: 50%;
+}
+.edit-thirdname{
+    width: 80%;
+    height: 50%;
+}
+.edit-email {
+    width: 86%;
+    height: 50%;
+}
+.edit-phone{
+    width: 70%;
+    height: 50%;
+}
+
+.edit-secondname, .edit-name, .edit-thirdname, .edit-email
+,.edit-phone {
+    font-family: "Rubik", sans-serif;
+    font-weight: 600;
 }

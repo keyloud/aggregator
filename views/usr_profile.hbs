@@ -1,3 +1,4 @@
+
 <div class="user_profile">
     <div class="user_profile_img">
         <img src="/upload/{{customer.profile_image}}" alt="Пользовательское изображение">
@@ -29,10 +30,11 @@
             <input type="text" class="edit-phone hidden">
         </div>
         <div class="user_profile_buttonchange">
-            <button onclick="toggleEdit()">Изменить данные</button>
+            <button  onclick="toggleEdit()"><p class="user_profile_button_txt">Изменить данные</p></button>
         </div>
     </div>
 </div>
+
 <script>
     function saveData() {
         // Создаем объект FormData для сбора данных из полей

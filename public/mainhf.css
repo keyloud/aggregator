@@ -3,6 +3,7 @@ body {
     margin: 0;
     background: #003F63;
     margin-top: 160px;
+    height: 100%;
 }
 h1,h2,h3,h4,h5,h6 {
     font-family: "Ubuntu", sans-serif;
@@ -103,6 +104,8 @@ footer {
     flex-direction: column;
     position: relative;
     bottom: 0;
+    justify-content: flex-end;
+  
    
 }
 
