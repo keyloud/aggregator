@@ -29,13 +29,13 @@ function fetchDataAndDisplay(path, headerText, dataPropertyName, createRowConten
 }
 
 document.querySelector(".org_btn").addEventListener("click", () => {
-    const headerTextOrg = ["Red/Del", "Email", "Full name", "Short Name", "INN", "KPP", "OGRN", "Responsible name", "Responsible surname", "Responsible patronymic", "Responsible phone number", "Description"];
+    const headerTextOrg = ["Red/Del", "ID", "Full name", "Short Name", "INN", "KPP", "OGRN", "Responsible name", "Responsible surname", "Responsible patronymic", "Responsible person email", "Responsible phone number", "Info"];
     fetchDataAndDisplay("/admin_panel/organizations", headerTextOrg, "organizations", organization => `
         <td>
-            <button class="delete-btn" onclick="delete('${organization.responsible_person_email}')"><i class="fas fa-trash-alt"></i></button>
-            <button class="edit-btn" onclick="edit('${organization.responsible_person_email}')"><i class="fas fa-edit"></i></button>
+            <button class="delete-btn" onclick="delete('${organization.organization_id}}')"><i class="fas fa-trash-alt"></i></button>
+            <button class="edit-btn" onclick="edit('${organization.organization_id}}')"><i class="fas fa-edit"></i></button>
         </td>
-        <td>${organization.responsible_person_email}</td>
+        <td>${organization.organization_id}</td>
         <td>${organization.organization_full_name}</td>
         <td>${organization.organization_short_name}</td>
         <td>${organization.inn}</td>
@@ -44,22 +44,24 @@ document.querySelector(".org_btn").addEventListener("click", () => {
         <td>${organization.responsible_person_surname}</td>
         <td>${organization.responsible_person_name}</td>
         <td>${organization.responsible_person_patronymic}</td>
+        <td>${organization.responsible_person_email}</td>
         <td>${organization.responsible_person_phone_number}</td>
         <td>${organization.add_info}</td>
     `);
 });
 
 document.querySelector(".user_btn").addEventListener("click", () => {
-    const headerTextUsr = ["Red/Del", "Email", "Name", "Surname", "Patronymic", "Phone number", "Description", "Image", "-", "-", "-", "-"];
+    const headerTextUsr = ["Red/Del", "ID", "Name", "Surname", "Patronymic", "Email", "Phone number", "Description", "Image", "-", "-", "-", "-"];
     fetchDataAndDisplay("/admin_panel/users", headerTextUsr, "customers", customer => `
         <td>
-            <button class="delete-btn" onclick="delete('${customer.customer_email}')"><i class="fas fa-trash-alt no-border"></i></button>
-            <button class="edit-btn" onclick="edit('${customer.customer_email}')"><i class="fas fa-edit no-border"></i></button>
+            <button class="delete-btn" onclick="delete('${customer.customer_id}')"><i class="fas fa-trash-alt no-border"></i></button>
+            <button class="edit-btn" onclick="edit('${customer.customer_id}')"><i class="fas fa-edit no-border"></i></button>
         </td>
-        <td>${customer.customer_email}</td>
+        <td>${customer.customer_id}</td>
         <td>${customer.customer_name}</td>
         <td>${customer.customer_surname}</td>
         <td>${customer.customer_patronymic}</td>
+        <td>${customer.customer_email}</td>
         <td>${customer.customer_phone_number}</td>
         <td>${customer.add_info}</td>
         <td>${customer.profile_image}</td>

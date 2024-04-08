@@ -2,15 +2,13 @@
 .body_adm {
     font-family: 'Rubick', sans-serif;
     background-color: #f4f4f4;
-    margin: 0;
     padding: 0;
 }
 
 .admin_panel {
     width: 90%;
-   
     margin-left: 5%;
-    margin-bottom: 360px;
+    margin-bottom: 420px;
     background-color: #fff;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     padding: 20px;
