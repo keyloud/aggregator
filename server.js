@@ -587,7 +587,39 @@ app.post('/saveDataOrg', (req, res) => {
     }
     console.log('Данные успешно сохранены в базе данных');
   });
+});
 
+app.post('/saveDataCus', (req, res) => {
+  const customer_id = req.session.usr.customer_id;
+  const registrations_id = req.session.user.registrations_id;
+  const newEmail = req.body.email;
+
+  const { name, secondname, thirdname, phone, email } = req.body;
+  
+  const updateData = `UPDATE customer SET customer_name = ?, customer_surname = ?,
+    customer_patronymic = ?, customer_phone_number = ?, customer_email = ? WHERE customer_id = ?`;
+  const updateEmail = 'UPDATE registrations SET email = ? WHERE registrations_id = ?';
+
+  pool.query(updateData, [name, secondname, thirdname, phone, email, customer_id], (err, result) => {
+    if (err) {
+      console.error('Ошибка при выполнении SQL запроса:', err);
+      res.status(500).send('Ошибка при сохранении данных в базе данных');
+      return;
+    }
+    else {
+      pool.query(updateEmail, [email, registrations_id], (err, result) => {
+        if (err) {
+          console.error('Ошибка при обновлении email:', err);
+          // Обработка ошибки
+          return;
+        }
+        // Обновляем email в сессии пользователя
+        req.session.user.email = newEmail;
+        res.send();
+      })
+    }
+    console.log('Данные успешно сохранены в базе данных');
+  });
 });
 
 // отображение главной страницы
