@@ -556,18 +556,34 @@ app.get("/admin/reviews", checkAdmin, (req, res) => {
 
 app.post('/saveDataOrg', (req, res) => {
   const organization_id = req.session.org.organization_id;
+  const registrations_id = req.session.user.registrations_id;
+  const newEmail = req.body.email;
+
   const { fullname, shortname, inn, kpp, ogrn, surname, name, patronymic, email, phone, dscrpt } = req.body;
-  console.log(organization_id)
+  
   const updateData = `UPDATE organization SET organization_full_name = ?, organization_short_name = ?,
     inn = ?, kpp = ?, ogrn = ?, responsible_person_surname = ?, responsible_person_name = ?, 
     responsible_person_patronymic = ?, responsible_person_email = ?, responsible_person_phone_number = ?, 
     add_info = ? WHERE organization_id = ?`;
+  const updateEmail = 'UPDATE registrations SET email = ? WHERE registrations_id = ?';
 
   pool.query(updateData, [fullname, shortname, inn, kpp, ogrn, surname, name, patronymic, email, phone, dscrpt, organization_id], (err, result) => {
     if (err) {
       console.error('Ошибка при выполнении SQL запроса:', err);
       res.status(500).send('Ошибка при сохранении данных в базе данных');
       return;
+    }
+    else {
+      pool.query(updateEmail, [email, registrations_id], (err, result) => {
+        if (err) {
+          console.error('Ошибка при обновлении email:', err);
+          // Обработка ошибки
+          return;
+        }
+        // Обновляем email в сессии пользователя
+        req.session.user.email = newEmail;
+        res.send();
+      })
     }
     console.log('Данные успешно сохранены в базе данных');
   });

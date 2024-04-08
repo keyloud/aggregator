@@ -448,56 +448,29 @@ section{
     cursor: pointer; /* Изменяем вид курсора при наведении на кнопку */
     transition: background-color 0.3s ease; /* Добавляем плавный переход для изменения цвета фона */
 }
- 
-.time_selection{
-  width: 910px;
-  height: 666px;
-  background-color: #289FCA;
-  margin-left: 320px;
-  padding-left: 55px;
-  padding-right: 55px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  padding: 55px, 85px, 55px, 85px;
-}
-.elem-group{
-  width: 800px;
-  height: 600px;
-  background-color: white;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  
-}
-.Date_text{
-  margin: 10px;
-  font-family: Rubik;
-  font-size: medium;
-  color: #112533;
-}
-.clock{
-  margin: 10px;
-  
-}
-.clock_text{
-  margin: 10px;
-  font-family: Rubik;
-  font-size: medium;
-  color: #112533;
-}
-.confirmation_button{
-  margin: 10px;
-  border: none; /* Убираем границу у кнопки */
-  border-radius: 50px; /* Задаем радиус для создания овальной формы */
-  background-color: #112533; /* Цвет фона кнопки */
-  color: white; /* Цвет текста кнопки */
-  font-size: 16px; /* Размер шрифта */
-  cursor: pointer; /* Изменяем вид курсора при наведении на кнопку */
-}
 
 .card button:hover {
   background-color: #289FCA; /* Изменяем цвет фона при наведении на кнопку */
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

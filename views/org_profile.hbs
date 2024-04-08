@@ -1,114 +1,135 @@
 <div class="org_profile">
-    <div class="info">
-        <div>
-            <img src="/upload/{{organization.profile_image}}">
-        </div>
-        <div class="about">
-            <div class="inn">
-                <p class="txt">{{organization.inn}}</p>
+    <div class="org_profile_title">
+        <h2>Профиль организации</h2>
+    </div>
+    <div class="org_profile_info">
+        <div class="org_profile_info_first">
+            <div class="org_profile_img">
+                <img src="/upload/{{organization.profile_image}}" alt="Изображение пользователя">
+            </div>
+            <div class="org_profile_inn">
+                ИНН: <p class="org_profile_txt">{{organization.inn}}</p>
                 <input type="text" class="edit-inn hidden">
             </div>
-            <div class="kpp">
-                <p class="txt">{{organization.kpp}}</p>
+            <div class="org_profile_kpp">
+                КПП: <p class="org_profile_txt">{{organization.kpp}}</p>
                 <input type="text" class="edit-kpp hidden">
             </div>
-            <div class="ogrn">
-                <p class="txt">{{organization.ogrn}}</p>
+            <div class="org_profile_ogrn">
+                ОГРН: <p class="org_profile_txt">{{organization.ogrn}}</p>
                 <input type="text" class="edit-ogrn hidden">
             </div>
         </div>
-        <div class="description">
-            <div class="fullname">
-                <p class="txt">{{organization.organization_full_name}}</p>
+        <div class="org_profile_info_second">
+            <div class="org_profile_fullname">
+                Полное имя: <p class="org_profile_txt">{{organization.organization_full_name}}</p>
                 <input type="text" class="edit-fullname hidden">
             </div>
-            <div class="shortname">
-                <p class="txt">{{organization.organization_short_name}}</p>
+            <div class="org_profile_shortname">
+                Краткое имя: <p class="org_profile_txt">{{organization.organization_short_name}}</p>
                 <input type="text" class="edit-shortname hidden">
             </div>
-            <div class="dscrpt">
-                <p class="txt">{{organization.add_info}}</p>
+            <div class="org_profile_discription">
+                Описание: <p class="org_profile_txt">{{organization.add_info}}</p>
                 <input type="text" class="edit-dscrpt hidden">
             </div>
+
         </div>
-        <div class="bio">
-            <div class="org_prof_surname">
-                <p class="txt">{{organization.responsible_person_surname}}</p>
+        <div class="org_profile_info_third">
+            <div class="org_profile_secondname">
+                Фамилия: <p class="org_profile_txt">{{organization.responsible_person_surname}}</p>
                 <input type="text" class="edit-surname hidden">
             </div>
-            <div class="org_prof_name">
-                <p class="txt">{{organization.responsible_person_name}}</p>
+            <div class="org_profile_name">
+                Имя: <p class="org_profile_txt">{{organization.responsible_person_name}}</p>
                 <input type="text" class="edit-name hidden">
             </div>
-            <div class="org_prof_patronymic">
-                <p class="txt">{{organization.responsible_person_patronymic}}</p>
+            <div class="org_profile_thirdname">
+                Отчество: <p class="org_profile_txt">{{organization.responsible_person_patronymic}}</p>
                 <input type="text" class="edit-patronymic hidden">
             </div>
-
-            <div class="org_prof_email">
-                <p class="txt">{{organization.responsible_person_email}}</p>
+            <div class="org_profile_email">
+                Email: <p class="org_profile_txt">{{organization.responsible_person_email}}</p>
                 <input type="text" class="edit-email hidden">
             </div>
-            <div class="phone">
-                <p class="txt">{{organization.responsible_person_phone_number}}</p>
+            <div class="org_profile_phone">
+                Номер телефона: <p class="org_profile_txt">{{organization.responsible_person_phone_number}}</p>
                 <input type="text" class="edit-phone hidden">
             </div>
+            <div class="org_profile_info_button">
+                <button onclick="toggleEdit()">Изменить данные</button>
+            </div>
         </div>
 
     </div>
-    <div class="btn">
-        <div class="btnSAVE">
-            <button onclick="toggleEdit()">Изменить данные</button>
-        </div>
-    </div>
-    <div class="services">
-        <div class="title">
-            <h3>Мои услуги</h3>
-        </div>
-        <div class="main">
-            {{#each service_detail}}
-            <div class="myservices">
-                <div class="srvc">
-                    <p class="txt">{{this.service_detail_name}}</p>
-                </div>
+    <div class="org_profile_mywork">
+        <div class="org_profile_services">
+            <div class="org_profile_services_title">
+                <h2>Мои услуги</h2>
             </div>
-            <div class="prices">
-                <div class="price">
-                    <p class="txt">{{this.service_detail_cost}}</p>
-                </div>
-            </div>
-            {{/each}}
-        </div>
-    </div>
-    <div class="request">
-        <div class="title">
-            <h3>Мои заявки</h3>
-        </div>
-        <div class="main">
-            <div class="namerequest">
-                <div class="nmrqst">
-                    <p class="txt">Мойка днища</p>
-                </div>
+            <div class="gonvo">
+                <div class="org_profile_services_main">
+                    <div class="org_prof_srvc_col">
+                        <div class="org_profile_service">
+                            <div class="org_profile_service_name">
+                                <p class="org_profile_txt">Шиномонтаж</p>
+                            </div>
+                            <div class="org_profile_service_price">
+                                <p class="org_profile_txt">200 руб</p>
+                            </div>
+                        </div>
+                        <div class="org_profile_service">
+                            <div class="org_profile_service_name">
+                                <p class="org_profile_txt">Шиномонтаж</p>
+                            </div>
+                            <div class="org_profile_service_price">
+                                <p class="org_profile_txt">200 руб</p>
+                            </div>
+                        </div>
+                    </div>
 
-            </div>
-            <div class="date">
-                <div class="dtrqst">
-                    <p class="txt">Дата</p>
+                    <div class="org_profile_service_button_add">
+                        <button>
+                            <p>Добавить услугу</p>
+                        </button>
+                    </div>
+
                 </div>
             </div>
-            <div class="number">
-                <div class="numbuser">
-                    <p class="txt">Телефон пользователя</p>
-                </div>
+        </div>
+        <div class="org_profile_requests">
+            <div class="org_profile_requests_title">
+                <h2>Мои заявки</h2>
             </div>
-            <div class="button_agree">
-                <div class="btnagree">
-                    <button>Подтвердить</button>
+            <div class="org_profile_requests_main">
+                <div class="org_profile_request">
+                    <div class="namerequest">
+                        <p class="org_profile_txt">Шиномонтаж</p>
+                    </div>
+                    <div class="daterequest">
+                        <p class="org_profile_txt">04.05.2024</p>
+                    </div>
+                    <div class="phonerequest">
+                        <p class="org_profile_txt">+79378422909</p>
+                    </div>
+                    <div class="buttonrequest"><button>Подтвердить</button></div>
+                </div>
+                <div class="org_profile_request">
+                    <div class="namerequest">
+                        <p class="org_profile_txt">Шиномонтаж</p>
+                    </div>
+                    <div class="daterequest">
+                        <p class="org_profile_txt">04.05.2024</p>
+                    </div>
+                    <div class="phonerequest">
+                        <p class="org_profile_txt">+79378422909</p>
+                    </div>
+                    <div class="buttonrequest"><button>Подтвердить</button></div>
                 </div>
             </div>
         </div>
     </div>
-<script src="usrRedact.js"></script>
+
 </div>
 <script>
     function saveData() {
@@ -138,20 +159,20 @@
         xhr.send(formData);
     }
     var fields = [
-        { textSelector: '.org_prof_surname .txt', inputSelector: '.edit-surname' },
-        { textSelector: '.org_prof_name .txt', inputSelector: '.edit-name' },
-        { textSelector: '.org_prof_patronymic .txt', inputSelector: '.edit-patronymic' },
-        { textSelector: '.org_prof_email .txt', inputSelector: '.edit-email' },
-        { textSelector: '.phone .txt', inputSelector: '.edit-phone' },
-        { textSelector: '.fullname .txt', inputSelector: '.edit-fullname' },
-        { textSelector: '.shortname .txt', inputSelector: '.edit-shortname' },
-        { textSelector: '.dscrpt .txt', inputSelector: '.edit-dscrpt' },
-        { textSelector: '.inn .txt', inputSelector: '.edit-inn' },
-        { textSelector: '.kpp .txt', inputSelector: '.edit-kpp' },
-        { textSelector: '.ogrn .txt', inputSelector: '.edit-ogrn' }
+        { textSelector: '.org_profile_secondname .org_profile_txt', inputSelector: '.edit-surname' },
+        { textSelector: '.org_profile_name .org_profile_txt', inputSelector: '.edit-name' },
+        { textSelector: '.org_profile_thirdname .org_profile_txt', inputSelector: '.edit-patronymic' },
+        { textSelector: '.org_profile_email .org_profile_txt', inputSelector: '.edit-email' },
+        { textSelector: '.org_profile_phone .org_profile_txt', inputSelector: '.edit-phone' },
+        { textSelector: '.org_profile_fullname .org_profile_txt', inputSelector: '.edit-fullname' },
+        { textSelector: '.org_profile_shortname .org_profile_txt', inputSelector: '.edit-shortname' },
+        { textSelector: '.org_profile_discription .org_profile_txt', inputSelector: '.edit-dscrpt' },
+        { textSelector: '.org_profile_inn .org_profile_txt', inputSelector: '.edit-inn' },
+        { textSelector: '.org_profile_kpp .org_profile_txt', inputSelector: '.edit-kpp' },
+        { textSelector: '.org_profile_ogrn .org_profile_txt', inputSelector: '.edit-ogrn' }
     ];
 
-    var saveButton = document.querySelector('.btnSAVE button');
+    var saveButton = document.querySelector('.org_profile_info_button button');
 
     function toggleEdit() {
         fields.forEach(function (field) {
