@@ -368,7 +368,7 @@ h1,h2,h3,h4,h5,h6 {
 }
 .edit-name {
     width: 510px;
-    height: 50%; /*<input type="text" class="edit-dscrpt hidden">*/
+    height: 50%; 
 }
 
 .edit-dscrpt{
