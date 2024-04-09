@@ -17,6 +17,11 @@
         rel="stylesheet">
     <link rel="stylesheet" href="/public/org_registration.css">
     <title>PIONEER - Регистрация организации</title>
+    <style>
+        .error {
+            color: red;
+        }
+    </style>
 </head>
 
 <body>
@@ -48,21 +53,26 @@
                 </div>
                 <div class="rightside">
                     <div class="reg_full">
-                        <input type="text" name="organization_full_name"
+                        <input type="text" name="organization_full_name" id="organization_full_name"
                             placeholder="Введите полное название организации">
+                        <span id="organization_full_name_error" class="error"></span>
                     </div>
                     <div class="reg_short">
-                        <input type="text" name="organization_short_name"
+                        <input type="text" name="organization_short_name" id="organization_short_name"
                             placeholder="Введите краткое название организации">
+                        <span id="organization_short_name_error" class="error"></span>
                     </div>
                     <div class="reg_inn">
-                        <input type="text" name="inn" placeholder="Введите ИНН организации">
+                        <input type="text" name="inn" id="inn" placeholder="Введите ИНН организации">
+                        <span id="inn_error" class="error"></span>
                     </div>
                     <div class="reg_kpp">
-                        <input type="text" name="kpp" placeholder="Введите КПП организации">
+                        <input type="text" name="kpp" id="kpp" placeholder="Введите КПП организации">
+                        <span id="kpp_error" class="error"></span>
                     </div>
                     <div class="reg_ogrn">
-                        <input type="text" name="ogrn" placeholder="Введите ОГРН организации">
+                        <input type="text" name="ogrn" id="ogrn" placeholder="Введите ОГРН организации">
+                        <span id="ogrn_error" class="error"></span>
                     </div>
                 </div>
             </div>
@@ -95,23 +105,31 @@
                 </div>
                 <div class="rightside">
                     <div class="reg_name">
-                        <input type="text" name="responsible_person_name" placeholder="Введите ваше имя">
+                        <input type="text" name="responsible_person_name" id="responsible_person_name"
+                            placeholder="Введите ваше имя">
+                        <span id="responsible_person_name_error" class="error"></span>
                     </div>
                     <div class="reg_secondname">
-                        <input type="text" name="responsible_person_surname" placeholder="Введите вашу фамилию">
+                        <input type="text" name="responsible_person_surname" id="responsible_person_surname"
+                            placeholder="Введите вашу фамилию">
+                        <span id="responsible_person_surname_error" class="error"></span>
                     </div>
                     <div class="reg_thirdname">
-                        <input type="text" name="responsible_person_patronymic" placeholder="Введите ваше отчество">
+                        <input type="text" name="responsible_person_patronymic" id="responsible_person_patronymic"
+                            placeholder="Введите ваше отчество">
+                        <span id="responsible_person_patronymic_error" class="error"></span>
                     </div>
                     <div class="reg_email">
-                        <input type="text" name="email" placeholder="Введите ваш email">
+                        <input type="text" name="email" id="email" placeholder="Введите ваш email">
+                        <span id="email_error" class="error"></span>
                     </div>
                     <div class="reg_numb">
-                        <input type="text" name="responsible_person_phone_number"
+                        <input type="text" name="responsible_person_phone_number" id="responsible_person_phone_number"
                             placeholder="Введите ваш номер телефона">
+                        <span id="responsible_person_phone_number_error" class="error"></span>
                     </div>
                     <div class="reg_descrp">
-                        <input type="text" name="add_info" placeholder="Дополнительная информация">
+                        <input type="text" name="add_info" id="add_info" placeholder="Дополнительная информация">
                     </div>
                 </div>
             </div>
@@ -123,18 +141,19 @@
                 <div class="rightside">
                     <div class="reg_passwrd">
                         <input type="hidden" name="type" value="ORG">
-                        <input type="text" name="password" placeholder="Придумайте пароль">
+                        <input type="text" name="password" id="password" placeholder="Придумайте пароль">
+                        <span id="password_error" class="error"></span>
                     </div>
                 </div>
             </div>
             <div class="add-image">
-                    <h3>Загрузка фото профиля</h3>
-                    <input type="file" name="sampleFile" accept="image/*" />
-                </div>
+                <h3>Загрузка фото профиля</h3>
+                <input type="file" name="sampleFile" accept="image/*" />
+            </div>
             <div class="reg_buttons">
-                
+
                 <div class="reg_create_acc_btn">
-                    <button>
+                    <button id="create_button">
                         <p>Создать аккаунт организации</p>
                     </button>
                 </div>
@@ -152,3 +171,186 @@
 </body>
 
 </html>
+<script>
+    const org_full_nameInput = document.getElementById('organization_full_name');
+    const org_short_nameInput = document.getElementById('organization_short_name');
+    const innInput = document.getElementById('inn');
+    const kppInput = document.getElementById('kpp');
+    const ogrnInput = document.getElementById('ogrn');
+
+    const nameInput = document.getElementById('responsible_person_name');
+    const surnameInput = document.getElementById('responsible_person_surname');
+    const patronymicInput = document.getElementById('responsible_person_patronymic');
+    const emailInput = document.getElementById('email');
+    const phoneInput = document.getElementById('responsible_person_phone_number');
+    const infoInput = document.getElementById('add_info');
+    const passwordInput = document.getElementById('password');
+    const submitButton = document.getElementById('create_button');
+
+    const org_full_nameError = document.getElementById('organization_full_name_error');
+    const org_short_nameError = document.getElementById('organization_short_name_error');
+    const innError = document.getElementById('inn_error');
+    const kppError = document.getElementById('kpp_error');
+    const ogrnError = document.getElementById('ogrn_error');
+
+    const nameError = document.getElementById('responsible_person_name_error');
+    const surnameError = document.getElementById('responsible_person_surname_error');
+    const patronymicError = document.getElementById('responsible_person_patronymic_error');
+    const emailError = document.getElementById('email_error');
+    const phoneError = document.getElementById('responsible_person_phone_number_error');
+    const infoError = document.getElementById('info_error');
+    const passwordError = document.getElementById('password_error');
+
+    nameInput.addEventListener('input', validateName);
+    surnameInput.addEventListener('input', validateSurname);
+    patronymicInput.addEventListener('input', validatePatronymic);
+    emailInput.addEventListener('input', validateEmail);
+    phoneInput.addEventListener('input', validatePhone);
+    infoInput.addEventListener('input', validateInfo);
+    passwordInput.addEventListener('input', validatePassword);
+    org_full_nameInput.addEventListener('input', validateOrg_full_name);
+    org_short_nameInput.addEventListener('input', validateOrg_short_name);
+    innInput.addEventListener('input', validateInn);
+    kppInput.addEventListener('input', validateKpp);
+    ogrnInput.addEventListener('input', validateOgrn);
+
+    function validateOrg_full_name() {
+        const org_full_name = org_full_nameInput.value;
+        if (!/^[а-яА-ЯёЁ" -]+$/.test(org_full_name)) {
+            org_full_nameError.textContent = 'Полное имя организации должно состоять только из букв русского алфавита и символа "-" или кавычек';
+        } else {
+            org_full_nameError.textContent = '';
+        }
+    }
+
+    function validateOrg_short_name() {
+        const org_short_name = org_short_nameInput.value;
+        if (!/^[а-яА-ЯёЁ" -]+$/.test(org_short_name)) {
+            org_short_nameError.textContent = 'Краткое имя организации должно состоять только из букв русского алфавита и символа "-" или кавычек';
+        } else {
+            org_short_nameError.textContent = '';
+        }
+    }
+
+    function validateInn() {
+        const inn = innInput.value;
+        if (!/^\d{10}$/.test(inn)) {
+            innError.textContent = 'ИНН должен состоять ровно из 10 цифр';
+        } else {
+            innError.textContent = '';
+        }
+    }
+
+    function validateKpp() {
+        const kpp = kppInput.value;
+        if (!/^\d{9}$/.test(kpp)) {
+            kppError.textContent = 'КПП должен состоять ровно из 9 цифр';
+        } else {
+            kppError.textContent = '';
+        }
+    }
+
+    function validateOgrn() {
+        const ogrn = ogrnInput.value;
+        if (!/^\d{13}$/.test(ogrn)) {
+            ogrnError.textContent = 'ОГРН должен состоять ровно из 13 цифр';
+        } else {
+            ogrnError.textContent = '';
+        }
+    }
+
+
+    function validateName() {
+        const name = nameInput.value;
+        if (!/^[a-zA-Zа-яА-Я -]+$/.test(name)) {
+            nameError.textContent = 'Имя должно состоять только из букв и символа "-"';
+        } else {
+            nameError.textContent = '';
+        }
+    }
+
+    function validateSurname() {
+        const surname = surnameInput.value;
+        if (!/^[a-zA-Zа-яА-Я -]+$/.test(surname)) {
+            surnameError.textContent = 'Фамилия должна состоять только из букв и символа "-"';
+        } else {
+            surnameError.textContent = '';
+        }
+    }
+
+    function validatePatronymic() {
+        const patronymic = patronymicInput.value;
+        if (!/^[a-zA-Zа-яА-Я -]+$/.test(patronymic)) {
+            patronymicError.textContent = 'Отчество должно состоять только из букв и символа "-"';
+        } else {
+            patronymicError.textContent = '';
+        }
+    }
+
+    function validateEmail() {
+        const email = emailInput.value;
+        if (!/^[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.[a-zA-Z0-9_]+$/.test(email)) {
+            emailError.textContent = 'Адрес электронной почты должен содержать символ "@", доменное имя, и может включать латинский алфавит, цифры, нижнее подчеркивание "_"';
+        } else {
+            emailError.textContent = '';
+        }
+    }
+
+    function validatePhone() {
+        const phone = phoneInput.value;
+        if (!/^\+?[0-9]{11,11}$/.test(phone)) {
+            phoneError.textContent = 'Номер телефона должен содержать от 11 до 12 символов, включая "+", состоящих из цифр, а + можно поставить только один раз в самом начале';
+        } else {
+            phoneError.textContent = '';
+        }
+    }
+
+
+    function validateInfo() {
+    }
+
+    function validatePassword() {
+        const password = passwordInput.value;
+        if (password.length < 8) {
+            passwordError.textContent = 'Пароль должен содержать не менее 8 символов';
+        } else if (!/[a-zA-Z]/.test(password)) {
+            passwordError.textContent = 'Пароль должен содежать буквы латинского алфавита';
+        } else if (!/[0-9]/.test(password)) {
+            passwordError.textContent = 'Пароль должен содержать хотя бы одну цифру';
+        } else {
+            passwordError.textContent = '';
+        }
+    }
+
+    function validateForm() {
+        const nameError = document.getElementById('name_error').textContent;
+        const surnameError = document.getElementById('surname_error').textContent;
+        const patronymicError = document.getElementById('patronymic_error').textContent;
+        const emailError = document.getElementById('email_error').textContent;
+        const phoneError = document.getElementById('phone_error').textContent;
+        const passwordError = document.getElementById('password_error').textContent;
+        const org_full_nameError = document.getElementById('organization_full_name_error').textContent;;
+        const org_short_nameError = document.getElementById('responsible_short_name_error').textContent;;
+        const innError = document.getElementById('inn_error').textContent;;
+        const kppError = document.getElementById('kpp_error').textContent;;
+        const ogrnError = document.getElementById('ogrn_error').textContent;;
+
+        if (nameError || surnameError || patronymicError || emailError || phoneError || passwordError || org_full_nameError || org_short_nameError || innError || kppError || ogrnError) {
+            submitButton.disabled = true;
+        } else {
+            submitButton.disabled = false;
+        }
+    }
+
+    nameInput.addEventListener('input', validateForm);
+    surnameInput.addEventListener('input', validateForm);
+    patronymicInput.addEventListener('input', validateForm);
+    emailInput.addEventListener('input', validateForm);
+    phoneInput.addEventListener('input', validateForm);
+    passwordInput.addEventListener('input', validateForm);
+    org_full_nameInput.addEventListener('input', validateForm);
+    org_short_nameInput.addEventListener('input', validateForm);
+    innInput.addEventListener('input', validateForm);
+    kppInput.addEventListener('input', validateForm);
+    ogrnInput.addEventListener('input', validateForm);
+</script>
