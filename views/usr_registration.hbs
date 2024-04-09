@@ -164,12 +164,13 @@
 
     function validatePhone() {
         const phone = phoneInput.value;
-        if (!/^[0-9+]+$/.test(phone)) {
-            phoneError.textContent = 'Номер телефона может включать только цифры и знак "+"';
+        if (!/^\+?[0-9]{11,11}$/.test(phone)) {
+            phoneError.textContent = 'Номер телефона должен содержать от 11 до 12 символов, включая "+", состоящих из цифр, а + можно поставить только один раз в самом начале';
         } else {
             phoneError.textContent = '';
         }
     }
+
 
     function validateInfo() {
         // Add your validation logic for additional info here
@@ -180,7 +181,7 @@
         if (password.length < 8) {
             passwordError.textContent = 'Пароль должен содержать не менее 8 символов';
         } else if (!/[a-zA-Z]/.test(password)) {
-            passwordError.textContent = 'Пароль должен содержать хотя бы одну букву';
+            passwordError.textContent = 'Пароль должен содежать буквы латинского алфавита';
         } else if (!/[0-9]/.test(password)) {
             passwordError.textContent = 'Пароль должен содержать хотя бы одну цифру';
         } else {
