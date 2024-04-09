@@ -1,73 +1,21 @@
-var header     = document.querySelector("#app-header");
-var bgBack     = document.querySelector("#background-back");
-var bgFront    = document.querySelector("#background-front");
-var toolbar    = document.querySelector("#small-toolbar");
-var largeTitle = document.querySelector("#large-title");
-var smallTitle = document.querySelector("#small-title");
+function searchCards() {
+    var input, filter, cards, card, h3, i, txtValue;
+    input = document.querySelector(".search");
+    filter = input.value.toUpperCase();
+    cards = document.querySelectorAll(".card");
 
-var deltaHeight = header.offsetHeight - toolbar.offsetHeight;
-
-var rect1 = smallTitle.getBoundingClientRect();
-var rect2 = largeTitle.getBoundingClientRect();
-
-var scale = rect1.height / rect2.height;
-var x = rect1.left - rect2.left;
-var y = rect1.top  - rect2.top;
-
-var headerAnimation = new TimelineLite({ paused: true })
-  .to(largeTitle, 1, { scale: scale, x: x, y: deltaHeight + y }, 0)
-  .to(header,  1, { y: -deltaHeight }, 0)
-  .to(toolbar, 1, { y: deltaHeight }, 0)
-  .to(bgBack,  1, { y: deltaHeight / 2 }, 0)
-  .to(bgFront, 1, { y: deltaHeight / 2 }, 0)
-  .to(bgBack,  1, { autoAlpha: 1 }, 0)
-  .to(bgFront, 1, { autoAlpha: 0 }, 0)
-  .set(smallTitle, { autoAlpha: 1 }, 1)
-  .set(largeTitle, { autoAlpha: 0 }, 1);
-
-var shadowAnimation = TweenLite.to(header, 0.4, { 
-  boxShadow: "0 2px 5px rgba(0,0,0,0.6)",
-  ease: Power1.easeOut
-}).reverse();
-
-var progress  = 0;
-var requestId = null;
-var reversed  = true;
-
-
-update();
-window.addEventListener("scroll", requestUpdate);
-
-function requestUpdate() {
-  if (!requestId) {
-    requestId = requestAnimationFrame(update);
-  }
+    // Проходим по всем карточкам и скрываем те, которые не соответствуют запросу поиска
+    for (i = 0; i < cards.length; i++) {
+        h3 = cards[i].querySelector(".card_h3"); // Ищем в заголовке h3, но можно адаптировать под любой элемент
+        if (h3) {
+            txtValue = h3.textContent || h3.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                cards[i].style.display = "";
+            } else {
+                cards[i].style.display = "none";
+            }
+        }
+    }
 }
-
-function update() {
-  
-  var scroll = window.pageYOffset;
-  
-  if (scroll < deltaHeight) {   
-    progress = scroll < 0 ? 0 : scroll / deltaHeight;
-    reversed = true;
-  } else {
-    progress = 1;
-    reversed = false;
-  }
-  
-  headerAnimation.progress(progress);
-  shadowAnimation.reversed(reversed);
-  
-  requestId = null;
-}
-
-function cloneCards(count) {
-  
-  var main = document.querySelector("main");
-  var card = document.querySelector(".card");
-  
-  for (var i = 0; i < count; i++) {
-    main.appendChild(card.cloneNode(true));
-  }  
-}
+document.querySelector(".search").addEventListener("keyup", searchCards);
+document.querySelector(".search").addEventListener("input", searchCards);

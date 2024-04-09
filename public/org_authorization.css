@@ -18,7 +18,7 @@ p {
     font-size: 14px; /* размер шрифта */
 }
 
-.org_autorization {
+.org_autorization{
     width: 420px;
     height: 440px;
     margin: 0 auto;
@@ -27,6 +27,19 @@ p {
     display: flex;
     flex-direction: column;
     align-items: center;
+    margin-bottom: 294px;
+}
+
+.org_autorization_main {
+    width: 420px;
+    height: 440px;
+    margin: 0 auto;
+    
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
 }
 
 .autorization_title {
@@ -38,6 +51,7 @@ p {
     width: 100%;
     height: 30%;
 }
+
 
 .aut_checkbox {
     width: 100%;
@@ -84,4 +98,17 @@ p {
 
 .aut_btn_createacc button:hover {
     background-color: #112533; /* Изменяем цвет фона при наведении на кнопку */
+}
+
+.aut_btn_createacc a {
+    font-family: "Rubik", sans-serif;
+    font-weight: 600;
+text-decoration: none;
+color: white !important;
+    
+display: flex;
+width: 100%;
+height: 100%;
+justify-content: center;
+align-items: center;
 }

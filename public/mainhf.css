@@ -2,7 +2,8 @@
 body {
     margin: 0;
     background: #003F63;
-    margin-top: 220px;
+    margin-top: 100px;
+    height: 100%;
 }
 h1,h2,h3,h4,h5,h6 {
     font-family: "Ubuntu", sans-serif;
@@ -18,7 +19,6 @@ p {
 }
 
 main {
-    margin-top: 220px;
     min-height: 100%;
 }
 
@@ -35,7 +35,7 @@ header {
     top: 0;
     padding-bottom: 15px;
 }
-.header_title {
+.header_logo {
     width: 1440px;
     height: 75%;
     margin: 0 auto;
@@ -43,6 +43,29 @@ header {
     display: flex;
     text-align: left;
     align-items: center;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.header_title {
+  width: 150px;
+  height: 37px;
+}
+
+.header_img{
+  width: 250px;
+  height: 130px;
+  margin-top: 40px;
+  overflow: hidden;
+  display: flex; 
+  justify-content: center; 
+  align-items: center;
+}  
+
+.header_img img{
+  width: 100%;
+  height: auto;
+  object-fit: cover;
 }
 
 .header_navbar  {
@@ -81,6 +104,8 @@ footer {
     flex-direction: column;
     position: relative;
     bottom: 0;
+    justify-content: flex-end;
+  
    
 }
 
@@ -135,7 +160,7 @@ footer {
 }
 
 .usr_profile_card{
-  position: relative;
+  
   display: flex;
   flex-direction: column;
   min-width: 0;
@@ -151,19 +176,40 @@ footer {
   margin-right: .5rem!important;
 }
 .avatar{
-  height: 335px;
-  width:335px;
+  height: 450px;
+  width: 450px;
   border-radius: 20px;
   margin-left: 50px;
 }
 
+.roww{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  margin-bottom: 317px;
+}
+
+.profile-column {
+  flex: 1;
+  max-width: 50%;
+}
+
 .profile-container{
-  width:1440px;
-  margin: 0 auto;
+    width: 100%;
+    display: flex;
+    align-content: space-around;
+    justify-content: center;
+}
+
+.field-label {
+  font-family: Rubik; /* Используйте тот же шрифт, что и для остальной страницы */
+  font-size: 16px; /* Или любой другой размер, который вам нравится */
+  color: #fff; /* Или любой другой цвет, который вам нравится */
+  margin-bottom: 5px; /* Добавьте немного отступа снизу, чтобы подпись не прилипала к полю */
 }
 
 .surname{
-  width: 875px;
+  width: 600px;
   height: 50px;
   padding: 5px; /* добавляем отступ вокруг текста внутри input */
   border: 1px solid #ccc; /* стиль границы */
@@ -177,7 +223,7 @@ footer {
   font-weight: 400;
 }
 .name{
-  width: 875px;
+  width: 600px;
   height: 50px;
   padding: 5px; /* добавляем отступ вокруг текста внутри input */
   border: 1px solid #ccc; /* стиль границы */
@@ -192,7 +238,7 @@ footer {
 
 }
 .middle_name{
-  width: 875px;
+  width: 600px;
   height: 50px;
   padding: 5px; /* добавляем отступ вокруг текста внутри input */
   border: 1px solid #ccc; /* стиль границы */
@@ -206,7 +252,7 @@ footer {
   font-weight: 400;
 }
 .email{
-  width: 875px;
+  width: 600px;
   height: 50px;
   padding: 5px; /* добавляем отступ вокруг текста внутри input */
   border: 1px solid #ccc; /* стиль границы */
@@ -250,7 +296,7 @@ footer {
   font-weight: 400;
 }
 .phone_number{
-  width: 875px;
+  width: 600px;
   height: 50px;
   padding: 5px; /* добавляем отступ вокруг текста внутри input */
   border: 1px solid #ccc; /* стиль границы */
@@ -265,7 +311,9 @@ footer {
   font-weight: 400;
 }
 
-.Save{
+
+
+.button-class button{
   width: 170px;
   height: 56px;
   border: none; /* Убираем границу */
@@ -319,7 +367,7 @@ section{
     margin: 0px;
   }
   .search{
-    width: 1144px;
+    width: 1328px;
     height: 50px;
     border-radius: 0px !important;
     border: 0px !important;
@@ -352,6 +400,14 @@ section{
     font-family: Ubuntu;
     margin-bottom: 30px;
   }
+
+  .card_content{
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    flex-direction: column;
+  }
   .card_h3{
     margin: 0 0 42px 0;
     font-weight: 500;
@@ -365,7 +421,91 @@ section{
     color: black;
     font-size: 20px;
   
+    margin-bottom: 42px;
   }
+
+
+  .org_card_btn {
+    align-self: end;
+  }
+  .card a {
+    font-family: "Ubuntu", sans-serif;
+    text-decoration: none;
+    color: white !important;
+    
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .card_button_href {
+    width: 200px;
+    height: 50px;
+    border: none; /* Убираем границу у кнопки */
+    border-radius: 50px 50px 50px 50px; /* Задаем радиус для создания овальной формы */
+    background-color: #112533; /* Цвет фона кнопки */
+    color: white; /* Цвет текста кнопки */
+    font-size: 16px; /* Размер шрифта */
+    cursor: pointer; /* Изменяем вид курсора при наведении на кнопку */
+    transition: background-color 0.3s ease; /* Добавляем плавный переход для изменения цвета фона */
+}
+
+.card button:hover {
+  background-color: #289FCA; /* Изменяем цвет фона при наведении на кнопку */
+}
+
+.time_selection{
+  width: 910px;
+  height: 666px;
+  background-color: #289FCA;
+  margin-left: 320px;
+  padding-left: 55px;
+  padding-right: 55px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 55px, 85px, 55px, 85px;
+}
+.elem-group{
+  width: 800px;
+  height: 600px;
+  background-color: white;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  
+}
+.Date_text{
+  margin: 10px;
+  font-family: Rubik;
+  font-size: medium;
+  color: #112533;
+}
+.clock{
+  margin: 10px;
+  
+}
+.clock_text{
+  margin: 10px;
+  font-family: Rubik;
+  font-size: medium;
+  color: #112533;
+
+}
+.confirmation_button{
+  margin: 10px;
+  border: none; /* Убираем границу у кнопки */
+  border-radius: 50px; /* Задаем радиус для создания овальной формы */
+  background-color: #112533; /* Цвет фона кнопки */
+  color: white; /* Цвет текста кнопки */
+  font-size: 16px; /* Размер шрифта */
+  cursor: pointer; /* Изменяем вид курсора при наведении на кнопку */
+}
+
 
 
 

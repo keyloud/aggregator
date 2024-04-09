@@ -1,0 +1,40 @@
+<body class="body_adm">
+    <div class="admin_panel">
+        <div class="table-title">
+            <h2>Админская панель</h2>
+        </div>
+        <div class="admin_buttons">
+            <button class="user_btn"><a href="#">Пользователи</a></button>
+            <button class="org_btn"><a href="#">Организации</a></button>
+            <button class="rewiews_btn"><a href="#">Заявки</a></button>
+        </div>
+        <div class="table-title">
+            <h3>Список организаций</h3>
+            <div class="searchWrapper">
+                <input type="text" id="searchInput" onkeyup="searchTable()" placeholder="Поиск по организациям...">
+            </div>
+            <table class="table-fill">
+                <thead>
+                    <tr>
+                        <th class="text-left">-</th>
+                        <th class="text-left">-</th>
+                        <th class="text-left">-</th>
+                        <th class="text-left">-</th>
+                        <th class="text-left">-</th>
+                        <th class="text-left">-</th>
+                        <th class="text-left">-</th>
+                        <th class="text-left">-</th>
+                        <th class="text-left">-</th>
+                        <th class="text-left">-</th>
+                        <th class="text-left">-</th>
+                        <th class="text-left">-</th>
+                        <th class="text-left">-</th>
+                    </tr>
+                </thead>
+                <tbody class="table-hover">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="adminPanel.js"></script>
+</body>

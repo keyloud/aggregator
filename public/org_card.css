@@ -1,9 +1,6 @@
 .org_card_body {
     margin: 0;
     background: #003F63;
-    margin-top: 220px;
-
-
 }
 
 /* полоса прокрутки (скроллбар) */
@@ -24,6 +21,25 @@
     background-color: #289FCA;
 }
 
+.org_slot_title {
+    width: 100%;
+    height: 30px;
+
+    display: flex;
+    flex-direction: row;
+}
+
+.org_slot_title_left {
+    width: 36%;
+    height: 100%;
+}
+.org_slot_title_right {
+    width: 64%;
+    height: 100%;
+}
+.org_slot_title_left, .org_slot_title_right h2 {
+    margin: 0;
+}
 
 /*org_about*/
 .org_about {
@@ -32,9 +48,6 @@
     min-height: 80vh;
     
     margin: 0 auto;
-
-
-  
 } 
 
 .org_about h1,h2,h3,h4,h5,h6 {
@@ -42,7 +55,7 @@
     color: #fff;
     margin: 0;
     font-style: normal;
-    margin-bottom: 5px;
+    
     
 }
 
@@ -61,7 +74,7 @@
     height: 80vh;
     display: flex;
    
-
+    margin-bottom: 20px;
     
    
 }
@@ -78,12 +91,14 @@
     flex: 5;
     width: 100%; /* Фиксированная ширина блока */
     height: 200px; /* Фиксированная высота блока */
+    border-radius: 20px;
 }
 
 .org_img img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    border-radius: 20px;
 }
 
 .org_name {
@@ -92,6 +107,8 @@
     align-items: center;
     justify-content: center;
     background: #fff;
+
+    border-radius: 20px;
 }
 
 .org_name p {
@@ -105,6 +122,7 @@
     display: flex;
     flex-direction: column;
     background: #fff;
+    border-radius: 20px;
 }
 
 .org_disc_title {
@@ -121,13 +139,15 @@
     margin: 0; /* Убираем внешние отступы у параграфа, если они есть по умолчанию */
 }
 
-.org_img, .org_name, .org_disc {
+.org_img, .org_name  {
     margin-bottom: 10px;
     border: 1px solid black;
-    
-    
+   
 }
 
+.org_disc {
+    border: 1px solid black;
+}
 
 /*org_info*/
 
@@ -138,6 +158,7 @@
     overflow: auto;
     display: flex;
     flex-direction: column;
+    border-radius: 20px;
 }
 
 /* .scrl_bord_top, .scrl_bord_bottom {
@@ -165,11 +186,15 @@
     display: flex;
     flex-direction: column;
     overflow-y: auto;
+    border-radius: 20px;
+
+    background: white;
 }
 
 
 .inner_service_conteiner .service {
     min-height: 60px;
+    
     
     display: flex;
     flex-direction: column;
@@ -182,10 +207,13 @@
 }
 
 .service_title {
-    text-align: left;
+    text-align: center;
     font-weight: bold;
+    margin: 0 auto;
+}
 
-    
+.service_title h4 {
+    color: #000;
     
 }
 
@@ -195,20 +223,27 @@
     width: 100%; 
     margin-bottom: 10px;
     background: #fff;
+
+
+}
+
+.service_details p {
+    border: none;
 }
 
 .name_service,
 .price_service,
 .btn_signup {
     flex: 1; 
-    
     padding: 10px;
     text-align: center;
+    
 }
 
-.btn_signup, .price_service {
-    border-left: 1px solid black;
-}
+.name_service,
+.price_service {
+    border-right: 1px solid black;
+}   
 
 
 .price_service {
@@ -231,7 +266,7 @@
     transition: color 0.2s ease; 
 }
 
-.btn_signup a:hover {
+.btn_signup p:hover {
     color: #ffcc00; 
 }
 

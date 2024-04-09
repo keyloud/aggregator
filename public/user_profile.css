@@ -1,150 +1,130 @@
-/*  */
-    	body{
+body {
+    margin: 0;
     background: #003F63;
-    margin-top:20px;
+    margin-top: 160px;
 }
-.usr_profile_card{
-    position: relative;
+h1,h2,h3,h4,h5,h6 {
+    font-family: "Ubuntu", sans-serif;
+    color: white;
+    margin: 0;
+    font-style: normal;
+}
+
+.hidden {
+    display: none;
+}
+
+.user_profile_txt, .user_profile_title_txt, .user_profile_button_txt {
+    font-family: "Rubik", sans-serif;
+    font-weight: 600;
+    margin: 0;
+    color: black;
+}
+
+.user_profile {
+    width: 1100px;
+    height: 400px;
+    margin: 0 auto;
+
+    display: flex;
+    flex-direction: row;
+    margin-bottom: 334px;
+}
+
+.user_profile_img  {
+    flex:1;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.user_profile_img img {
+    width: 400px;
+    height: 400px;
+    border-radius: 20px;
+}
+
+.user_profile_info{
+    flex: 1;
+
     display: flex;
     flex-direction: column;
-    min-width: 0;
-    word-wrap: break-word;
-    background-color: #003F63;
-    background-clip: border-box;
-    border: 0 solid transparent;
-    border-radius: .25rem;
-    margin-bottom: 1.5rem;
-   
 }
-.me-2 {
-    margin-right: .5rem!important;
-}
-.avatar{
-    height: 335px;
-    width:335px;
+
+.user_profile_secondname, .user_profile_name,
+.user_profile_thirdname, .user_profile_email,
+.user_profile_phone {
+    width: 100%;
+    height: 15%;
+    background: white;
     border-radius: 20px;
-    margin-left: 50px;
+    border: 1px solid black;
+    margin-bottom: 5px;
+
+    display: flex;
+    align-items: center;
+}
+.user_profile_info p {
+    margin-left: 5px;
+}
+.user_profile_info h4 {
+    margin-left: 5px;
 }
 
-.profile-container{
-    width:1440px;
-    margin: 0 auto;
+.user_profile_buttonchange {
+    width: 100%;
+    height: 15%;
+    border-radius: 20px;
+    margin-bottom: 5px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
-.surname{
-    width: 875px;
+.user_profile_buttonchange button{
+    width: 40%;
     height: 50px;
-    padding: 5px; /* добавляем отступ вокруг текста внутри input */
-    border: 1px solid #ccc; /* стиль границы */
-    border-radius: 10px; /* закругленные углы */
-    box-sizing: border-box; /* учитываем padding и border внутри ширины и высоты */
-    font-size: 14px; /* размер шрифта */
-    margin-bottom: 20px;
-
-    font-size: 20px;
-    font-family: Rubik;
-    font-weight: 400;
-}
-.name{
-    width: 875px;
-    height: 50px;
-    padding: 5px; /* добавляем отступ вокруг текста внутри input */
-    border: 1px solid #ccc; /* стиль границы */
-    border-radius: 10px; /* закругленные углы */
-    box-sizing: border-box; /* учитываем padding и border внутри ширины и высоты */
-    font-size: 14px; /* размер шрифта */
-    margin-bottom: 20px;
-
-    font-size: 20px;
-    font-family: Rubik;
-    font-weight: 400;
-
-}
-.middle_name{
-    width: 875px;
-    height: 50px;
-    padding: 5px; /* добавляем отступ вокруг текста внутри input */
-    border: 1px solid #ccc; /* стиль границы */
-    border-radius: 10px; /* закругленные углы */
-    box-sizing: border-box; /* учитываем padding и border внутри ширины и высоты */
-    font-size: 14px; /* размер шрифта */
-    margin-bottom: 20px;
-
-    font-size: 20px;
-    font-family: Rubik;
-    font-weight: 400;
-}
-.email{
-    width: 875px;
-    height: 50px;
-    padding: 5px; /* добавляем отступ вокруг текста внутри input */
-    border: 1px solid #ccc; /* стиль границы */
-    border-radius: 10px; /* закругленные углы */
-    box-sizing: border-box; /* учитываем padding и border внутри ширины и высоты */
-    font-size: 14px; /* размер шрифта */
-    margin-bottom: 20px;
-
-    font-size: 20px;
-    font-family: Rubik;
-    font-weight: 400;
-
-}
-.password{
-    width: 875px;
-    height: 50px;
-    padding: 5px; /* добавляем отступ вокруг текста внутри input */
-    border: 1px solid #ccc; /* стиль границы */
-    border-radius: 10px; /* закругленные углы */
-    box-sizing: border-box; /* учитываем padding и border внутри ширины и высоты */
-    font-size: 14px; /* размер шрифта */
-    margin-bottom: 20px;  
-
-    font-size: 20px;
-    font-family: Rubik;
-    font-weight: 400;
-}
-.pass{
-    width: 875px;
-    height: 50px;
-    padding: 5px; /* добавляем отступ вокруг текста внутри input */
-    border: 1px solid #ccc; /* стиль границы */
-    border-radius: 10px; /* закругленные углы */
-    box-sizing: border-box; /* учитываем padding и border внутри ширины и высоты */
-    font-size: 14px; /* размер шрифта */
-    margin-bottom: 20px;  
-    margin-top: 5px;
-
-    font-size: 20px;
-    font-family: Rubik;
-    font-weight: 400;
-}
-.phone_number{
-    width: 875px;
-    height: 50px;
-    padding: 5px; /* добавляем отступ вокруг текста внутри input */
-    border: 1px solid #ccc; /* стиль границы */
-    border-radius: 10px; /* закругленные углы */
-    box-sizing: border-box; /* учитываем padding и border внутри ширины и высоты */
-    font-size: 14px; /* размер шрифта */
-    margin-bottom: 20px;  
-    margin-top: 5px;
-
-    font-size: 20px;
-    font-family: Rubik;
-    font-weight: 400;
-}
-
-.Save{
-    width: 170px;
-    height: 56px;
-    border: none; /* Убираем границу */
-    border-radius: 30px; /* Закругляем углы */
-    background-color: #112533; /* Цвет фона кнопок */
-    color: white; /* Цвет текста */
-    font-size: 20px; /* Размер шрифта */
-    cursor: pointer; /* Устанавливаем курсор на кнопках */
+    border-radius: 20px;
+    background-color: #112533;
+    color:white;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
     transition: background-color 0.3s ease;
-    margin-left: 700px;
-    font-weight: medium;
 }
 
+.user_profile_buttonchange button:hover {
+    background: #289FCA;
+}
+
+.user_profile_button_txt {
+    color:white;
+}
+
+.edit-secondname {
+    width: 80%;
+    height: 50%;
+}
+.edit-name{
+    width: 87.5%;
+    height: 50%;
+}
+.edit-thirdname{
+    width: 80%;
+    height: 50%;
+}
+.edit-email {
+    width: 86%;
+    height: 50%;
+}
+.edit-phone{
+    width: 70%;
+    height: 50%;
+}
+
+.edit-secondname, .edit-name, .edit-thirdname, .edit-email
+,.edit-phone {
+    font-family: "Rubik", sans-serif;
+    font-weight: 600;
+}
