@@ -20,6 +20,7 @@ CREATE DATABASE IF NOT EXISTS `aggregator` /*!40100 DEFAULT CHARACTER SET utf8mb
 USE `aggregator`;
 
 -- Дамп структуры для таблица aggregator.adress
+DROP TABLE IF EXISTS `adress`;
 CREATE TABLE IF NOT EXISTS `adress` (
   `adress_id` int NOT NULL,
   `organization_id` int DEFAULT NULL,
@@ -39,6 +40,7 @@ CREATE TABLE IF NOT EXISTS `adress` (
 DELETE FROM `adress`;
 
 -- Дамп структуры для таблица aggregator.adress_type
+DROP TABLE IF EXISTS `adress_type`;
 CREATE TABLE IF NOT EXISTS `adress_type` (
   `adress_type_id` int NOT NULL,
   `adress_type_name` char(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -51,6 +53,7 @@ CREATE TABLE IF NOT EXISTS `adress_type` (
 DELETE FROM `adress_type`;
 
 -- Дамп структуры для таблица aggregator.aggregator_specialist
+DROP TABLE IF EXISTS `aggregator_specialist`;
 CREATE TABLE IF NOT EXISTS `aggregator_specialist` (
   `aggregator_specialist_id` int NOT NULL,
   `aggregator_specialist_surname` char(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -67,6 +70,7 @@ CREATE TABLE IF NOT EXISTS `aggregator_specialist` (
 DELETE FROM `aggregator_specialist`;
 
 -- Дамп структуры для таблица aggregator.aggregator_specialist_connector_request
+DROP TABLE IF EXISTS `aggregator_specialist_connector_request`;
 CREATE TABLE IF NOT EXISTS `aggregator_specialist_connector_request` (
   `aggregator_specialist_connector_request_id` int NOT NULL,
   `aggregator_specialist_id` int DEFAULT NULL,
@@ -79,6 +83,7 @@ CREATE TABLE IF NOT EXISTS `aggregator_specialist_connector_request` (
 DELETE FROM `aggregator_specialist_connector_request`;
 
 -- Дамп структуры для таблица aggregator.connection_request
+DROP TABLE IF EXISTS `connection_request`;
 CREATE TABLE IF NOT EXISTS `connection_request` (
   `connection_request_id` int NOT NULL,
   `organization_id` int DEFAULT NULL,
@@ -95,6 +100,7 @@ CREATE TABLE IF NOT EXISTS `connection_request` (
 DELETE FROM `connection_request`;
 
 -- Дамп структуры для таблица aggregator.customer
+DROP TABLE IF EXISTS `customer`;
 CREATE TABLE IF NOT EXISTS `customer` (
   `customer_id` int NOT NULL AUTO_INCREMENT,
   `customer_name` mediumtext COLLATE utf8mb4_general_ci,
@@ -113,6 +119,7 @@ INSERT INTO `customer` (`customer_id`, `customer_name`, `customer_surname`, `cus
 	(1, 'Vadim', 'Шакиров', 'VVV', '86856732', 'oazesh@gmail.com', 'dascawwcsd', 'av.png');
 
 -- Дамп структуры для таблица aggregator.organization
+DROP TABLE IF EXISTS `organization`;
 CREATE TABLE IF NOT EXISTS `organization` (
   `organization_id` int NOT NULL AUTO_INCREMENT,
   `organization_full_name` mediumtext COLLATE utf8mb4_general_ci,
@@ -140,6 +147,7 @@ INSERT INTO `organization` (`organization_id`, `organization_full_name`, `organi
 	(23, 'СТО «Спутник»', 'Спутник', '432112', '342432', '65434', 'Косолапов', 'Виталий', 'Павлович', 'test@gmail.com', '34212', 'В нашем автосервисе вы встретите идеальное сочетание роскоши, качества и профессионализма. Мы специализируемся на обслуживании автомобилей премиум-класса, где каждая деталь имеет значение.', 'sputnik.jpg');
 
 -- Дамп структуры для таблица aggregator.registrations
+DROP TABLE IF EXISTS `registrations`;
 CREATE TABLE IF NOT EXISTS `registrations` (
   `registrations_id` int NOT NULL AUTO_INCREMENT,
   `email` text COLLATE utf8mb4_general_ci NOT NULL,
@@ -160,6 +168,7 @@ INSERT INTO `registrations` (`registrations_id`, `email`, `password`, `type`) VA
 	(22, 'test@gmail.com', '$2b$10$GWyHczQNllf.luDIxCyidO2IrKq1q7h1zone7pRKzblKJ88uUOvAi', 'ORG');
 
 -- Дамп структуры для таблица aggregator.service_detail
+DROP TABLE IF EXISTS `service_detail`;
 CREATE TABLE IF NOT EXISTS `service_detail` (
   `service_detail_id` int NOT NULL,
   `service_detail_code` char(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
@@ -186,6 +195,7 @@ INSERT INTO `service_detail` (`service_detail_id`, `service_detail_code`, `servi
 	(19, '19', 'Замена бампера', 25000, NULL, NULL);
 
 -- Дамп структуры для таблица aggregator.service_request
+DROP TABLE IF EXISTS `service_request`;
 CREATE TABLE IF NOT EXISTS `service_request` (
   `service_request_id` int NOT NULL,
   `customer_id` int DEFAULT NULL,
@@ -200,6 +210,7 @@ CREATE TABLE IF NOT EXISTS `service_request` (
 DELETE FROM `service_request`;
 
 -- Дамп структуры для таблица aggregator.service_request_detail
+DROP TABLE IF EXISTS `service_request_detail`;
 CREATE TABLE IF NOT EXISTS `service_request_detail` (
   `service_request_detail_id` int NOT NULL,
   `service_request_id` int DEFAULT NULL,
@@ -212,6 +223,7 @@ CREATE TABLE IF NOT EXISTS `service_request_detail` (
 DELETE FROM `service_request_detail`;
 
 -- Дамп структуры для таблица aggregator.type_of_service
+DROP TABLE IF EXISTS `type_of_service`;
 CREATE TABLE IF NOT EXISTS `type_of_service` (
   `type_id` int NOT NULL,
   `type_code` char(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
