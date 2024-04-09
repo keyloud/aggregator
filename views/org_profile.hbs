@@ -70,22 +70,16 @@
             <div class="gonvo">
                 <div class="org_profile_services_main">
                     <div class="org_prof_srvc_col">
+                        {{#each service_detail}}
                         <div class="org_profile_service">
                             <div class="org_profile_service_name">
-                                <p class="org_profile_txt">Шиномонтаж</p>
+                                <p class="org_profile_txt">{{this.service_detail_name}}</p>
                             </div>
                             <div class="org_profile_service_price">
-                                <p class="org_profile_txt">200 руб</p>
+                                <p class="org_profile_txt">{{this.service_detail_cost}}</p>
                             </div>
                         </div>
-                        <div class="org_profile_service">
-                            <div class="org_profile_service_name">
-                                <p class="org_profile_txt">Шиномонтаж</p>
-                            </div>
-                            <div class="org_profile_service_price">
-                                <p class="org_profile_txt">200 руб</p>
-                            </div>
-                        </div>
+                        {{/each}}
                     </div>
 
                     <div class="org_profile_service_button_add">
@@ -102,28 +96,22 @@
                 <h2>Мои заявки</h2>
             </div>
             <div class="org_profile_requests_main">
+                {{#each service_detail}}
                 <div class="org_profile_request">
                     <div class="namerequest">
-                        <p class="org_profile_txt">Шиномонтаж</p>
+                        <p class="org_profile_txt">{{this.service_detail_name}}</p>
                     </div>
+                {{/each}}
+                {{#each service_request}}    
                     <div class="daterequest">
-                        <p class="org_profile_txt">04.05.2024</p>
+                        <p class="org_profile_txt">{{this.data_service}}</p>
                     </div>
+                {{/each}}
+                {{#each registrations}}
                     <div class="phonerequest">
-                        <p class="org_profile_txt">+79378422909</p>
+                        <p class="org_profile_txt">{{this.email}}</p>
                     </div>
-                    <div class="buttonrequest"><button>Подтвердить</button></div>
-                </div>
-                <div class="org_profile_request">
-                    <div class="namerequest">
-                        <p class="org_profile_txt">Шиномонтаж</p>
-                    </div>
-                    <div class="daterequest">
-                        <p class="org_profile_txt">04.05.2024</p>
-                    </div>
-                    <div class="phonerequest">
-                        <p class="org_profile_txt">+79378422909</p>
-                    </div>
+                {{/each}}
                     <div class="buttonrequest"><button>Подтвердить</button></div>
                 </div>
             </div>
