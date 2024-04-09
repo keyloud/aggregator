@@ -1,57 +1,61 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Запись на услугу</title>
-<!-- Подключаем стили для календаря -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css">
-<link rel="stylesheet" href="/public/mainhf.css">
- </head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Запись на услугу</title>
+    <!-- Подключаем стили для календаря -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/datepicker/1.0.10/datepicker.min.css">
+    <link rel="stylesheet" href="/public/mainhf.css">
+</head>
+
 <body>
-<div id="timeSelection" class="time_selection">
-    <form action="reservation.php" method="post">
-        <div class="elem-group">
-            <div class="Date_text" >
-                <label for="checkin-date">Дата и время записи</label>
-            </div>
-            <div class="calendar">
-                <input type="date" id="checkin-date" name="checkin" required>
-            </div>
-           
-        <div clas="clock">
-        <label for="hour" class="clock_text">Часы:</label>
-        <select id="hour">
-            <option value="08">08</option>
-            <option value="09">09</option>
-            <option value="10">10</option>
-            <option value="11">11</option>
-            <option value="12">12</option>
-            <option value="13">13</option>
-            <option value="14">14</option>
-            <option value="15">15</option>
-        </select>
-        <label for="minute"  class="clock_text">Минуты:</label>
-        <select id="minute">
-            <option value="00">00</option>
-            <option value="15">15</option>
-            <option value="30">30</option>
-            <option value="45">45</option>
-        </select>
-    </div>
-    <div class="confirmation_button">
-                <button id="confirmButton" class="confirmation_button">Подтвердить</button>
-    </div>
-</div>
+    <div id="timeSelection" class="time_selection">
+        <form action="/submit_page/{{service_detail.service_detail_code}}/{{service_detail.service_detail_id}}" method="POST">
+            <div class="elem-group">
+                    <p class="Date_text">{{organization.organization_full_name}}</p>
+                    <p class="Date_text">{{service_detail.service_detail_name}}</p>
+                    <p class="Date_text">{{service_detail.service_detail_cost}}</p>
+                <div class="Date_text">
+                    <label for="checkin-date">Дата и время записи</label>
+                </div>
+                <div class="calendar">
+                    <input type="date" id="checkin-date" name="checkin" required>
+                </div>
 
-        </div>
+                <div class="clock">
+                    <label for="hour" class="clock_text">Часы:</label>
+                    <select id="hour" name="hour">
+                        <option value="08">08</option>
+                        <option value="09">09</option>
+                        <option value="10">10</option>
+                        <option value="11">11</option>
+                        <option value="12">12</option>
+                        <option value="13">13</option>
+                        <option value="14">14</option>
+                        <option value="15">15</option>
+                    </select>
+                    <label for="minute" class="clock_text">Минуты:</label>
+                    <select id="minute" name="minute">
+                        <option value="00">00</option>
+                        <option value="15">15</option>
+                        <option value="30">30</option>
+                        <option value="45">45</option>
+                    </select>
+                    <label for="second" class="clock_text">Секунды:</label>
+                    <select id="second" name="second">
+                        <option value="00">00</option>
+                        <option value="15">15</option>
+                    </select>
+                </div>
+                <div class="confirmation_button">
+                    <button id="confirmButton" class="confirmation_button">Подтвердить</button>
+                </div>
+            </div>
+    </div>
     </form>
-    
-
-
-<script>
-
-</script>
-
+    <script>
+    </script>
 </body>
 </html>

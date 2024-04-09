@@ -183,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `service_detail` (
 -- Дамп данных таблицы aggregator.service_detail: ~10 rows (приблизительно)
 DELETE FROM `service_detail`;
 INSERT INTO `service_detail` (`service_detail_id`, `service_detail_code`, `service_detail_name`, `service_detail_cost`, `service_detail_duration`, `add_info`) VALUES
-	(1, '18', 'Балансировка колёс', 500, 60, 'Wheel balancing Wheel balancing Wheel balancing'),
+	(1, '20', 'Балансировка колёс', 500, 60, 'Wheel balancing Wheel balancing Wheel balancing'),
 	(2, '18', 'Нанесение тонировки', 1500, NULL, NULL),
 	(3, '20', 'Центровка коленчатого вала', 725, NULL, NULL),
 	(4, '21', 'Шиномонтажный сервис', 1000, NULL, NULL),
@@ -197,17 +197,21 @@ INSERT INTO `service_detail` (`service_detail_id`, `service_detail_code`, `servi
 -- Дамп структуры для таблица aggregator.service_request
 DROP TABLE IF EXISTS `service_request`;
 CREATE TABLE IF NOT EXISTS `service_request` (
-  `service_request_id` int NOT NULL,
-  `customer_id` int DEFAULT NULL,
+  `service_request_id` int NOT NULL AUTO_INCREMENT,
+  `registrations_id` int DEFAULT NULL,
   `organization_id` int DEFAULT NULL,
+  `service_detail_code` int DEFAULT NULL,
   `date_service` datetime DEFAULT NULL,
-  `add_info_char` char(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`service_request_id`),
-  KEY `Индекс 2` (`customer_id`,`organization_id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+  KEY `Индекс 2` (`registrations_id`,`organization_id`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Дамп данных таблицы aggregator.service_request: ~0 rows (приблизительно)
+-- Дамп данных таблицы aggregator.service_request: ~3 rows (приблизительно)
 DELETE FROM `service_request`;
+INSERT INTO `service_request` (`service_request_id`, `registrations_id`, `organization_id`, `service_detail_code`, `date_service`) VALUES
+	(4, 21, 18, 18, '2024-04-26 08:00:00'),
+	(5, 21, 20, 20, '2012-02-17 08:30:15'),
+	(6, 21, 18, 18, '2017-02-09 08:30:15');
 
 -- Дамп структуры для таблица aggregator.service_request_detail
 DROP TABLE IF EXISTS `service_request_detail`;
