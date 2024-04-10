@@ -240,7 +240,22 @@ a:visited {
     color: #fff;
 }
 
+.add-image {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    height: 50px;
+    width: 100%;
+}
 
+.add-image-title {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.add-input-styles {
+    color: white;
+}
 
 .selector_main {
     width: 500px;
