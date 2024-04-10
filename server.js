@@ -148,34 +148,23 @@ app.get("/org_profile/:registrations_id", checkOrganization, function (req, res)
 
     const organization_id = req.params.registrations_id;
 
-    pool.query("SELECT * FROM service_request WHERE organization_id = ?", [organization_id], function (err, serviceRequest) {
+    pool.query("SELECT * FROM service_request WHERE organization_id = ?", [organization_id], function (err, orgprofileapplicationsData) {
       if (err) {
         console.error(err);
         return res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
       }
 
-      pool.query("SELECT * FROM registrations WHERE registrations_id = ?", [organization_id], function (err, registrationData) {
+      // Используем registration_id из параметров запроса для получения service_detail
+      const service_detail_code = req.params.registrations_id;
+
+      // Параметризированный запрос к базе данных для получения информации о детализации услуги
+      pool.query("SELECT * FROM service_detail WHERE service_detail_code = ?", [service_detail_code], function (err, serviceData) {
         if (err) {
           console.error(err);
           return res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
         }
 
-
-        // Используем registration_id из параметров запроса для получения service_detail
-        const service_detail_code = req.params.registrations_id;
-
-        // Параметризированный запрос к базе данных для получения информации о детализации услуги
-        pool.query("SELECT * FROM service_detail WHERE service_detail_code = ?", [service_detail_code], function (err, serviceData) {
-          if (err) {
-            console.error(err);
-            return res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
-          }
-          console.log(serviceData);
-
-          console.log(serviceRequest);
-          console.log(registrationData)
-          res.render("org_profile", { organization: orgData[0], service_detail: serviceData, service_request: serviceRequest, registrations: registrationData });
-        });
+        res.render("org_profile", { organization: orgData[0], service_detail: serviceData, org_profile_applications_data: orgprofileapplicationsData });
       });
     });
   });
@@ -387,6 +376,74 @@ app.post('/submit_page/:service_detail_code/:service_detail_id', checkAuthentica
 // возвращаем форму для регистрации организации
 app.get("/org_registration", function (req, res) {
   res.render("org_registration.hbs");
+});
+
+app.post('/saveDataOrg', (req, res) => {
+  const organization_id = req.session.org.organization_id;
+  const registrations_id = req.session.user.registrations_id;
+  const newEmail = req.body.email;
+
+  const { fullname, shortname, inn, kpp, ogrn, surname, name, patronymic, email, phone, dscrpt } = req.body;
+  
+  const updateData = `UPDATE organization SET organization_full_name = ?, organization_short_name = ?,
+    inn = ?, kpp = ?, ogrn = ?, responsible_person_surname = ?, responsible_person_name = ?, 
+    responsible_person_patronymic = ?, responsible_person_email = ?, responsible_person_phone_number = ?, 
+    add_info = ? WHERE organization_id = ?`;
+  const updateEmail = 'UPDATE registrations SET email = ? WHERE registrations_id = ?';
+
+  pool.query(updateData, [fullname, shortname, inn, kpp, ogrn, surname, name, patronymic, email, phone, dscrpt, organization_id], (err, result) => {
+    if (err) {
+      console.error('Ошибка при выполнении SQL запроса:', err);
+      res.status(500).send('Ошибка при сохранении данных в базе данных');
+      return;
+    }
+    else {
+      pool.query(updateEmail, [email, registrations_id], (err, result) => {
+        if (err) {
+          console.error('Ошибка при обновлении email:', err);
+          // Обработка ошибки
+          return;
+        }
+        // Обновляем email в сессии пользователя
+        req.session.user.email = newEmail;
+        res.send();
+      })
+    }
+    console.log('Данные успешно сохранены в базе данных');
+  });
+});
+
+app.post('/saveDataCus', (req, res) => {
+  const customer_id = req.session.usr.customer_id;
+  const registrations_id = req.session.user.registrations_id;
+  const newEmail = req.body.email;
+
+  const { name, secondname, thirdname, phone, email } = req.body;
+  
+  const updateData = `UPDATE customer SET customer_name = ?, customer_surname = ?,
+    customer_patronymic = ?, customer_phone_number = ?, customer_email = ? WHERE customer_id = ?`;
+  const updateEmail = 'UPDATE registrations SET email = ? WHERE registrations_id = ?';
+
+  pool.query(updateData, [name, secondname, thirdname, phone, email, customer_id], (err, result) => {
+    if (err) {
+      console.error('Ошибка при выполнении SQL запроса:', err);
+      res.status(500).send('Ошибка при сохранении данных в базе данных');
+      return;
+    }
+    else {
+      pool.query(updateEmail, [email, registrations_id], (err, result) => {
+        if (err) {
+          console.error('Ошибка при обновлении email:', err);
+          // Обработка ошибки
+          return;
+        }
+        // Обновляем email в сессии пользователя
+        req.session.user.email = newEmail;
+        res.send();
+      })
+    }
+    console.log('Данные успешно сохранены в базе данных');
+  });
 });
 
 // Регистрация ПОЛЬЗОВАТЕЛЯ
@@ -632,6 +689,7 @@ app.get("/", function (req, res) {
     });
   }
 });
+
 
 app.listen(PORT, function () {
   console.log("Сервер запущен на порту:" + PORT);

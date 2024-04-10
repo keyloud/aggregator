@@ -8,52 +8,64 @@
                 <img src="/upload/{{organization.profile_image}}" alt="Изображение пользователя">
             </div>
             <div class="org_profile_inn">
-                <h4 class="org_profile_titles_txt">ИНН:</h4><p class="org_profile_txt">{{organization.inn}}</p>
+                <h4 class="org_profile_titles_txt">ИНН:</h4>
+                <p class="org_profile_txt">{{organization.inn}}</p>
                 <input type="text" class="edit-inn hidden">
             </div>
             <div class="org_profile_kpp">
-                <h4 class="org_profile_titles_txt">КПП:</h4> <p class="org_profile_txt">{{organization.kpp}}</p>
+                <h4 class="org_profile_titles_txt">КПП:</h4>
+                <p class="org_profile_txt">{{organization.kpp}}</p>
                 <input type="text" class="edit-kpp hidden">
             </div>
             <div class="org_profile_ogrn">
-               <h4 class="org_profile_titles_txt">ОГРН:</h4> <p class="org_profile_txt">{{organization.ogrn}}</p>
+                <h4 class="org_profile_titles_txt">ОГРН:</h4>
+                <p class="org_profile_txt">{{organization.ogrn}}</p>
                 <input type="text" class="edit-ogrn hidden">
             </div>
         </div>
         <div class="org_profile_info_second">
             <div class="org_profile_fullname">
-                <h4 class="org_profile_titles_txt">Полное имя:</h4> <p class="org_profile_txt">{{organization.organization_full_name}}</p>
+                <h4 class="org_profile_titles_txt">Полное имя:</h4>
+                <p class="org_profile_txt">{{organization.organization_full_name}}</p>
                 <input type="text" class="edit-fullname hidden">
             </div>
             <div class="org_profile_shortname">
-                <h4 class="org_profile_titles_txt">Краткое имя:</h4> <p class="org_profile_txt">{{organization.organization_short_name}}</p>
+                <h4 class="org_profile_titles_txt">Краткое имя:</h4>
+                <p class="org_profile_txt">{{organization.organization_short_name}}</p>
                 <input type="text" class="edit-shortname hidden">
             </div>
             <div class="org_profile_discription">
-               <h4 class="org_profile_titles_txt">Описание:</h4> <p class="org_profile_txt">{{organization.add_info}}</p>
-                <textarea name="discrpt" id="discrpt" maxlength="350" cols="30" rows="5" class="edit-dscrpt hidden"></textarea>
+                <h4 class="org_profile_titles_txt">Описание:</h4>
+                <p class="org_profile_txt">{{organization.add_info}}</p>
+                <textarea name="discrpt" id="discrpt" maxlength="350" cols="30" rows="5"
+                    class="edit-dscrpt hidden"></textarea>
             </div>
 
         </div>
         <div class="org_profile_info_third">
             <div class="org_profile_secondname">
-                <h4 class="org_profile_titles_txt">Фамилия:</h4> <p class="org_profile_txt">{{organization.responsible_person_surname}}</p>
+                <h4 class="org_profile_titles_txt">Фамилия:</h4>
+                <p class="org_profile_txt">{{organization.responsible_person_surname}}</p>
                 <input type="text" class="edit-surname hidden">
             </div>
             <div class="org_profile_name">
-                <h4 class="org_profile_titles_txt">Имя:</h4> <p class="org_profile_txt">{{organization.responsible_person_name}}</p>
+                <h4 class="org_profile_titles_txt">Имя:</h4>
+                <p class="org_profile_txt">{{organization.responsible_person_name}}</p>
                 <input type="text" class="edit-name hidden">
             </div>
             <div class="org_profile_thirdname">
-                <h4 class="org_profile_titles_txt">Отчество:</h4> <p class="org_profile_txt">{{organization.responsible_person_patronymic}}</p>
+                <h4 class="org_profile_titles_txt">Отчество:</h4>
+                <p class="org_profile_txt">{{organization.responsible_person_patronymic}}</p>
                 <input type="text" class="edit-patronymic hidden">
             </div>
             <div class="org_profile_email">
-              <h4 class="org_profile_titles_txt">Email:</h4> <p class="org_profile_txt">{{organization.responsible_person_email}}</p>
+                <h4 class="org_profile_titles_txt">Email:</h4>
+                <p class="org_profile_txt">{{organization.responsible_person_email}}</p>
                 <input type="text" class="edit-email hidden">
             </div>
             <div class="org_profile_phone">
-                <h4 class="org_profile_titles_txt">Номер телефона:</h4> <p class="org_profile_txt">{{organization.responsible_person_phone_number}}</p>
+                <h4 class="org_profile_titles_txt">Номер телефона:</h4>
+                <p class="org_profile_txt">{{organization.responsible_person_phone_number}}</p>
                 <input type="text" class="edit-phone hidden">
             </div>
             <div class="org_profile_info_button">
@@ -96,24 +108,20 @@
                 <h2>Мои заявки</h2>
             </div>
             <div class="org_profile_requests_main">
-                {{#each service_detail}}
+            {{#each org_profile_applications_data}}
                 <div class="org_profile_request">
                     <div class="namerequest">
                         <p class="org_profile_txt">{{this.service_detail_name}}</p>
                     </div>
-                {{/each}}
-                {{#each service_request}}    
                     <div class="daterequest">
-                        <p class="org_profile_txt">{{this.data_service}}</p>
+                        <p class="org_profile_txt">{{this.date_service}}</p>
                     </div>
-                {{/each}}
-                {{#each registrations}}
                     <div class="phonerequest">
                         <p class="org_profile_txt">{{this.email}}</p>
                     </div>
-                {{/each}}
                     <div class="buttonrequest"><button>Подтвердить</button></div>
                 </div>
+            {{/each}}
             </div>
         </div>
     </div>
