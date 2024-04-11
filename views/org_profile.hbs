@@ -137,11 +137,18 @@
         var formData = new FormData();
 
         // Добавляем данные из каждого поля в объект FormData
-        fields.forEach(function (field) {
+        for (var i = 0; i < fields.length; i++) {
+            var field = fields[i];
             var inputElement = document.querySelector(field.inputSelector);
-            formData.append(field.inputSelector.replace('.edit-', ''), inputElement.value);
-            console.log(formData)
-        });
+            var errorMessage = validateInput(inputElement, field.inputSelector);
+            if (errorMessage === '') {
+                formData.append(field.inputSelector.replace('.edit-', ''), inputElement.value);
+                console.log(formData)
+            } else {
+                alert('Ошибка в поле ' + field.inputSelector + ': ' + errorMessage);
+                return; // Прекращаем выполнение функции, если есть ошибка
+            }
+        }
 
         // Отправляем AJAX запрос
         var xhr = new XMLHttpRequest();
@@ -158,6 +165,32 @@
         };
         xhr.send(formData);
     }
+
+    function validateInput(inputElement, inputSelector) {
+        var value = inputElement.value.trim();
+        switch (inputSelector) {
+            case '.edit-surname':
+            case '.edit-name':
+            case '.edit-patronymic':
+                return /^[a-zA-Zа-яА-Я -]+$/.test(value) ? '' : 'Имя, Фамилия и Отчество могут содержать только буквы и символ "-"';
+            case '.edit-email':
+                return /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(value) ? '' : 'Неверный формат email';
+            case '.edit-phone':
+                return /^\+?[0-9]{11,12}$/.test(value) ? '' : 'Номер телефона должен состоять из цифр и необязательного символа "+"';
+            case '.edit-fullname':
+            case '.edit-shortname':
+                return /^[a-zA-Zа-яА-ЯёЁ\s\-\'\"]+$/.test(value) ? '' : 'Полное и краткое имя организации могут содержать только буквы, а также ковычки и дефис';
+            case '.edit-inn':
+                return /^[0-9]{10,10}$/.test(value) ? '' : 'ИНН должен содержать 10 цифр';
+            case '.edit-kpp':
+                return /^[0-9]{9,9}$/.test(value) ? '' : 'КПП должен содержать 9 цифр';
+            case '.edit-ogrn':
+                return /^[0-9]{13,13}$/.test(value) ? '' : 'ОГРН должен содержать 13 цифр';
+            default:
+                return '';
+        }
+    }
+
     var fields = [
         { textSelector: '.org_profile_secondname .org_profile_txt', inputSelector: '.edit-surname' },
         { textSelector: '.org_profile_name .org_profile_txt', inputSelector: '.edit-name' },
