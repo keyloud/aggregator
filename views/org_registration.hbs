@@ -289,7 +289,7 @@
 
     function validateEmail() {
         const email = emailInput.value;
-        if (!/^[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.[a-zA-Z0-9_]+$/.test(email)) {
+        if (!/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(email)) {
             emailError.textContent = 'Адрес электронной почты должен содержать символ "@", доменное имя, и может включать латинский алфавит, цифры, нижнее подчеркивание "_"';
         } else {
             emailError.textContent = '';
