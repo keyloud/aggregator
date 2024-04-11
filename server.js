@@ -360,9 +360,11 @@ app.post('/submit_page/:service_detail_code/:service_detail_id', checkAuthentica
 
   const datetime = `${checkin} ${hour}:${minute}:${second}`;
 
-  const query = 'INSERT INTO service_request (registrations_id, organization_id, service_detail_code, date_service) VALUES (?, ?, ?, ?)';
+  const email = req.session.user.email;
 
-  pool.query(query, [registrations_id, organization_id, service_detail_code, datetime], (error, results, fields) => {
+  const query = 'INSERT INTO service_request (registrations_id, organization_id, service_detail_code, date_service, service_detail_name, email) VALUES (?, ?, ?, ?, ?, ?)';
+
+  pool.query(query, [registrations_id, organization_id, service_detail_code, datetime, service_detail_name, email], (error, results, fields) => {
     if (error) {
       console.error('Ошибка при выполнении SQL-запроса:', error);
       return res.status(500).send('Ошибка при записи данных в базу данных');
