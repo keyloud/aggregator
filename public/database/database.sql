@@ -184,7 +184,6 @@ CREATE TABLE IF NOT EXISTS `service_detail` (
 DELETE FROM `service_detail`;
 INSERT INTO `service_detail` (`service_detail_id`, `service_detail_code`, `service_detail_name`, `service_detail_cost`, `service_detail_duration`, `add_info`) VALUES
 	(1, '20', 'Балансировка колёс', 500, 60, 'Wheel balancing Wheel balancing Wheel balancing'),
-	(1, '20', 'Балансировка колёс', 500, 60, 'Wheel balancing Wheel balancing Wheel balancing'),
 	(2, '18', 'Нанесение тонировки', 1500, NULL, NULL),
 	(3, '20', 'Центровка коленчатого вала', 725, NULL, NULL),
 	(4, '21', 'Шиномонтажный сервис', 1000, NULL, NULL),
@@ -203,16 +202,22 @@ CREATE TABLE IF NOT EXISTS `service_request` (
   `organization_id` int DEFAULT NULL,
   `service_detail_code` int DEFAULT NULL,
   `date_service` datetime DEFAULT NULL,
+  `service_detail_name` char(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
+  `email` char(50) COLLATE utf8mb4_general_ci DEFAULT NULL,
   PRIMARY KEY (`service_request_id`),
   KEY `Индекс 2` (`registrations_id`,`organization_id`) USING BTREE
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- Дамп данных таблицы aggregator.service_request: ~3 rows (приблизительно)
+-- Дамп данных таблицы aggregator.service_request: ~7 rows (приблизительно)
 DELETE FROM `service_request`;
-INSERT INTO `service_request` (`service_request_id`, `registrations_id`, `organization_id`, `service_detail_code`, `date_service`) VALUES
-	(4, 21, 18, 18, '2024-04-26 08:00:00'),
-	(5, 21, 20, 20, '2012-02-17 08:30:15'),
-	(6, 21, 18, 18, '2017-02-09 08:30:15');
+INSERT INTO `service_request` (`service_request_id`, `registrations_id`, `organization_id`, `service_detail_code`, `date_service`, `service_detail_name`, `email`) VALUES
+	(4, 21, 18, 18, '2024-04-26 08:00:00', 'Ремонт колпачка двигателя', 'osan20@mail.ru'),
+	(5, 21, 20, 20, '2012-02-17 08:30:15', 'Ремонт колпачка двигателя', 'osan20@mail.ru'),
+	(6, 21, 18, 18, '2017-02-09 08:30:15', 'Ремонт колпачка двигателя', 'osan20@mail.ru'),
+	(7, 21, 18, 18, '2013-02-10 15:30:15', 'Ремонт колпачка двигателя', 'osan20@mail.ru'),
+	(8, 19, 19, 19, '2024-04-19 08:00:00', 'Замена бампера', 'osan20@mail.ru'),
+	(11, 19, 19, 19, '2024-03-09 14:30:15', 'Балансировка колёс', 'osan20@mail.ru'),
+	(12, 19, 23, 23, '2024-04-12 08:00:00', 'Ремонт колпачка двигателя', 'osan20@mail.ru');
 
 -- Дамп структуры для таблица aggregator.service_request_detail
 DROP TABLE IF EXISTS `service_request_detail`;
