@@ -69,7 +69,8 @@
             <div class="rightside">
                 <div class="reg_passwrd">
                     <input type="hidden" name="type" value="USR">
-                    <input type="text" name="password" placeholder="Придумайте пароль">
+                    <input type="text" name="password" id="password" placeholder="Придумайте пароль">
+                    <span id="password_error" class="error"></span>
                 </div>
             </div>
         </div>
@@ -84,7 +85,7 @@
                         конфиденциальности</a></label>
             </div>
             <div class="reg_create_acc_btn">
-                <button>
+                <button id="create_button">
                     <p>Создать аккаунт</p>
                 </button>
             </div>
@@ -106,6 +107,8 @@
     const emailInput = document.getElementById('email');
     const phoneInput = document.getElementById('customer_phone_number');
     const infoInput = document.getElementById('add_info');
+    const passwordInput = document.getElementById('password');
+    const submitButton = document.getElementById('create_button');
 
     const nameError = document.getElementById('name_error');
     const surnameError = document.getElementById('surname_error');
@@ -113,6 +116,7 @@
     const emailError = document.getElementById('email_error');
     const phoneError = document.getElementById('phone_error');
     const infoError = document.getElementById('info_error');
+    const passwordError = document.getElementById('password_error');
 
     nameInput.addEventListener('input', validateName);
     surnameInput.addEventListener('input', validateSurname);
@@ -120,33 +124,90 @@
     emailInput.addEventListener('input', validateEmail);
     phoneInput.addEventListener('input', validatePhone);
     infoInput.addEventListener('input', validateInfo);
+    passwordInput.addEventListener('input', validatePassword);
 
     function validateName() {
-        // Add your validation logic for name here
+        const name = nameInput.value;
+        if (!/^[a-zA-Zа-яА-Я -]+$/.test(name)) {
+            nameError.textContent = 'Имя должно состоять только из букв и символа "-"';
+        } else {
+            nameError.textContent = '';
+        }
     }
 
     function validateSurname() {
-        // Add your validation logic for surname here
+        const surname = surnameInput.value;
+        if (!/^[a-zA-Zа-яА-Я -]+$/.test(surname)) {
+            surnameError.textContent = 'Фамилия должна состоять только из букв и символа "-"';
+        } else {
+            surnameError.textContent = '';
+        }
     }
 
     function validatePatronymic() {
-        // Add your validation logic for patronymic here
+        const patronymic = patronymicInput.value;
+        if (!/^[a-zA-Zа-яА-Я -]+$/.test(patronymic)) {
+            patronymicError.textContent = 'Отчество должно состоять только из букв и символа "-"';
+        } else {
+            patronymicError.textContent = '';
+        }
     }
 
     function validateEmail() {
         const email = emailInput.value;
-        if (!email.includes('@')) {
-            emailError.textContent = 'Адрес электронной почты должен содержать символ "@"';
+        if (!/[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/.test(email)) {
+            emailError.textContent = 'Адрес электронной почты должен содержать символ "@", доменное имя, и может включать латинский алфавит, цифры, нижнее подчеркивание "_"';
         } else {
             emailError.textContent = '';
         }
     }
 
     function validatePhone() {
-        // Add your validation logic for phone number here
+        const phone = phoneInput.value;
+        if (!/^\+?[0-9]{11,11}$/.test(phone)) {
+            phoneError.textContent = 'Номер телефона должен содержать от 11 до 12 символов, включая "+", состоящих из цифр, а + можно поставить только один раз в самом начале';
+        } else {
+            phoneError.textContent = '';
+        }
     }
+
 
     function validateInfo() {
         // Add your validation logic for additional info here
     }
+
+    function validatePassword() {
+        const password = passwordInput.value;
+        if (password.length < 8) {
+            passwordError.textContent = 'Пароль должен содержать не менее 8 символов';
+        } else if (!/[a-zA-Z]/.test(password)) {
+            passwordError.textContent = 'Пароль должен содежать буквы латинского алфавита';
+        } else if (!/[0-9]/.test(password)) {
+            passwordError.textContent = 'Пароль должен содержать хотя бы одну цифру';
+        } else {
+            passwordError.textContent = '';
+        }
+    }
+
+    function validateForm() {
+        const nameError = document.getElementById('name_error').textContent;
+        const surnameError = document.getElementById('surname_error').textContent;
+        const patronymicError = document.getElementById('patronymic_error').textContent;
+        const emailError = document.getElementById('email_error').textContent;
+        const phoneError = document.getElementById('phone_error').textContent;
+        const passwordError = document.getElementById('password_error').textContent;
+
+        if (nameError || surnameError || patronymicError || emailError || phoneError || passwordError) {
+            submitButton.disabled = true;
+        } else {
+            submitButton.disabled = false;
+        }
+    }
+
+    nameInput.addEventListener('input', validateForm);
+    surnameInput.addEventListener('input', validateForm);
+    patronymicInput.addEventListener('input', validateForm);
+    emailInput.addEventListener('input', validateForm);
+    phoneInput.addEventListener('input', validateForm);
+    passwordInput.addEventListener('input', validateForm);
 </script>
