@@ -148,23 +148,34 @@ app.get("/org_profile/:registrations_id", checkOrganization, function (req, res)
 
     const organization_id = req.params.registrations_id;
 
-    pool.query("SELECT * FROM service_request WHERE organization_id = ?", [organization_id], function (err, orgprofileapplicationsData) {
+    pool.query("SELECT * FROM service_request WHERE organization_id = ?", [organization_id], function (err, serviceRequest) {
       if (err) {
         console.error(err);
         return res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
       }
 
-      // Используем registration_id из параметров запроса для получения service_detail
-      const service_detail_code = req.params.registrations_id;
-
-      // Параметризированный запрос к базе данных для получения информации о детализации услуги
-      pool.query("SELECT * FROM service_detail WHERE service_detail_code = ?", [service_detail_code], function (err, serviceData) {
+      pool.query("SELECT * FROM registrations WHERE registrations_id = ?", [organization_id], function (err, registrationData) {
         if (err) {
           console.error(err);
           return res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
         }
 
-        res.render("org_profile", { organization: orgData[0], service_detail: serviceData, org_profile_applications_data: orgprofileapplicationsData });
+
+        // Используем registration_id из параметров запроса для получения service_detail
+        const service_detail_code = req.params.registrations_id;
+
+        // Параметризированный запрос к базе данных для получения информации о детализации услуги
+        pool.query("SELECT * FROM service_detail WHERE service_detail_code = ?", [service_detail_code], function (err, serviceData) {
+          if (err) {
+            console.error(err);
+            return res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
+          }
+          console.log(serviceData);
+
+          console.log(serviceRequest);
+          console.log(registrationData)
+          res.render("org_profile", { organization: orgData[0], service_detail: serviceData, service_request: serviceRequest, registrations: registrationData });
+        });
       });
     });
   });
@@ -199,7 +210,7 @@ app.get("/org_card/:organization_id", checkAuthentication, function (req, res) {
         console.error(err);
         return res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
       }
-      9
+      
       // Если данные о детализации услуги не найдены, то продолжаем отображение страницы org_card только с данными об организации
       if (serviceData.length === 0) {
         return res.render("org_card", { organization: orgData[0], service_detail: null });
