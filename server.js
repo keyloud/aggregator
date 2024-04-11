@@ -199,7 +199,7 @@ app.get("/org_card/:organization_id", checkAuthentication, function (req, res) {
         console.error(err);
         return res.status(500).send('Произошла ошибка при выполнении запроса к базе данных.');
       }
-      
+
       // Если данные о детализации услуги не найдены, то продолжаем отображение страницы org_card только с данными об организации
       if (serviceData.length === 0) {
         return res.render("org_card", { organization: orgData[0], service_detail: null });
@@ -274,53 +274,64 @@ app.post('/org_registration', (req, res) => {
     // Сохранение хеша пароля и остальных данных в базе данных
     const queryOrg = 'INSERT INTO organization (organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_email, responsible_person_phone_number, add_info, profile_image ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)';
     const queryReg = 'INSERT INTO registrations (email, password, type) VALUES (?, ?, ?)';
+    const queryAllEmail = 'SELECT email FROM registrations';
 
-    sampleFile.mv(uploadPath, function (err) {
-      if (err) return res.status(500).send(err);
-      pool.query(queryOrg, [organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_email, responsible_person_phone_number, add_info, sampleFile.name], (err, result) => {
-        if (err) {
-          console.error('Ошибка при добавлении пользователя в базу данных:', err);
-          return res.status(500).send('Ошибка при регистрации пользователя');
-        }
+    //Проверка в registrations если такой email уже существует.
+    pool.query(queryAllEmail, function (err, AllEmail) {
+      const emailExists = AllEmail.some(element => element.email == email);
+      if (emailExists) {
+        console.log('Такой email есть уже');
+        return res.status(500).send('Такой Email уже существует');
+      }
+      else {
+        sampleFile.mv(uploadPath, function (err) {
+          if (err) return res.status(500).send(err);
+          pool.query(queryOrg, [organization_full_name, organization_short_name, inn, kpp, ogrn, responsible_person_surname, responsible_person_name, responsible_person_patronymic, responsible_person_email, responsible_person_phone_number, add_info, sampleFile.name], (err, result) => {
+            if (err) {
+              console.error('Ошибка при добавлении пользователя в базу данных:', err);
+              return res.status(500).send('Ошибка при регистрации пользователя');
+            }
 
-        // Добавление email, хеша пароля и типа аккаунта в таблицу 'registrations'
-        pool.query(queryReg, [email, hash, type], (err, result) => {
-          if (err) {
-            console.error('Ошибка при добавлении пользователя в таблицу "registrations":', err);
-            return res.status(500).send('Ошибка при регистрации пользователя');
-          }
-
-          res.send(`
-          <html>
-            <head>
-              <style>
-                body {
-                  background-color: #112533;
-                  font-family: Arial, sans-serif;
-                  padding: 30px;
-                  text-align: center;
-                }
-                p {
-                  color: #fff;
-                  font-size: 24px;
-                }
-              </style>
-            </head>
-            <body>
-              <p>Регистрация прошла успешно. Сейчас вы будете перенаправлены на главную страницу...</p>
-              <script>
-                setTimeout(function(){
-                  window.location.href = '/';
-                }, 1500);
-              </script>
-            </body>
-          </html>
-        `);
+            // Добавление email, хеша пароля и типа аккаунта в таблицу 'registrations'
+            pool.query(queryReg, [email, hash, type], (err, result) => {
+              if (err) {
+                console.error('Ошибка при добавлении пользователя в таблицу "registrations":', err);
+                return res.status(500).send('Ошибка при регистрации пользователя');
+              }
+              res.send(`
+                <html>
+                  <head>
+                    <style>
+                      body {
+                        background-color: #112533;
+                        font-family: Arial, sans-serif;
+                        padding: 30px;
+                        text-align: center;
+                      }
+                      p {
+                        color: #fff;
+                        font-size: 24px;
+                      }
+                    </style>
+                  </head>
+                  <body>
+                    <p>Регистрация прошла успешно. Сейчас вы будете перенаправлены на главную страницу...</p>
+                    <script>
+                      setTimeout(function(){
+                        window.location.href = '/';
+                      }, 1500);
+                    </script>
+                  </body>
+                </html>
+              `);
+            });
+          });
         });
-      });
+      }
     });
   });
 });
+
 
 app.post('/submit_page/:service_detail_code/:service_detail_id', checkAuthentication, (req, res) => {
   const { checkin, hour, minute, second } = req.body;
@@ -355,20 +366,24 @@ app.post('/submit_page/:service_detail_code/:service_detail_id', checkAuthentica
       }
     });
   });
-
+  
   const registrations_id = req.session.user.registrations_id;
-
+  const email = req.session.user.email;
   const datetime = `${checkin} ${hour}:${minute}:${second}`;
 
-  const query = 'INSERT INTO service_request (registrations_id, organization_id, service_detail_code, date_service) VALUES (?, ?, ?, ?)';
+  //Вытаскиваем таблицу service_detail и вносим нужные данные в service_request
+  pool.query("SELECT * FROM service_detail WHERE service_detail_id = ?", [service_detail_id], function (err, serviceData) {
+    const query = 'INSERT INTO service_request (registrations_id, organization_id, service_detail_code, date_service, service_detail_name, email ) VALUES (?, ?, ?, ?, ?, ?)';
 
-  pool.query(query, [registrations_id, organization_id, service_detail_code, datetime], (error, results, fields) => {
-    if (error) {
-      console.error('Ошибка при выполнении SQL-запроса:', error);
-      return res.status(500).send('Ошибка при записи данных в базу данных');
-    }
+    const service_detail_name = serviceData[0].service_detail_name;
+    pool.query(query, [registrations_id, organization_id, service_detail_code, datetime, service_detail_name, email], (error, results, fields) => {
+      if (error) {
+        console.error('Ошибка при выполнении SQL-запроса:', error);
+        return res.status(500).send('Ошибка при записи данных в базу данных');
 
-    res.send('Данные успешно записаны в базу данных');
+      }
+      res.send('Данные успешно записаны в базу данных');
+    });
   });
 });
 
@@ -384,7 +399,7 @@ app.post('/saveDataOrg', (req, res) => {
   const newEmail = req.body.email;
 
   const { fullname, shortname, inn, kpp, ogrn, surname, name, patronymic, email, phone, dscrpt } = req.body;
-  
+
   const updateData = `UPDATE organization SET organization_full_name = ?, organization_short_name = ?,
     inn = ?, kpp = ?, ogrn = ?, responsible_person_surname = ?, responsible_person_name = ?, 
     responsible_person_patronymic = ?, responsible_person_email = ?, responsible_person_phone_number = ?, 
@@ -419,7 +434,7 @@ app.post('/saveDataCus', (req, res) => {
   const newEmail = req.body.email;
 
   const { name, secondname, thirdname, phone, email } = req.body;
-  
+
   const updateData = `UPDATE customer SET customer_name = ?, customer_surname = ?,
     customer_patronymic = ?, customer_phone_number = ?, customer_email = ? WHERE customer_id = ?`;
   const updateEmail = 'UPDATE registrations SET email = ? WHERE registrations_id = ?';
